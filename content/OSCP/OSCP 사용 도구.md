@@ -49,4 +49,4 @@ sudo apt install remmina
 
 ---
 
-Penelope(셸), nth(해시 식별), Feroxbuster(디렉터리), Remmina(RDP) — 이 네 개만 손에 익혀둬도 시험장에서 시간을 꽤 법니다.
+Penelope(셸), nth(해시 식별), Feroxbuster(디렉터리), Remmina(RDP) — 제 준비 과정에서는 이 네 도구로 반복 작업에 들어가는 시간을 꽤 줄였습니다.

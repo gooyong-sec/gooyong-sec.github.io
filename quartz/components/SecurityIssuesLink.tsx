@@ -16,20 +16,21 @@ const SecurityIssuesLink: QuartzComponent = ({ displayClass }: QuartzComponentPr
 SecurityIssuesLink.css = `
 .security-issues-link {
   display: block;
-  margin: 0.5rem 0 1rem 0;
-  padding: 0.5rem 0.75rem;
-  border-radius: 6px;
-  background: var(--highlight);
-  color: var(--secondary);
-  font-size: 0.85rem;
-  font-weight: 600;
+  margin: 0.75rem 0 1.25rem 0;
+  padding: 0.65rem 1rem;
+  border-radius: 8px;
+  background: var(--tertiary);
+  color: var(--light) !important;
+  font-size: 1rem;
+  font-weight: 700;
   text-decoration: none;
   text-align: center;
-  transition: background 0.2s ease, color 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  transition: filter 0.2s ease, transform 0.1s ease;
 }
 .security-issues-link:hover {
-  background: var(--tertiary);
-  color: var(--light);
+  filter: brightness(1.1);
+  transform: translateY(-1px);
 }
 `
 

@@ -1,18 +1,17 @@
 ---
-title: 취약점 진단 툴에 MCP 붙이기 — Ghidra · Burp · jadx · Codex를 Claude에 연동하기
+title: 취약점 진단 툴에 MCP 붙이기 — Ghidra · Burp · jadx를 Claude에 연동하기
 tags:
   - MCP
   - 리버싱
   - Ghidra
   - BurpSuite
   - jadx
-  - Codex
   - 진단도구
 ---
 
 요즘 진단할 때 MCP(Model Context Protocol)를 적극적으로 쓰고 있습니다. Ghidra로 디컴파일한 함수를 Claude한테 바로 던져서 "이 함수 뭐하는 거야?"라고 묻고, Burp 프록시 히스토리를 AI가 직접 훑어보게 하고, jadx로 까낸 APK 클래스를 Claude가 읽고 SAST를 돌리는 식이죠. 도구와 AI 사이에 사람이 복붙하던 과정이 사라지니 분석 속도가 확 빨라집니다.
 
-이 글에서는 Ghidra · Burp Suite · jadx · Codex CLI 네 도구를 Claude(Desktop / Claude Code)에 MCP로 연동하는 방법을 정리합니다. 앞의 셋은 진단 도구이고, 마지막 Codex는 진단 결과 자체를 교차 검증하는 두 번째 AI입니다.
+이 글에서는 Ghidra · Burp Suite · jadx 세 도구를 Claude(Desktop / Claude Code)에 MCP로 연동하는 방법을 정리합니다.
 
 Model Context Protocol은 Anthropic이 공개한 표준으로, AI 모델이 외부 도구·데이터에 접근하는 규약입니다. USB-C처럼 "AI ↔ 도구"를 꽂는 표준 단자라고 보면 됩니다. 구조는 대부분 도구 안에서 도는 서버(플러그인/익스텐션), MCP 브리지(서버), Claude 같은 MCP 클라이언트의 3단입니다. 클라이언트가 "함수 디컴파일해줘" 같은 툴(tool)을 호출하면, 브리지가 도구의 API로 변환해 실행하고 결과를 다시 AI에게 돌려줍니다.
 
@@ -184,69 +183,22 @@ claude mcp add jadx -- /path/to/uv --directory /path/to/jadx-mcp-server/ run jad
 
 ---
 
-## 4. Codex CLI MCP — 진단 결과를 교차 검증하는 두 번째 AI
-
-Ghidra·Burp·jadx는 "AI가 도구를 부리는" 연동이었다면, 이건 "AI가 다른 AI에게 검토를 맡기는" 연동입니다. Claude 혼자 분석하면 그 결과를 Claude 자신이 다시 검증하는 셈이라 똑같은 사각지대를 못 보고 넘어가기 쉽습니다. OpenAI의 [Codex CLI](https://github.com/openai/codex)를 MCP 서버로 붙이면, Claude가 작성한 취약점 분석·PoC·수정 코드를 모델이 다른 Codex에게 바로 되물어 2차 소견을 받을 수 있습니다.
-
-### 준비물
-- [Codex CLI](https://github.com/openai/codex) (`npm i -g @openai/codex` 또는 `brew install codex`)
-- OpenAI API 키 (또는 ChatGPT 로그인)
-
-### 설치
-
-Codex CLI를 설치하고 로그인부터 합니다.
-
-```bash
-npm i -g @openai/codex
-codex login --api-key "<OPENAI_API_KEY>"
-```
-
-Codex CLI는 자체적으로 `mcp-server` 서브커맨드를 갖고 있어서, 별도 브리지 없이 그 자체로 MCP 서버가 됩니다. Claude Code라면 한 줄로 등록됩니다.
-
-```bash
-claude mcp add codex -- codex mcp-server
-```
-
-Claude Desktop이라면 `claude_desktop_config.json`에 직접 등록합니다.
-
-```json
-{
-  "mcpServers": {
-    "codex": {
-      "command": "codex",
-      "args": ["mcp-server"]
-    }
-  }
-}
-```
-
-등록 후 Claude를 재시작하면 도구(🔨) 목록에 codex 관련 툴이 뜹니다. (서드파티 래퍼인 [tuannvm/codex-mcp-server](https://github.com/tuannvm/codex-mcp-server), [MarcEspuna/MCP-Codex-reviewer](https://github.com/MarcEspuna/MCP-Codex-reviewer)도 있는데, 세션별 승인 범위나 프롬프트 템플릿을 더 세밀히 제어하고 싶으면 이쪽을 씁니다.)
-
-### 이렇게 씁니다
-
-연동되면 분석·수정이 끝난 뒤 "이 분석 내용 Codex한테도 검토받아줘"처럼 요청하면 Claude가 작업 요약과 확인할 쟁점을 정리해 Codex MCP 툴로 넘기고, 돌아온 의견을 다시 원문과 대조해 반영합니다. 이 글의 문장·구조 개선 작업도 실제로 이 방식으로 Codex의 검토를 한 번 거쳤습니다.
-
-다만 교차 검토라고 결과를 무조건 합산하면 안 됩니다. Codex에 보내는 내용은 원문 전체가 아니라 비민감 요약 위주로 제한하고(코드 전체·로그·자격증명을 그대로 보내지 않기), Codex의 의견은 실제 코드·트래픽과 대조해 맞는 것만 반영해야 합니다. 두 모델이 같은 실수를 공유할 수도 있다는 점은 변하지 않아서, 교차 검증이 검증 자체를 대체하지는 않습니다.
-
----
-
 ## 마무리 — 왜 진단에 MCP를 쓰나
 
-네 도구의 공통 패턴은 같습니다.
+세 도구의 공통 패턴은 같습니다.
 
 ```
 도구 내부 서버(플러그인/익스텐션)  ↔  MCP 브리지(서버)  ↔  Claude(MCP 클라이언트)
    Ghidra :8080                       파이썬/자바              "이 함수 뭐해?"
    Burp   :9876(SSE)                                          "이 트래픽 분석해"
    jadx   :8650                                               "이 클래스 취약점 봐줘"
-   Codex  mcp-server(stdio)                                   "이 분석 검토해줘"
 ```
 
 예전엔 디컴파일 결과를 복사해서 AI 채팅에 붙여넣고, 답변을 보고 다시 도구로 돌아가는 왕복을 사람이 했는데, MCP는 이 루프를 AI가 직접 도구를 호출하는 방식으로 바꿉니다. 함수 수백 개에 주석 달기, 트래픽 패턴 훑기, APK 전체 클래스 SAST 같은 반복·대량 작업에서 특히 시간을 크게 줄여줘요.
 
 요즘 실제 진단에서 이 조합을 점점 더 많이 씁니다. 다만 AI가 호출하는 툴(요청 전송·이름 변경 등)은 대상을 실제로 바꾸거나 트래픽을 쏠 수 있으니, 승인·스코프 설정을 꼭 걸어두고 인가된 대상에만 사용하세요.
 
-MCP는 AI와 진단 도구를 잇는 표준 단자입니다. Ghidra(바이너리), Burp(웹 트래픽), jadx(APK)를 각각 플러그인과 브리지로 Claude에 물리면 복붙 없이 AI가 직접 도구를 부려서 분석하고, Codex CLI를 물리면 그 분석 결과를 다른 모델로 한 번 더 검토받습니다. localhost 기본 구성에 승인·스코프 설정을 더해 쓰는 것이 안전하게 쓰는 길입니다.
+MCP는 AI와 진단 도구를 잇는 표준 단자입니다. Ghidra(바이너리), Burp(웹 트래픽), jadx(APK)를 각각 플러그인과 브리지로 Claude에 물리면 복붙 없이 AI가 직접 도구를 부려서 분석합니다. localhost 기본 구성에 승인·스코프 설정을 더해 쓰는 것이 안전하게 쓰는 길입니다.
 
 ## 참고
 
@@ -254,6 +206,4 @@ MCP는 AI와 진단 도구를 잇는 표준 단자입니다. Ghidra(바이너리
 - [Burp Suite MCP Server (BApp)](https://portswigger.net/bappstore) — Extensions → BApp Store에서 `mcp` 검색
 - [zinja-coder/jadx-ai-mcp](https://github.com/zinja-coder/jadx-ai-mcp)
 - [jadx 릴리스](https://github.com/skylot/jadx/releases)
-- [OpenAI Codex CLI](https://github.com/openai/codex)
-- [tuannvm/codex-mcp-server](https://github.com/tuannvm/codex-mcp-server)
 - [Model Context Protocol 공식](https://modelcontextprotocol.io)

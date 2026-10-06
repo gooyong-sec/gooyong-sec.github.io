@@ -17,6 +17,7 @@ title: gooyong-sec
 - [[PortSwigger Web LLM Attacks 랩 실습 — 과도한 권한부터 인다이렉트 인젝션까지]]
 - [[윈도우 AD 침투 자격증명 피벗 권한상승 3가지 기법]]
 - [[취약점 진단 툴에 MCP 붙이기 Ghidra Burp jadx]]
+- [[Claude 작업을 Codex로 교차검증하기 — MCP로 두 AI 붙이기]]
 
 ## 도구
 

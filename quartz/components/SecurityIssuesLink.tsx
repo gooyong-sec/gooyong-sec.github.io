@@ -8,7 +8,7 @@ const SecurityIssuesLink: QuartzComponent = ({ displayClass }: QuartzComponentPr
       data-router-ignore
       class={classNames(displayClass, "security-issues-link")}
     >
-      🛡️ 보안 이슈 · ATT&CK 정리
+      보안 이슈 · ATT&CK 정리 ↗
     </a>
   )
 }
@@ -18,23 +18,23 @@ a.security-issues-link,
 a.security-issues-link.internal {
   display: block;
   margin: 0.75rem 0 1.25rem 0;
-  padding: 0.65rem 1rem !important;
-  border-radius: 8px;
-  background: var(--tertiary) !important;
-  background-color: var(--tertiary) !important;
-  color: var(--light) !important;
-  font-size: 1rem;
-  font-weight: 700;
+  padding: 0.5rem 0.75rem !important;
+  border-radius: 5px;
+  border: 1px solid var(--tertiary);
+  background: transparent !important;
+  background-color: transparent !important;
+  color: var(--secondary) !important;
+  font-size: 0.9rem;
+  font-weight: 600;
   text-decoration: none;
-  text-align: center;
+  text-align: left;
   line-height: 1.4;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
-  transition: filter 0.2s ease, transform 0.1s ease;
+  transition: background-color 0.15s ease, color 0.15s ease;
 }
 a.security-issues-link:hover,
 a.security-issues-link.internal:hover {
-  filter: brightness(1.1);
-  transform: translateY(-1px);
+  background: var(--tertiary) !important;
+  background-color: var(--tertiary) !important;
   color: var(--light) !important;
 }
 `

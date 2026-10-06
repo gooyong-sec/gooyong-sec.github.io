@@ -2,7 +2,7 @@
 title: gooyong-sec
 ---
 
-> [!tip] [보안 이슈 · MITRE ATT&CK 정리](/security-issues/)
+> [!tip] <a href="/security-issues/" data-router-ignore>보안 이슈 · MITRE ATT&CK 정리</a>
 > 직접 만든 웹 도구. 최근 보안 사건을 ATT&CK 기법에 매핑해 정리한 타임라인입니다. 서버 없이 브라우저에서 바로 열립니다.
 
 안녕하세요

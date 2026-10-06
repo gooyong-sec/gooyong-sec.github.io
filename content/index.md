@@ -1,5 +1,5 @@
 ---
-title: 0xYong
+title: gooyong-sec
 ---
 
 안녕하세요

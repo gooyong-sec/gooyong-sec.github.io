@@ -21,12 +21,18 @@ a.security-issues-link.internal {
   padding: 0.3rem 0 0.3rem 0.6rem !important;
   background: none !important;
   border: none;
-  border-left: 3px solid var(--tertiary);
-  color: var(--tertiary) !important;
+  border-left: 3px solid #1e40af;
+  color: #1e40af !important;
   font-size: 0.95rem;
   font-weight: 700;
   text-decoration: none;
   line-height: 1.3;
+}
+
+html[saved-theme="dark"] a.security-issues-link,
+html[saved-theme="dark"] a.security-issues-link.internal {
+  border-left-color: #60a5fa;
+  color: #60a5fa !important;
 }
 
 a.security-issues-link:hover,

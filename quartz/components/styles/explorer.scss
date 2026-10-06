@@ -126,14 +126,31 @@ button.desktop-explorer {
       overscroll-behavior: contain;
     }
 
+    & li {
+      margin: 0.25rem 0;
+    }
+
     & li > a {
       color: var(--dark);
       opacity: 0.75;
       pointer-events: all;
+      display: inline-block;
+      line-height: 1.4;
+      padding: 0.1rem 0;
 
       &.active {
         opacity: 1;
         color: var(--tertiary);
+      }
+    }
+
+    & li:not(:has(.folder-outer)) {
+      padding-bottom: 0.25rem;
+      margin-bottom: 0.25rem;
+      border-bottom: 1px solid var(--lightgray);
+
+      &:last-child {
+        border-bottom: none;
       }
     }
   }

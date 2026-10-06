@@ -1,11 +1,12 @@
 ---
-title: 취약점 진단 툴에 MCP 붙이기 — Ghidra · Burp · jadx를 Claude에 연동하기
+title: 취약점 진단 툴에 MCP 붙이기 — Ghidra · Burp · jadx · Codex를 Claude에 연동하기
 tags:
   - MCP
   - 리버싱
   - Ghidra
   - BurpSuite
   - jadx
+  - Codex
   - 진단도구
 ---
 

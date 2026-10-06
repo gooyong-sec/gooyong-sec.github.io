@@ -21,4 +21,7 @@ title: gooyong-sec
 
 ## 도구
 
-- [보안 이슈 · MITRE ATT&CK 정리](/security-issues/) — 최근 보안 사건을 ATT&CK 기법에 매핑해 정리한 타임라인
+글이 아니라 직접 만들어 쓰는 웹 도구입니다.
+
+> [!tip] [보안 이슈 · MITRE ATT&CK 정리](/security-issues/)
+> 최근 보안 사건을 ATT&CK 기법에 매핑해 정리한 타임라인. 서버 없이 브라우저에서 바로 열립니다.

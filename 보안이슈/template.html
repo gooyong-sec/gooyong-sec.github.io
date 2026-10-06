@@ -1,0 +1,498 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>보안 이슈 · ATT&CK</title>
+<style>
+:root{
+  --bg:#f6f7f9;--panel:#fff;--text:#1a1f2b;--muted:#5d677a;--border:#dfe3ea;--accent:#2f5bd8;--accent-soft:#e8eefc;
+  --ok:#1b7f4b;--ok-soft:#e1f5ea;--warn:#a0610a;--warn-soft:#fdf0d8;--bad:#b3261e;--bad-soft:#fde6e4;--info:#1f6fa8;--info-soft:#e0f0fb;--mute:#5d677a;--mute-soft:#eceff4;
+  --h0:#f1f3f7;--h1:#cfe0ff;--h2:#8fb4ff;--h3:#4f86f0;--h3t:#fff;
+  --shadow:0 1px 2px rgba(20,30,50,.06),0 4px 14px rgba(20,30,50,.06);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f131b;--panel:#171c27;--text:#e6e9f0;--muted:#98a2b5;--border:#2a3243;--accent:#7ea2ff;--accent-soft:#1d2a4a;
+  --ok:#5fd394;--ok-soft:#14301f;--warn:#f0b35a;--warn-soft:#33270f;--bad:#ff8a80;--bad-soft:#3a1816;--info:#6ec0f5;--info-soft:#12293a;--mute:#98a2b5;--mute-soft:#222a39;
+  --h0:#1b2130;--h1:#233a6b;--h2:#2f58b5;--h3:#5b8cff;--h3t:#07101f;--shadow:none;}}
+:root[data-theme="dark"]{
+  --bg:#0f131b;--panel:#171c27;--text:#e6e9f0;--muted:#98a2b5;--border:#2a3243;--accent:#7ea2ff;--accent-soft:#1d2a4a;
+  --ok:#5fd394;--ok-soft:#14301f;--warn:#f0b35a;--warn-soft:#33270f;--bad:#ff8a80;--bad-soft:#3a1816;--info:#6ec0f5;--info-soft:#12293a;--mute:#98a2b5;--mute-soft:#222a39;
+  --h0:#1b2130;--h1:#233a6b;--h2:#2f58b5;--h3:#5b8cff;--h3t:#07101f;--shadow:none;}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--text);font:15px/1.65 system-ui,-apple-system,"Segoe UI","Malgun Gothic","Apple SD Gothic Neo","Noto Sans KR",sans-serif}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.app{display:grid;grid-template-columns:220px 1fr;min-height:100vh}
+.side{background:var(--panel);border-right:1px solid var(--border);padding:18px 12px;position:sticky;top:0;height:100vh;overflow:auto}
+.brand{font-weight:700;font-size:16px;padding:4px 10px 14px}
+.brand small{display:block;font-weight:400;color:var(--muted);font-size:12px}
+.nav a{display:block;padding:8px 10px;border-radius:8px;color:var(--text);margin-bottom:2px}
+.nav a:hover{background:var(--mute-soft);text-decoration:none}
+.nav a.on{background:var(--accent-soft);color:var(--accent);font-weight:600}
+.main{min-width:0}
+.top{display:flex;gap:10px;align-items:center;padding:12px 24px;border-bottom:1px solid var(--border);background:var(--panel);position:sticky;top:0;z-index:5}
+.top input{flex:1;max-width:560px;padding:9px 12px;border:1px solid var(--border);border-radius:10px;background:var(--bg);color:var(--text)}
+.btn{border:1px solid var(--border);background:var(--panel);border-radius:8px;padding:7px 12px}
+.btn:hover{background:var(--mute-soft)}
+#view{padding:24px;max-width:1400px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:18px;margin:26px 0 10px}h3{font-size:16px;margin:0 0 4px}
+.sub{color:var(--muted);margin:0 0 18px}
+.grid{display:grid;gap:14px}
+.g4{grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}.g2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:14px 16px;box-shadow:var(--shadow)}
+.stat b{display:block;font-size:28px;line-height:1.2}.stat span{color:var(--muted);font-size:13px}
+.bar{display:grid;grid-template-columns:190px 1fr 34px;gap:8px;align-items:center;font-size:13px;margin:5px 0}
+.bar i{display:block;height:10px;background:var(--accent);border-radius:5px;min-width:3px}
+.bar span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tag{display:inline-block;font-size:12px;padding:1px 8px;border-radius:999px;border:1px solid transparent;white-space:nowrap}
+.tag.ok{background:var(--ok-soft);color:var(--ok)}.tag.warn{background:var(--warn-soft);color:var(--warn)}.tag.bad{background:var(--bad-soft);color:var(--bad)}
+.tag.info{background:var(--info-soft);color:var(--info)}.tag.mute{background:var(--mute-soft);color:var(--mute)}
+.chip{display:inline-block;font:12px/1.5 ui-monospace,Consolas,monospace;padding:0 7px;border-radius:6px;background:var(--accent-soft);color:var(--accent);margin:2px 4px 2px 0}
+.chip:hover{text-decoration:none;filter:brightness(.95)}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px;align-items:center}
+.filters select{padding:7px 10px;border:1px solid var(--border);border-radius:8px;background:var(--panel);color:var(--text)}
+.pill{border:1px solid var(--border);background:var(--panel);border-radius:999px;padding:4px 12px;font-size:13px}
+.pill.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.list{display:grid;gap:10px}
+.inc{display:block;color:inherit;cursor:pointer}.inc:hover{border-color:var(--accent);text-decoration:none}
+.inc .d{font:12px ui-monospace,Consolas,monospace;color:var(--muted)}
+.inc .m{color:var(--muted);font-size:13px;margin:2px 0 4px}
+.back{display:inline-block;margin-bottom:12px}
+.metas{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 16px}.metas .tag{white-space:normal}
+.sec{border-left:4px solid var(--border);background:var(--panel);border-radius:0 10px 10px 0;padding:6px 16px;margin:10px 0}
+.sec p,.sec ul{margin:6px 0}
+.s-why{border-left-color:var(--warn)}.s-path{border-left-color:var(--bad)}.s-fix{border-left-color:var(--ok)}.s-less{border-left-color:var(--info)}.s-over{border-left-color:var(--accent)}
+.doc{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:8px 26px 22px;overflow-wrap:anywhere}
+.doc h1{font-size:22px;margin-top:20px}.doc h2{border-bottom:1px solid var(--border);padding-bottom:4px}
+.doc blockquote{margin:10px 0;padding:6px 14px;border-left:4px solid var(--accent);background:var(--accent-soft);border-radius:0 8px 8px 0;color:var(--text)}
+.doc table,.sec table{border-collapse:collapse;display:block;overflow-x:auto;max-width:100%;margin:10px 0}
+.doc th,.doc td,.sec th,.sec td{border:1px solid var(--border);padding:6px 10px;vertical-align:top;text-align:left;font-size:14px}
+.doc th,.sec th{background:var(--mute-soft)}
+code{font:13px ui-monospace,Consolas,monospace;background:var(--mute-soft);padding:1px 5px;border-radius:5px}
+pre{background:var(--mute-soft);padding:12px;border-radius:8px;overflow:auto}pre code{background:none;padding:0}
+hr{border:0;border-top:1px solid var(--border);margin:20px 0}
+.mtable{width:100%;border-collapse:collapse;font-size:14px}.mtable th,.mtable td{border-bottom:1px solid var(--border);padding:7px 8px;text-align:left;vertical-align:top}
+/* matrix */
+.mx{display:grid;grid-auto-flow:column;grid-auto-columns:176px;gap:8px;overflow:auto;padding-bottom:10px;align-items:start}
+.col h3{position:sticky;top:0;background:var(--bg);padding:6px 4px;font-size:13px;line-height:1.3;margin:0}
+.col h3 small{display:block;font-weight:400;color:var(--muted)}
+.tech{display:block;width:100%;text-align:left;border:1px solid var(--border);border-radius:8px;padding:5px 8px;margin:0 0 5px;background:var(--h0);font-size:12px;line-height:1.35;position:relative}
+.tech b{display:block;font:11px ui-monospace,Consolas,monospace;color:var(--muted)}
+.tech i{position:absolute;right:6px;top:4px;font-style:normal;font-weight:700;font-size:12px}
+.tech.l1{background:var(--h1)}.tech.l2{background:var(--h2)}.tech.l3{background:var(--h3);color:var(--h3t)}.tech.l3 b{color:var(--h3t)}
+.tech.sel{outline:2px solid var(--accent)}
+.drawer{position:fixed;right:0;top:0;height:100vh;width:min(460px,100vw);background:var(--panel);border-left:1px solid var(--border);box-shadow:-8px 0 24px rgba(0,0,0,.18);padding:18px 20px;overflow:auto;z-index:10}
+.drawer[hidden]{display:none}
+.drawer .x{float:right}
+.case{border-top:1px solid var(--border);padding:8px 0}
+.s-easy{border-left-color:#8b5cf6;background:var(--accent-soft)}
+.s-easy p{margin:4px 0;font-size:15.5px}
+.easy{font-size:14px;margin:4px 0 6px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+abbr.g{text-decoration:underline dotted;text-underline-offset:3px;cursor:help;position:relative}
+abbr.g:hover::after,abbr.g:focus::after{content:attr(data-tip);position:absolute;left:0;top:calc(100% + 4px);z-index:30;width:max-content;max-width:min(280px,80vw);background:var(--text);color:var(--bg);padding:7px 10px;border-radius:8px;font-size:13px;line-height:1.5;font-weight:400;white-space:normal;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+.tech em{display:block;font-style:normal;color:var(--muted);font-size:11px;margin-top:2px}.tech.l3 em{color:var(--h3t)}
+.col h3 small.d{display:block;font-weight:400;color:var(--muted);font-size:11px;margin-top:2px}
+.flow{display:grid;gap:8px;margin:10px 0}.flow .step{display:grid;grid-template-columns:28px 1fr;gap:10px;align-items:start}
+.flow .n{width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;font-size:13px;display:flex;align-items:center;justify-content:center;margin-top:2px}
+.news{display:grid;gap:4px}.news .item{border-top:1px solid var(--border);padding:8px 0}
+.kv{display:grid;grid-template-columns:140px 1fr;gap:8px 12px;font-size:14px}
+@media (max-width:820px){.kv{grid-template-columns:1fr}}
+@media (max-width:820px){
+  .app{grid-template-columns:1fr}
+  .side{position:static;height:auto;border-right:0;border-bottom:1px solid var(--border);padding:10px}
+  .nav{display:flex;gap:4px;overflow:auto}.nav a{white-space:nowrap}.brand{padding-bottom:6px}
+  .top{padding:10px 16px;position:static}#view{padding:16px}
+  .bar{grid-template-columns:96px 1fr 30px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="side">
+    <div class="brand">보안 이슈 · ATT&amp;CK<small id="built"></small></div>
+    <nav class="nav" id="nav"></nav>
+  </aside>
+  <div class="main">
+    <header class="top">
+      <input id="q" type="search" placeholder="사건·행위자·기법(T1190)·키워드 검색" aria-label="검색">
+      <button class="btn" id="theme" title="테마 전환">테마</button>
+    </header>
+    <main id="view"></main>
+  </div>
+</div>
+<aside class="drawer" id="drawer" hidden></aside>
+<script>
+/*__DATA__*/
+(function(){
+const {tactics, catalog, incidents, mappings, docs, classes, glossary, techNotes, tacDesc, news} = DATA;
+const $ = (s, el=document) => el.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const enc = encodeURIComponent;
+
+// ── 데이터 색인 ──
+const tacById = Object.fromEntries(tactics.map(t => [t.id, t]));
+const catName = {}; const techTactics = {};
+catalog.forEach(c => { catName[c.id] = catName[c.id] || c.name; (techTactics[c.id] = techTactics[c.id] || []).push(c.ta); });
+const incById = Object.fromEntries(incidents.map(i => [i.id, i]));
+const docByPath = Object.fromEntries(docs.map(d => [d.path, d]));
+const incMd = i => (docByPath[i.file] ? docByPath[i.file].md.slice(i.s, i.e) : '');
+const mapsByInc = {}, byTech = {};
+mappings.forEach(m => { (mapsByInc[m.id] = mapsByInc[m.id] || []).push(m); (byTech[m.parent] = byTech[m.parent] || []).push(m); });
+const searchText = {};
+incidents.forEach(i => {
+  const ts = (mapsByInc[i.id] || []).map(m => m.tech + ' ' + (catName[m.parent] || '')).join(' ');
+  searchText[i.id] = [i.id, i.title, i.type, i.actor, i.region, i.date, i.evidence, incMd(i), ts, (i.cls || []).map(c => classes[c]).join(' ')].join(' ').toLowerCase();
+});
+const evCls = e => ({'확인':'ok','보도':'info','추정':'warn','후보':'mute','주장':'bad'}[e] || 'mute');
+const tag = (t, cls) => `<span class="tag ${cls || evCls(t)}">${esc(t)}</span>`;
+const techChip = id => `<a class="chip" href="#/matrix/${id}" title="${esc(catName[id] || '')}">${id}</a>`;
+const isDaily = i => i.file.startsWith('일일/');
+const actorKey = a => (a.split('(')[0].trim()) || '미귀속';
+const state = { year: '', type: '', cls: '', ev: '', q: '', onlyHit: true, ncat: '', gq: '' };
+const clsTags = i => (i.cls || []).map((c, n) => tag(`${c} ${classes[c]}`, n ? 'mute' : 'warn')).join(' ');
+const CLS_EASY = {
+  A: '인터넷에 열린 장비·서비스의 결함을 공격해 들어옴', B: '비밀번호·2단계 인증이 약하거나 없어서 로그인으로 들어옴',
+  C: '협력사·소프트웨어 부품·연동 서비스를 먼저 뚫어 그 고객까지 공격', D: '기술이 아니라 사람(전화·헬프데스크)을 속임',
+  E: '오랫동안 들키지 않아 피해가 커짐', F: '백업·복구가 부족해 랜섬웨어 피해가 길어짐',
+  G: '돈이 아니라 파괴·정치적 목적', H: '비밀번호·키·인증서의 설계 자체가 약함', I: 'PC·스마트폰 프로그램의 결함',
+  J: '공개된 자료로는 원인을 분류할 수 없음(조사 중)',
+};
+
+// ── 용어 툴팁: 용어집의 용어가 본문에 처음 나올 때 밑줄을 긋고, 마우스를 올리면 뜻을 보여 준다 ──
+const gMap = new Map(glossary.map(([t, d]) => [esc(t), d]));
+const gRe = new RegExp([...gMap.keys()].sort((a, b) => b.length - a.length).map(k => {
+  const e = k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return /^[\x20-\x7e]+$/.test(k) ? `(?<![A-Za-z0-9])${e}(?![A-Za-z0-9])` : e;
+}).join('|'), 'g');
+let seenTerms = new Set();
+function gl(html){
+  let skip = 0;
+  return html.split(/(<[^>]+>)/).map(p => {
+    if (p[0] === '<') {
+      if (/^<(code|pre|a|abbr|h[1-6]|button|th)[\s>]/i.test(p)) skip++;
+      else if (/^<\/(code|pre|a|abbr|h[1-6]|button|th)>/i.test(p)) skip = Math.max(0, skip - 1);
+      return p;
+    }
+    if (skip || !p.trim()) return p;
+    return p.replace(gRe, m => {
+      if (seenTerms.has(m)) return m;
+      seenTerms.add(m);
+      return `<abbr class="g" tabindex="0" data-tip="${esc(gMap.get(m))}">${m}</abbr>`;
+    });
+  }).join('');
+}
+
+// ── 마크다운 ──
+function inline(s){
+  s = esc(s);
+  const codes = [];
+  s = s.replace(/`([^`]+)`/g, (m, c) => { codes.push(c); return '\u0000' + (codes.length - 1) + '\u0000'; });
+  s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+  s = s.replace(/(^|[^*\w])\*([^*\s][^*]*?)\*(?![*\w])/g, '$1<em>$2</em>');
+  s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (m, t, h) => /^https?:/.test(h)
+    ? `<a href="${h}" target="_blank" rel="noopener">${t}</a>` : `<a href="#" data-rel="${h}">${t}</a>`);
+  return s.replace(/\u0000(\d+)\u0000/g, (m, i) => `<code>${codes[i]}</code>`);
+}
+function buildList(items){
+  let html = '', st = [];
+  for (const it of items) {
+    while (st.length && it.ind < st[st.length - 1].ind) html += '</li></' + (st.pop().ord ? 'ol' : 'ul') + '>';
+    if (!st.length || it.ind > st[st.length - 1].ind) { html += '<' + (it.ord ? 'ol' : 'ul') + '><li>' + inline(it.text); st.push({ ind: it.ind, ord: it.ord }); }
+    else html += '</li><li>' + inline(it.text);
+  }
+  while (st.length) html += '</li></' + (st.pop().ord ? 'ol' : 'ul') + '>';
+  return html;
+}
+function md(text){
+  const L = text.replace(/\r/g, '').split('\n'); const out = []; let i = 0;
+  const isBlock = l => /^(#{1,6} |```|>|---+\s*$|\s*([-*]|\d+\.)\s|\|)/.test(l);
+  while (i < L.length) {
+    const l = L[i];
+    if (/^```/.test(l)) { const c = []; i++; while (i < L.length && !/^```/.test(L[i])) c.push(L[i++]); i++; out.push('<pre><code>' + esc(c.join('\n')) + '</code></pre>'); continue; }
+    let m;
+    if ((m = l.match(/^(#{1,6}) (.*)$/))) { out.push(`<h${m[1].length}>${inline(m[2])}</h${m[1].length}>`); i++; continue; }
+    if (/^---+\s*$/.test(l)) { out.push('<hr>'); i++; continue; }
+    if (/^>/.test(l)) { const q = []; while (i < L.length && /^>/.test(L[i])) q.push(inline(L[i++].replace(/^>\s?/, ''))); out.push('<blockquote>' + q.join('<br>') + '</blockquote>'); continue; }
+    if (/^\|/.test(l) && /^\|[\s:|-]+\|?\s*$/.test(L[i + 1] || '')) {
+      const cells = r => r.replace(/^\|/, '').replace(/\|\s*$/, '').split('|').map(c => c.trim());
+      const head = cells(l); i += 2; const rows = [];
+      while (i < L.length && /^\|/.test(L[i])) rows.push(cells(L[i++]));
+      out.push('<table><thead><tr>' + head.map(c => `<th>${inline(c)}</th>`).join('') + '</tr></thead><tbody>' +
+        rows.map(r => '<tr>' + r.map(c => `<td>${inline(c)}</td>`).join('') + '</tr>').join('') + '</tbody></table>'); continue;
+    }
+    if (/^\s*([-*]|\d+\.)\s+/.test(l)) {
+      const items = [];
+      while (i < L.length) {
+        const mm = L[i].match(/^(\s*)([-*]|\d+\.)\s+(.*)$/);
+        if (mm) { items.push({ ind: mm[1].length, ord: /\d/.test(mm[2]), text: mm[3] }); i++; }
+        else if (L[i].trim() && /^\s{2,}\S/.test(L[i]) && items.length) { items[items.length - 1].text += ' ' + L[i++].trim(); }
+        else break;
+      }
+      out.push(buildList(items)); continue;
+    }
+    if (!l.trim()) { i++; continue; }
+    const p = [];
+    while (i < L.length && L[i].trim() && !(p.length && isBlock(L[i]))) p.push(L[i++]);
+    out.push('<p>' + p.map(inline).join('<br>') + '</p>');
+  }
+  return out.join('\n');
+}
+function sections(text){
+  return text.split(/\n\s*\n/).map(b => {
+    const lab = (b.match(/^\*\*([^*]+)\*\*/) || [, ''])[1];
+    const cls = /^(쉽게 말하면|먼저 할 일)/.test(lab) ? 's-easy' : /^개요/.test(lab) ? 's-over' : /^왜 일어났나/.test(lab) ? 's-why' : /^침투 경로/.test(lab) ? 's-path' : /^어떻게 조치하나/.test(lab) ? 's-fix' : /^교훈/.test(lab) ? 's-less' : '';
+    return `<div class="sec ${cls}">${md(b)}</div>`;
+  }).join('');
+}
+function resolveDoc(base, href){
+  const target = href.split('#')[0]; if (!target) return null;
+  const parts = base.split('/').slice(0, -1);
+  for (const seg of target.split('/')) { if (seg === '..') parts.pop(); else if (seg && seg !== '.') parts.push(seg); }
+  const p = parts.join('/');
+  return docs.find(d => d.path === p) ? p : null;
+}
+
+// ── 뷰 ──
+const view = $('#view');
+const NAV = [['home','홈'],['guide','처음이세요?'],['timeline','사건 타임라인'],['korea','국내 소식'],['matrix','ATT&CK 매트릭스'],['actors','위협 행위자'],['daily','일일 보고서'],['glossary','용어집'],['docs','문서']];
+$('#nav').innerHTML = NAV.map(([k, v]) => `<a href="#/${k}" data-k="${k}">${v}</a>`).join('');
+$('#built').textContent = '갱신 ' + DATA.built + ' · ATT&CK v19.2';
+
+function bars(rows, max){
+  const m = max || Math.max(1, ...rows.map(r => r[1]));
+  return rows.map(([k, n, href]) => `<div class="bar"><span title="${esc(k)}">${href ? `<a href="${href}">${esc(k)}</a>` : esc(k)}</span><i style="width:${Math.max(3, n / m * 100)}%"></i><span>${n}</span></div>`).join('');
+}
+const count = (arr, f) => { const o = {}; arr.forEach(x => { const k = f(x); if (k) o[k] = (o[k] || 0) + 1; }); return Object.entries(o).sort((a, b) => b[1] - a[1]); };
+
+function vHome(){
+  const years = count(incidents, i => i.date.slice(0, 4)).sort((a, b) => a[0].localeCompare(b[0]));
+  const topT = Object.entries(byTech).map(([k, v]) => [`${k} ${catName[k] || ''}`, v.length, `#/matrix/${k}`]).sort((a, b) => b[1] - a[1]).slice(0, 10);
+  const types = count(incidents, i => i.cls && i.cls[0] ? `${i.cls[0]} ${classes[i.cls[0]]}` : '');
+  const distinctAll = new Set(catalog.map(c => c.id)).size;
+  const daily = incidents.filter(isDaily);
+  const latest = daily.slice().sort((a, b) => b.date.localeCompare(a.date)).slice(0, 4);
+  const dailyDocs = docs.filter(d => d.path.startsWith('일일/')).reverse();
+  view.innerHTML = `
+    <h1>보안 이슈 · MITRE ATT&amp;CK</h1>
+    <p class="sub">사건의 원인·침투 경로·조치와 ATT&amp;CK 기법을 한 곳에서 본다. 이 파일은 서버 없이 열린다.</p>
+    <div class="card" style="margin-bottom:14px"><h3>최근 이슈, 쉽게 말하면</h3>${latest.map(i => `<p style="margin:8px 0"><a href="#/inc/${i.id}"><strong>${esc(i.title)}</strong></a><br><span class="sub" style="margin:0">${esc(i.easy)}</span></p>`).join('')}
+      <p class="sub" style="margin:8px 0 0;font-size:13px">처음이라면 <a href="#/guide">'처음이세요?'</a>부터 보세요. 모르는 말은 <a href="#/glossary">용어집</a>에, 한국 소식은 <a href="#/korea">국내 소식</a>에 있습니다.</p></div>
+    <div class="grid g4">
+      <div class="card stat"><b>${incidents.length}</b><span>정리한 사건 (일일 ${daily.length} + 과거 ${incidents.length - daily.length})</span></div>
+      <div class="card stat"><b>${Object.keys(byTech).length}<small style="font-size:15px;color:var(--muted)"> / ${distinctAll}</small></b><span>사례가 관측된 ATT&amp;CK 기법 / 공식 기법</span></div>
+      <div class="card stat"><b>${mappings.length}</b><span>사건-기법 매핑 행</span></div>
+      <div class="card stat"><b>${new Set(incidents.map(i => actorKey(i.actor)).filter(a => a !== '미귀속')).size}</b><span>이름이 알려진 행위자 그룹</span></div>
+    </div>
+    <div class="grid g2" style="margin-top:14px">
+      <div class="card"><h3>연도별 사건</h3>${bars(years)}</div>
+      <div class="card"><h3>자주 쓰인 기법 TOP 10</h3>${bars(topT)}</div>
+      <div class="card"><h3>원인 유형 (주분류)</h3>${bars(types)}<p class="sub" style="margin:8px 0 0;font-size:13px">분류 기준과 조치는 <a href="#/doc/${enc('과거3년/99-총평.md')}">3년 총평</a></p></div>
+      <div class="card"><h3>최근 일일 보고서</h3>${dailyDocs.map(d => `<p style="margin:6px 0"><a href="#/doc/${enc(d.path)}">${esc(d.title)}</a></p>`).join('') || '없음'}
+        <p style="margin:10px 0 0"><a href="#/doc/${enc('과거3년/99-총평.md')}">3년 총평: 원인 유형별 조치 →</a></p></div>
+    </div>`;
+}
+
+function incCard(i){
+  const ts = [...new Set((mapsByInc[i.id] || []).map(m => m.parent))];
+  return `<article class="card inc" data-inc="${i.id}">
+    <div class="d">${esc(i.date)} · ${isDaily(i) ? '일일' : '3년'} · ${tag(i.evidence)}</div>
+    <h3>${esc(i.title)}</h3>
+    ${i.easy ? `<div class="easy">${esc(i.easy)}</div>` : ''}
+    <div class="m">${esc(i.type)} · ${esc(i.actor)} · ${esc(i.region)}</div>
+    <div style="margin-bottom:4px">${clsTags(i)}</div>
+    <div>${ts.map(techChip).join('')}</div></article>`;
+}
+function vTimeline(){
+  const years = [...new Set(incidents.map(i => i.date.slice(0, 4)))].sort().reverse();
+  const types = [...new Set(incidents.map(i => i.type))].sort();
+  const q = state.q.trim().toLowerCase();
+  const rows = incidents.filter(i => (!state.year || i.date.startsWith(state.year)) && (!state.type || i.type === state.type) &&
+    (!state.cls || (i.cls || []).includes(state.cls)) &&
+    (!state.ev || i.evidence === state.ev) && (!q || searchText[i.id].includes(q))).sort((a, b) => b.date.localeCompare(a.date));
+  view.innerHTML = `<h1>사건 타임라인</h1><p class="sub">${rows.length}건 · 카드를 누르면 원인·침투 경로·조치를 본다.</p>
+    <div class="filters">
+      <button class="pill ${state.year ? '' : 'on'}" data-y="">전체</button>${years.map(y => `<button class="pill ${state.year === y ? 'on' : ''}" data-y="${y}">${y}</button>`).join('')}
+      <select id="ft" aria-label="유형"><option value="">유형 전체</option>${types.map(t => `<option ${state.type === t ? 'selected' : ''}>${esc(t)}</option>`).join('')}</select>
+      <select id="fc" aria-label="원인 유형"><option value="">원인 유형 전체</option>${Object.entries(classes).map(([k, v]) => `<option value="${k}" ${state.cls === k ? 'selected' : ''}>${k} ${esc(v)}</option>`).join('')}</select>
+      <select id="fe" aria-label="근거"><option value="">근거 전체</option>${['확인', '보도', '추정', '주장'].map(t => `<option ${state.ev === t ? 'selected' : ''}>${t}</option>`).join('')}</select>
+    </div>
+    <div class="list">${rows.map(incCard).join('') || '<p class="sub">조건에 맞는 사건이 없습니다.</p>'}</div>`;
+  view.querySelectorAll('[data-y]').forEach(b => b.onclick = () => { state.year = b.dataset.y; vTimeline(); });
+  $('#ft').onchange = e => { state.type = e.target.value; vTimeline(); };
+  $('#fc').onchange = e => { state.cls = e.target.value; vTimeline(); };
+  $('#fe').onchange = e => { state.ev = e.target.value; vTimeline(); };
+}
+function vInc(id){
+  const i = incById[id]; if (!i) { view.innerHTML = '<p>사건을 찾을 수 없습니다.</p>'; return; }
+  seenTerms = new Set();
+  const ms = mapsByInc[id] || [];
+  view.innerHTML = `<a class="back" href="#/timeline">← 타임라인</a><h1>${esc(i.title)}</h1>
+    <div class="metas">${tag(i.date, 'mute')}${tag(i.type, 'mute')}${tag('행위자: ' + i.actor, 'mute')}${tag(i.region, 'mute')}${tag('근거: ' + i.evidence)}</div>
+    <div class="metas">원인 유형: ${clsTags(i) || '-'}</div>
+    ${gl(sections(incMd(i)))}
+    <h2>ATT&amp;CK 매핑 (v19.2)</h2>
+    ${ms.length ? `<table class="mtable"><thead><tr><th>전술</th><th>기법</th><th>근거</th><th>설명</th></tr></thead><tbody>${ms.map(m =>
+      `<tr><td>${esc((tacById[m.ta] || {}).ko || m.ta)}</td><td><a href="#/matrix/${m.parent}">${m.tech}</a> ${esc(catName[m.parent] || '')}${techNotes[m.parent] ? `<br><span class="sub" style="margin:0">${esc(techNotes[m.parent][0])}</span>` : ''}</td><td>${tag(m.ev)}</td><td>${esc(m.note)}</td></tr>`).join('')}</tbody></table>`
+      : '<p class="sub">공개 자료가 부족해 매핑하지 않았습니다.</p>'}
+    <p class="sub">원문: <a href="#/doc/${enc(i.file)}">${esc(i.file)}</a></p>`;
+  window.scrollTo(0, 0);
+}
+
+function vMatrix(sel){
+  view.innerHTML = `<h1>ATT&amp;CK 매트릭스</h1>
+    <p class="sub">Enterprise v19.2 · 색이 진할수록 사례가 많은 기법 · 같은 기법이 속한 모든 전술 열에 표시 · 기법을 누르면 사례를 본다.</p>
+    <div class="filters"><label><input type="checkbox" id="hit" ${state.onlyHit ? 'checked' : ''}> 사례 있는 기법만</label>
+      <span class="tag mute">0건</span><span class="tag info">1건</span><span class="tag warn">2~3건</span><span class="tag ok">4건 이상</span></div>
+    <div class="mx" id="mx">${tactics.map(t => {
+      const all = catalog.filter(c => c.ta === t.id);
+      const shown = all.filter(c => !state.onlyHit || byTech[c.id]);
+      const hits = all.filter(c => byTech[c.id]).length;
+      return `<section class="col"><h3 title="${esc((tacDesc[t.id] || [''])[0])}">${t.ko}<small>${t.id} · ${hits}/${all.length}</small><small class="d">${esc((tacDesc[t.id] || [''])[0])}</small></h3>${shown.map(c => {
+        const n = (byTech[c.id] || []).length; const lv = n >= 4 ? 3 : n >= 2 ? 2 : n ? 1 : 0;
+        return `<button class="tech l${lv}${sel === c.id ? ' sel' : ''}" data-t="${c.id}"><b>${c.id}</b>${esc(c.name)}${techNotes[c.id] ? `<em>${esc(techNotes[c.id][0])}</em>` : ''}${n ? `<i>${n}</i>` : ''}</button>`;
+      }).join('') || '<p class="sub" style="font-size:12px">사례 없음</p>'}</section>`;
+    }).join('')}</div>`;
+  $('#hit').onchange = e => { state.onlyHit = e.target.checked; vMatrix(sel); };
+  view.querySelectorAll('.tech').forEach(b => b.onclick = () => { location.hash = '#/matrix/' + b.dataset.t; });
+  if (sel) { openDrawer(sel); const el = view.querySelector(`.tech[data-t="${sel}"]`); if (el) el.scrollIntoView({ block: 'nearest', inline: 'center' }); }
+  else closeDrawer();
+}
+function openDrawer(id){
+  const rows = (byTech[id] || []).slice().sort((a, b) => ((incById[b.id] || {}).date || '').localeCompare((incById[a.id] || {}).date || ''));
+  const tacs = (techTactics[id] || []).map(t => (tacById[t] || {}).ko).join(' · ');
+  const d = $('#drawer');
+  d.innerHTML = `<button class="btn x" id="dx">닫기</button><h2 style="margin-top:0">${id}<br><small style="font-weight:400">${esc(catName[id] || '(카탈로그에 없음)')}</small></h2>
+    ${techNotes[id] ? `<div class="sec s-easy"><p><strong>${esc(techNotes[id][0])}</strong><br>${esc(techNotes[id][1])}</p></div>` : ''}
+    <p class="sub">전술: ${esc(tacs)} · <a href="https://attack.mitre.org/techniques/${id}/" target="_blank" rel="noopener">MITRE 공식 설명 ↗</a></p>
+    <p><strong>${rows.length}</strong>건의 사례</p>
+    ${rows.map(m => { const i = incById[m.id] || {title: m.id, date: ''}; return `<div class="case">
+      <div>${tag(m.ev)} <span class="chip">${m.tech}</span> <span class="sub">${esc((tacById[m.ta] || {}).ko || '')}</span></div>
+      <div><a href="#/inc/${m.id}"><strong>${esc(i.title)}</strong></a> <span class="sub">${esc(i.date)}</span></div>
+      <div class="sub" style="margin:0">${esc(m.note)}</div></div>`; }).join('') || '<p class="sub">아직 관측된 사례가 없습니다. 새 사건이 매핑되면 여기에 쌓입니다.</p>'}`;
+  d.hidden = false; $('#dx').onclick = () => { location.hash = '#/matrix'; };
+}
+function closeDrawer(){ $('#drawer').hidden = true; }
+
+function vActors(){
+  const g = {};
+  incidents.forEach(i => (g[actorKey(i.actor)] = g[actorKey(i.actor)] || []).push(i));
+  const rows = Object.entries(g).sort((a, b) => (a[0] === '미귀속') - (b[0] === '미귀속') || b[1].length - a[1].length);
+  view.innerHTML = `<h1>위협 행위자</h1><p class="sub">사건의 '행위자' 표기 기준 그룹. 귀속이 확정이 아닌 경우가 많으므로 사건 본문의 근거 표기를 함께 본다.</p>
+    <div class="list">${rows.map(([k, arr]) => {
+      const ts = {}; arr.forEach(i => (mapsByInc[i.id] || []).forEach(m => ts[m.parent] = (ts[m.parent] || 0) + 1));
+      return `<div class="card"><h3>${esc(k)} <span class="sub">· ${arr.length}건</span></h3>
+        <div>${arr.sort((a, b) => b.date.localeCompare(a.date)).map(i => `<a href="#/inc/${i.id}">${esc(i.date)} ${esc(i.title)}</a>`).join('<br>')}</div>
+        <div style="margin-top:6px">${Object.entries(ts).sort((a, b) => b[1] - a[1]).map(([t, n]) => `${techChip(t)}${n > 1 ? '×' + n : ''}`).join('')}</div></div>`;
+    }).join('')}</div>`;
+}
+function vDaily(){
+  const list = docs.filter(d => d.path.startsWith('일일/')).reverse();
+  view.innerHTML = `<h1>일일 보고서</h1><p class="sub">${list.length}개</p><div class="list">${list.map(d => {
+    const n = incidents.filter(i => i.file === d.path).length;
+    return `<a class="card inc" href="#/doc/${enc(d.path)}"><h3>${esc(d.title)}</h3><div class="m">${esc(d.path)} · 사건 ${n}건</div></a>`; }).join('')}</div>`;
+}
+function vDocs(){
+  const groups = [['과거 3년 (연도별 · 총평 · 타임라인)', d => d.path.startsWith('과거3년/')], ['ATT&CK 전술별', d => d.path.startsWith('ATTACK/')], ['기타', d => !/^(과거3년|ATTACK|일일)\//.test(d.path)]];
+  view.innerHTML = `<h1>문서</h1>` + groups.map(([n, f]) => `<h2>${n}</h2><div class="list">${docs.filter(f).map(d =>
+    `<a class="card inc" href="#/doc/${enc(d.path)}"><h3>${esc(d.title)}</h3><div class="m">${esc(d.path)}</div></a>`).join('')}</div>`).join('');
+}
+function vDoc(p){
+  const d = docs.find(x => x.path === p); if (!d) { view.innerHTML = '<p>문서를 찾을 수 없습니다.</p>'; return; }
+  seenTerms = new Set();
+  const inc = incidents.filter(i => i.file === p);
+  view.innerHTML = `<a class="back" href="javascript:history.back()">← 뒤로</a>
+    ${inc.length > 1 ? `<div class="card" style="margin-bottom:12px"><strong>이 문서의 사건</strong><br>${inc.map(i => `<a href="#/inc/${i.id}">${esc(i.title)}</a>`).join(' · ')}</div>` : ''}
+    <div class="doc">${gl(md(d.md))}</div>`;
+  view.querySelectorAll('a[data-rel]').forEach(a => a.onclick = e => {
+    e.preventDefault(); const t = resolveDoc(d.path, a.dataset.rel);
+    location.hash = t ? '#/doc/' + enc(t) : '#/matrix';
+  });
+  window.scrollTo(0, 0);
+}
+
+function vGuide(){
+  view.innerHTML = `<h1>처음이세요?</h1>
+    <p class="sub">보안 지식이 없어도 읽을 수 있게 만든 안내입니다. 어려운 말은 밑줄 위에 마우스를 올리면 뜻이 나옵니다.</p>
+    <h2>이 화면은 이렇게 읽으세요</h2>
+    <div class="card"><div class="kv">
+      <b>① 쉽게 말하면</b><span>사건마다 맨 위의 보라색 상자. 무슨 일인지 두세 문장으로 설명합니다.</span>
+      <b>② 먼저 할 일</b><span>전문가가 아니어도 할 수 있는 첫 행동입니다. 전체 대응이 아니라 시작점이며, 담당자는 사건 본문의 조치를 보세요.</span>
+      <b>③ 왜 일어났나</b><span>주황색 상자. 바로 이유(직접 원인)와 근본 이유(구조적 원인)를 나눠 씁니다.</span>
+      <b>④ 침투 경로</b><span>빨간색 상자. 공격자가 어떤 순서로 들어왔는지.</span>
+      <b>⑤ 어떻게 조치하나</b><span>초록색 상자. 즉시·단기·장기·탐지 순서로 정리했습니다.</span>
+      <b>⑥ ATT&amp;CK 표</b><span>사건 아래 표. 공격 행동에 표준 이름표를 붙인 것입니다.</span></div></div>
+    <h2>읽을 때 주의할 점</h2>
+    <div class="card"><div class="kv">
+      <b>'로그인 없이'</b><span>그 기능에 접속할 수 있는 상태에서, 계정 인증 없이 공격된다는 뜻입니다. 인터넷 어디서나 가능하다는 뜻은 아닙니다.</span>
+      <b>패치 ≠ 끝</b><span>패치는 결함을 막을 뿐, 이미 심어진 악성코드·훔친 비밀번호·토큰·키는 그대로일 수 있어 별도로 회수·교체해야 합니다.</span>
+      <b>인터넷에서 닫기 ≠ 복구</b><span>추가 침입을 줄일 뿐 이미 침해됐는지는 따로 점검해야 합니다.</span>
+      <b>조치마다 범위가 다름</b><span>방화벽(WAF)·망 분리·암호화·2단계 인증은 각각 막는 경로가 다릅니다. 하나만으로 사건 전체를 막지는 못합니다.</span></div></div>
+    <h2>얼마나 믿을 수 있나 (근거 표기)</h2>
+    <div class="card"><div class="kv">
+      <span>${tag('확인')}</span><span>제조사·정부·보안 연구기관이 직접 확인한 내용.</span>
+      <span>${tag('보도')}</span><span>언론 보도에 나온 내용. 원문을 직접 확인하지는 못했습니다.</span>
+      <span>${tag('추정')}</span><span>공개 자료가 부족해 이 보고서가 추측한 내용.</span>
+      <span>${tag('주장')}</span><span>공격자가 주장하는 내용. 사실로 확인된 것이 아닙니다.</span>
+      <span>${tag('후보')}</span><span>(ATT&amp;CK 표에서) 아직 관측되지 않았고, 확인되면 적용할 항목.</span></div></div>
+    <h2>원인 유형 A~I</h2>
+    <div class="card"><div class="kv">${Object.entries(classes).map(([k, v]) => `<b>${k} ${esc(v)}</b><span>${esc(CLS_EASY[k] || '')}</span>`).join('')}</div></div>
+    <h2>ATT&amp;CK이 뭐예요?</h2>
+    <div class="card"><p style="margin-top:0"><strong>ATT&amp;CK은 '공격자가 쓰는 행동 사전'입니다.</strong> 공격을 단계별 목표인 <strong>전술</strong>과, 그 목표를 이루는 구체적 방법인 <strong>기법</strong>으로 나눠 정리했습니다. 집에 침입하는 것에 빗대면 아래와 같습니다. 모든 공격이 15단계를 다 거치지는 않습니다.</p>
+      <div class="flow">${tactics.map((t, n) => `<div class="step"><span class="n">${n + 1}</span><div><strong>${esc(t.ko)}</strong> <span class="sub" style="margin:0">${t.id}</span><br>${esc((tacDesc[t.id] || ['', ''])[0])} <span class="sub" style="margin:0">(비유: ${esc((tacDesc[t.id] || ['', ''])[1])})</span></div></div>`).join('')}</div>
+      <p class="sub" style="margin-bottom:0">예) 전술 <strong>초기접근</strong>(문으로 들어오기)을 이루는 기법 중 하나가 <a href="#/matrix/T1190">T1190 인터넷에 열린 서비스의 취약점 공격</a>입니다.</p></div>
+    <p class="sub"><a href="#/glossary">용어집 보기</a> · <a href="#/matrix">ATT&amp;CK 매트릭스 보기</a> · <a href="#/korea">국내 소식 보기</a></p>`;
+}
+function vKorea(){
+  const kr = incidents.filter(i => i.region.includes('한국')).sort((a, b) => b.date.localeCompare(a.date));
+  const cats = ['전체', ...new Set(news.map(n => n.cat))];
+  const cur = state.ncat || '전체';
+  const list = news.filter(n => cur === '전체' || n.cat === cur);
+  view.innerHTML = `<h1>국내 소식</h1>
+    <p class="sub">한국에서 일어난 사건과 국내 뉴스를 따로 모았습니다. 뉴스는 기사를 옮긴 것이 아니라 요약한 것이니, 자세한 내용은 출처 링크에서 확인하세요.</p>
+    <h2 style="margin-top:8px">국내 주요 사건 (${kr.length}건)</h2>
+    <div class="list">${kr.map(incCard).join('') || '<p class="sub">아직 없습니다.</p>'}</div>
+    <h2>뉴스 브리핑 (${list.length}건)</h2>
+    <div class="filters">${cats.map(c => `<button class="pill ${c === cur ? 'on' : ''}" data-nc="${esc(c)}">${esc(c)}</button>`).join('')}</div>
+    <div class="news">${list.map(n => `<div class="item"><div class="sub" style="margin:0">${esc(n.date)} · ${tag(n.cat, 'mute')} · ${esc(n.src)}</div>
+      <div>${esc(n.sum)}</div>
+      <div style="font-size:13px"><a href="${esc(n.url)}" target="_blank" rel="noopener">원문 보기 ↗</a>${n.rel && incById[n.rel] ? ` · 관련 사건: <a href="#/inc/${n.rel}">${esc(incById[n.rel].title)}</a>` : ''}</div></div>`).join('') || '<p class="sub">없습니다.</p>'}</div>`;
+  view.querySelectorAll('[data-nc]').forEach(b => b.onclick = () => { state.ncat = b.dataset.nc; vKorea(); });
+}
+function vGlossary(){
+  const q = (state.gq || '').toLowerCase();
+  view.innerHTML = `<h1>용어집</h1><p class="sub">${glossary.length}개 · 보고서와 사건 화면에서 이 용어가 처음 나오면 밑줄로 표시됩니다.</p>
+    <div class="filters"><input id="gq" type="search" value="${esc(state.gq || '')}" placeholder="용어 검색" aria-label="용어 검색" style="padding:8px 12px;border:1px solid var(--border);border-radius:8px;background:var(--panel);color:var(--text);min-width:240px"></div>
+    <table class="mtable"><thead><tr><th style="width:170px">용어</th><th>쉬운 설명</th></tr></thead><tbody>${glossary.filter(([t, d]) => !q || (t + d).toLowerCase().includes(q)).map(([t, d]) =>
+      `<tr><td><strong>${esc(t)}</strong></td><td>${esc(d)}</td></tr>`).join('')}</tbody></table>`;
+  const el = $('#gq');
+  el.oninput = e => { state.gq = e.target.value; vGlossary(); const n = $('#gq'); n.focus(); n.setSelectionRange(n.value.length, n.value.length); };
+}
+
+// ── 라우터 ──
+function route(hash){
+  const h = decodeURIComponent((hash == null ? location.hash : hash).replace(/^#\/?/, '')) || 'home';
+  const [k, ...rest] = h.split('/'); const arg = rest.join('/');
+  document.querySelectorAll('#nav a').forEach(a => a.classList.toggle('on', a.dataset.k === (k === 'inc' ? 'timeline' : k === 'doc' ? (arg.startsWith('일일/') ? 'daily' : 'docs') : k)));
+  if (k !== 'matrix') closeDrawer();
+  ({ home: vHome, timeline: vTimeline, matrix: () => vMatrix(arg), actors: vActors, daily: vDaily, docs: vDocs, guide: vGuide, korea: vKorea, glossary: vGlossary,
+     inc: () => vInc(arg), doc: () => vDoc(arg) }[k] || vHome)();
+}
+view.addEventListener('click', e => { const c = e.target.closest('[data-inc]'); if (c && !e.target.closest('a')) location.hash = '#/inc/' + c.dataset.inc; });
+addEventListener('hashchange', () => route());
+window.go = route; // 콘솔에서 go('#/matrix/T1190') 처럼 직접 이동 가능
+$('#q').addEventListener('input', e => { state.q = e.target.value; if (!/^#\/timeline/.test(location.hash)) location.hash = '#/timeline'; else vTimeline(); });
+const root = document.documentElement;
+try { const t = localStorage.getItem('theme'); if (t) root.dataset.theme = t; } catch (e) {}
+$('#theme').onclick = () => {
+  const dark = root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme:dark)').matches;
+  root.dataset.theme = dark ? 'light' : 'dark';
+  try { localStorage.setItem('theme', root.dataset.theme); } catch (e) {}
+};
+route();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,165 @@
+# 사건-ATT&CK 매핑 (원본). 형식: 사건ID|전술(TA)|기법(T####[.###])|근거(확인/추정/후보)|설명
+# 전술 파일(NN-*.md)과 index.html은 build.mjs가 이 파일에서 생성한다. 직접 고치지 말고 이 파일을 수정한 뒤 node build.mjs 를 실행한다.
+# 하위 기법 ID는 상위 기법으로 매트릭스에 집계된다. 기준: ATT&CK Enterprise v19.2
+INC-2023-10-okta|TA0001|T1078|확인|지원 시스템 서비스 계정의 도난 자격 증명으로 접속
+INC-2023-10-okta|TA0006|T1539|확인|HAR 파일 안의 쿠키·세션 토큰 확보
+INC-2023-10-okta|TA0008|T1550.004|확인|탈취한 세션 토큰으로 고객 환경 접근
+INC-2023-10-okta|TA0001|T1199|추정|IdP 공급사를 거쳐 하위 고객으로 확산
+INC-2023-10-citrixbleed|TA0001|T1190|확인|NetScaler 정보 노출 취약점 악용
+INC-2023-10-citrixbleed|TA0006|T1539|확인|메모리 누수로 세션 토큰 수집
+INC-2023-10-citrixbleed|TA0008|T1550.004|확인|탈취 세션 재사용으로 MFA 우회
+INC-2023-10-citrixbleed|TA0040|T1486|확인|LockBit 계열 랜섬웨어 (ICBC 미국 법인 등은 관련성 보도)
+INC-2023-10-citrixbleed|TA0040|T1657|확인|데이터 공개 위협 (Boeing 유출 등)
+INC-2024-01-ivanti|TA0001|T1190|확인|인증 우회 + 명령 주입 연쇄
+INC-2024-01-ivanti|TA0003|T1505.003|확인|VPN 장비에 웹셸 설치
+INC-2024-01-ivanti|TA0006|T1056.003|추정|로그인 페이지 변조로 자격 증명 수집 (Mandiant 분석, 원문 미확인)
+INC-2024-01-midnight|TA0006|T1110.003|확인|패스워드 스프레이
+INC-2024-01-midnight|TA0001|T1078.004|확인|MFA 없는 레거시 테스트 테넌트 계정
+INC-2024-01-midnight|TA0003|T1671|확인|악성 OAuth 앱 생성
+INC-2024-01-midnight|TA0003|T1098.003|확인|앱에 Exchange full_access_as_app 부여
+INC-2024-01-midnight|TA0009|T1114.002|확인|임원·보안·법무 메일함 읽기
+INC-2024-02-changehc|TA0001|T1078|확인|탈취된 직원 자격 증명
+INC-2024-02-changehc|TA0001|T1133|확인|MFA 없는 Citrix 원격 접속 포털
+INC-2024-02-changehc|TA0008|T1021|추정|내부 이동은 확인됐으나 기법은 미특정
+INC-2024-02-changehc|TA0040|T1486|확인|침입 9일 뒤 ALPHV 랜섬웨어 배포
+INC-2024-02-changehc|TA0040|T1657|확인|랜섬 지급 (약 2,200만 달러, 보도)
+INC-2024-03-xz|TA0001|T1195.001|확인|오픈소스 의존성(liblzma) 오염
+INC-2024-03-xz|TA0042|T1585|추정|가짜 계정으로 유지보수자 압박 (보도)
+INC-2024-03-xz|TA0005|T1027|확인|테스트 파일에 페이로드 은닉 (T1027.009)
+INC-2024-03-xz|TA0003|T1556|확인|sshd 인증 우회
+INC-2024-04-panos|TA0001|T1190|확인|GlobalProtect 명령 주입
+INC-2024-04-panos|TA0002|T1059.006|확인|UPSTYLE 파이썬 백도어 (일부 장비)
+INC-2024-04-panos|TA0011|T1572|확인|GOST 터널링 도구
+INC-2024-04-panos|TA0009|T1602.002|확인|장비 설정 파일 유출 (일부 장비)
+INC-2024-04-panos|TA0005|T1070|확인|로그 파일 삭제
+INC-2024-05-snowflake|TA0006|T1555.003|확인|선행 인포스틸러 감염으로 수집된 자격 증명 (수집 주체는 UNC5537과 다를 수 있음)
+INC-2024-05-snowflake|TA0042|T1650|후보|자격 증명·접근권 구매 여부는 Mandiant 보고로 재확인 필요
+INC-2024-05-snowflake|TA0001|T1078.004|확인|MFA 없는 고객 테넌트 로그인
+INC-2024-05-snowflake|TA0009|T1213.006|확인|데이터베이스 대량 조회
+INC-2024-05-snowflake|TA0040|T1657|확인|데이터 삭제 대가 요구 (AT&T 약 37만 달러 지급 보도)
+INC-2024-05-court-kr|TA0042|T1583.003|확인|가상자산으로 결제한 임대 서버
+INC-2024-05-court-kr|TA0010|T1041|후보|외부 서버로 전송은 확인, 채널·방식은 미특정
+INC-2024-10-salttyphoon|TA0001|T1190|확인|알려진 CVE로 엣지 장비 침투
+INC-2024-10-salttyphoon|TA0001|T1199|확인|사업자 간 링크로 하위 네트워크 이동
+INC-2024-10-salttyphoon|TA0003|T1136|확인|특권 계정 생성
+INC-2024-10-salttyphoon|TA0112|T1599|확인|ACL 변경으로 경계 우회 (2025 공동 권고 관측)
+INC-2024-10-salttyphoon|TA0006|T1040|확인|SPAN/ERSPAN 미러링·TACACS+ 패킷으로 관리자 자격 증명 수집
+INC-2024-10-salttyphoon|TA0008|T1021.004|추정|숨은 SSH 리스너 활성화
+INC-2024-10-salttyphoon|TA0011|T1572|확인|GRE/IPsec 터널로 유출
+INC-2024-12-cleo|TA0001|T1190|확인|Cleo 파일 업로드·쓰기 취약점
+INC-2024-12-cleo|TA0040|T1657|확인|Cl0p 유출 사이트 공개 협박
+INC-2024-12-treasury|TA0001|T1199|확인|원격 지원 SaaS 벤더 경유
+INC-2024-12-treasury|TA0001|T1078|확인|탈취한 공급자 API 키로 고객 인스턴스의 로컬 애플리케이션 계정 비밀번호 재설정
+INC-2024-12-treasury|TA0001|T1190|후보|CVE-2024-12356 발견 사실과 재무부 침해에서의 악용은 구분, 연결 근거 미확인
+INC-2024-12-treasury|TA0009|T1005|확인|워크스테이션 비기밀 파일 3,000개 이상 열람
+INC-2025-02-bybit|TA0001|T1199|확인|서드파티 지갑 서비스(Safe{Wallet}) 개발자 장비 침해
+INC-2025-02-bybit|TA0040|T1565|확인|서명 과정의 거래 조작 (변조 대상이 UI·배포 파일인지 거래 데이터인지는 세부 미확인)
+INC-2025-02-bybit|TA0040|T1657|확인|약 15억 달러 이더리움 탈취
+INC-2025-03-tjactions|TA0001|T1195.001|확인|GitHub Action(CI 의존성) 오염
+INC-2025-03-tjactions|TA0006|T1528|확인|저장소 PAT 침해로 태그 변경
+INC-2025-03-tjactions|TA0002|T1677|확인|CI 파이프라인에서 악성 코드 실행
+INC-2025-03-tjactions|TA0006|T1552|확인|워크플로 로그에 비밀값 노출
+INC-2025-03-tjactions|TA0005|T1027|확인|Base64 페이로드
+INC-2025-04-skt|TA0006|T1552.001|확인|코어망 서버에 HSS 계정 정보 평문 저장
+INC-2025-04-skt|TA0001|T1078|확인|평문 계정으로 HSS 관리 서버 접속
+INC-2025-04-skt|TA0011|T1205.002|확인|BPFDoor 소켓 필터 (v19.2 원문 대조 필요)
+INC-2025-04-skt|TA0003|T1505.003|확인|웹셸 1종
+INC-2025-04-skt|TA0011|T1071|추정|Sliver·CrossC2 C2 프레임워크 사용, 프로토콜 미특정
+INC-2025-04-skt|TA0009|T1005|추정|USIM 정보 약 9.82GB 수집
+INC-2025-04-mns|TA0001|T1566.004|추정|헬프데스크 사칭 가능성, 공식 미확인
+INC-2025-04-mns|TA0001|T1078|추정|유효 계정으로 침투
+INC-2025-04-mns|TA0006|T1003.003|확인|NTDS.dit 탈취 (보도)
+INC-2025-04-mns|TA0040|T1486|확인|ESXi에 DragonForce 랜섬웨어
+INC-2025-06-yes24|TA0040|T1486|확인|랜섬웨어로 5일 서비스 마비
+INC-2025-07-sgi|TA0006|T1110|확인|VPN 무차별 대입 (보도)
+INC-2025-07-sgi|TA0001|T1133|확인|VPN 원격 접속
+INC-2025-07-sgi|TA0040|T1486|확인|랜섬웨어로 전 업무 중단
+INC-2025-07-sgi|TA0040|T1490|추정|소산 백업까지 암호화·삭제된 정황
+INC-2025-07-toolshell|TA0001|T1190|확인|SharePoint 역직렬화 RCE
+INC-2025-07-toolshell|TA0003|T1505.003|확인|웹셸 설치
+INC-2025-07-toolshell|TA0006|T1552|확인|서버 암호 키(MachineKey) 유출
+INC-2025-07-toolshell|TA0006|T1606|후보|서명된 페이로드 위조는 설명됐으나 인증 자료 위조 여부는 미확인
+INC-2025-07-toolshell|TA0040|T1486|추정|Storm-2603의 랜섬웨어 배포 보도, 원문 미확인
+INC-2025-08-salesloft|TA0001|T1199|확인|서드파티 연동(Drift) 경유
+INC-2025-08-salesloft|TA0006|T1528|확인|OAuth 리프레시 토큰 탈취
+INC-2025-08-salesloft|TA0008|T1550.001|확인|탈취한 OAuth 토큰으로 고객 Salesforce 접근
+INC-2025-08-salesloft|TA0009|T1213|확인|Salesforce 레코드 대량 조회·내보내기
+INC-2025-08-salesloft|TA0006|T1552|확인|케이스 필드의 AWS 키·토큰 수확
+INC-2025-08-jlr|TA0001|T1078|추정|도난 직원 자격 증명 거론, 공식 미확인
+INC-2025-08-kt|TA0001|T1200|추정|불법 초소형 기지국(펨토셀) 설치
+INC-2025-08-kt|TA0006|T1649|확인|공통 제조사 인증서 복제로 내부망 인증
+INC-2025-08-kt|TA0006|T1557|확인|가짜 기지국으로 문자·음성 가로채기
+INC-2025-08-kt|TA0006|T1111|확인|SMS·ARS 결제 인증 정보 탈취
+INC-2025-08-kt|TA0040|T1657|확인|무단 소액결제 2.43억 원
+INC-2025-08-lottecard|TA0001|T1190|확인|WebLogic CVE-2017-10271 (보도)
+INC-2025-08-lottecard|TA0003|T1505.003|확인|웹셸 5종
+INC-2025-08-lottecard|TA0009|T1005|추정|최대 200GB 고객 정보
+INC-2025-09-shaihulud|TA0001|T1195.001|확인|npm 패키지(의존성) 오염
+INC-2025-09-shaihulud|TA0006|T1552|확인|개발자 환경 비밀 수집
+INC-2025-09-shaihulud|TA0006|T1528|확인|npm 토큰 탈취
+INC-2025-09-shaihulud|TA0008|T1550.001|확인|훔친 npm 토큰으로 다른 패키지에 악성 버전 게시
+INC-2025-09-shaihulud|TA0010|T1567.001|확인|공개 GitHub 저장소로 유출
+INC-2025-10-f5|TA0011|T1090|확인|BRICKSTORM의 SOCKS 프록시
+INC-2025-10-f5|TA0009|T1213.003|확인|소스 코드·취약점 정보 탈취
+INC-2025-10-oracleebs|TA0001|T1190|확인|Oracle EBS CVE-2025-61882
+INC-2025-10-oracleebs|TA0040|T1657|확인|Cl0p 협박 메일
+INC-2025-11-coupang|TA0001|T1078|추정|퇴사자의 서명 키 이용 — 실제 계정 사용인지 토큰 위조인지 구분 필요
+INC-2025-11-coupang|TA0006|T1606|추정|서명 키로 유효한 인증 토큰 생성 (분석상 매핑, 하위 기법 적합성 미확인)
+INC-2025-11-coupang|TA0009|T1213|추정|고객 정보 API 대량 조회
+INC-2025-12-react2shell|TA0001|T1190|확인|React Server Components 역직렬화 RCE
+INC-2025-12-react2shell|TA0002|T1059|후보|공격 사례에서 쉘 명령 실행이 관찰된 경우에 적용
+INC-2026-01-shinyhunters|TA0001|T1566.004|확인|사칭 전화
+INC-2026-01-shinyhunters|TA0042|T1583.001|추정|피해 조직 브랜드의 피싱 포털 보도, 도메인 확보 행위는 간접 추정
+INC-2026-01-shinyhunters|TA0006|T1111|확인|SSO 자격 증명·MFA 코드 실시간 중계
+INC-2026-01-shinyhunters|TA0009|T1213|확인|SharePoint·OneDrive·Salesforce·Slack 대량 조회
+INC-2026-01-shinyhunters|TA0040|T1657|확인|데이터 공갈
+INC-2026-01-kyowon|TA0003|T1505.003|확인|웹셸 (보도)
+INC-2026-01-kyowon|TA0040|T1486|확인|가상 서버 약 600대 암호화
+INC-2026-03-stryker|TA0001|T1078|확인|관리자 계정 탈취
+INC-2026-03-stryker|TA0002|T1072|추정|Intune 원격 초기화 (분류는 추정)
+INC-2026-03-stryker|TA0040|T1485|확인|전사 기기 데이터 파괴
+INC-2026-03-teampcp|TA0001|T1195.001|확인|보안·개발 도구(CI 의존성) 오염
+INC-2026-03-teampcp|TA0002|T1677|확인|GitHub Actions 파이프라인 오염
+INC-2026-03-teampcp|TA0006|T1552|확인|CI 비밀·클라우드 키·SSH 키 수확
+INC-2026-03-teampcp|TA0040|T1657|확인|Checkmarx 데이터 96GB 갈취 포털 게시
+INC-2026-04-fbi|TA0001|T1199|추정|상용 ISP 벤더 인프라 이용(FBI 설명) — 신뢰 관계 악용인지는 미확인
+D20261003-fortimail|TA0001|T1190|확인|FortiMail 인증 없는 파일 쓰기
+D20261003-fortimail|TA0005|T1574.006|확인|ld.so.preload 변조 (Execution에도 속함)
+D20261003-fortimail|TA0003|T1053.003|확인|root cron이 /migadmin 참조
+D20261003-fortimail|TA0003|T1554|확인|/bin/smit 변조 (악성 기능 미확인)
+D20261003-fortimail|TA0009|T1114|추정|archive234 계정으로 메일 수집, 전달 규칙 확인 시 T1114.003
+D20261003-citrix|TA0001|T1190|확인|NetScaler 제로데이
+D20261003-citrix|TA0003|T1505.003|확인|.ctxs.receiver 웹셸
+D20261003-citrix|TA0002|T1059|확인|PHP 코드 실행
+D20261003-citrix|TA0005|T1027|확인|헤더 내 Base64 코드
+D20261003-citrix|TA0011|T1071.001|확인|HTTP 헤더 기반 명령 수신
+D20261003-cisco|TA0001|T1190|확인|URL 인코딩 인증 우회
+D20261003-cisco|TA0009|T1602|후보|실제 수집은 미확인, 확인되면 적용
+D20261003-wordpress|TA0001|T1190|확인|page-template LFI
+D20261003-wordpress|TA0002|T1059|확인|업로드한 PHP 실행
+D20261003-wordpress|TA0011|T1105|확인|GitHub에서 업로드 스크립트 수령
+D20261003-wordpress|TA0003|T1505.003|확인|웹셸
+D20261003-peoplesoft|TA0001|T1190|확인|/PSEMHUB/ 인증 없는 RCE
+D20261003-peoplesoft|TA0003|T1505.003|확인|JSP 웹셸
+D20261003-peoplesoft|TA0005|T1036|확인|Ple64.exe 미디어 플레이어 위장
+D20261003-peoplesoft|TA0011|T1219|확인|MeshAgent
+D20261003-peoplesoft|TA0011|T1572|확인|Neo-reGeorg HTTP(S) 터널
+D20261003-peoplesoft|TA0011|T1090|확인|SOCKS5 프록시
+D20261003-peoplesoft|TA0008|T1021|추정|내부 이동 기능이 보도됐으나 기법 미특정
+D20261003-peoplesoft|TA0040|T1657|확인|데이터 공갈 (GTIG)
+D20261003-zammad|TA0001|T1190|확인|세션 고정 RCE
+D20261003-zammad|TA0004|T1068|확인|CVE-2026-102490 로컬 권한 상승
+D20261003-zammad|TA0009|T1005|추정|데이터 노출은 확인, 수집 위치 미확인
+D20261003-zammad|TA0008|T1550.004|후보|인증된 세션 쿠키 재사용이 확인될 때만 적용
+D20261003-apple|TA0002|T1203|후보|취약점 성격에 부합, 실제 실행 절차 미확인
+D20261006-citrix-saml|TA0001|T1190|확인|SAML 인증부 취약점 악용(KEV 등재), 실제 침투 성공 여부는 미확인
+D20261006-citrix-saml|TA0002|T1059|후보|조작된 사용자명에 셸 명령, 성공 여부 미확인
+D20261006-citrix-saml|TA0040|T1499|후보|벤더가 서비스 거부 가능성 명시, 관측된 크래시만으로 DoS 공격 입증은 안 됨
+D20261006-dk-cpr|TA0001|T1078|후보|정당한 접근 권한 오남용, 인증 방식·획득 경로 미확인
+D20261006-dk-cpr|TA0009|T1119|추정|자동 조회는 당국 접수 내용, ATT&CK 매핑은 분석상 연결
+INC-2026-05-tving|TA0001|T1078|확인|탈취한 개발자 접속키로 개발·운영 시스템에 접속(과기정통부 조사)
+INC-2026-05-tving|TA0006|T1552|후보|접속키가 코드·저장소에 방치됐는지 확인되면 적용(조사단은 키 관리 미비를 지적했으나 구체 방식 미공개)
+INC-2026-05-tving|TA0009|T1213.003|추정|소스코드를 포함한 개발 프로젝트 361건(30.35GB) 유출은 확인, 코드 저장소에서 수집했는지는 미확인
+INC-2026-05-tving|TA0009|T1213.006|후보|회원 DB를 직접 조회했다는 근거가 확인되면 적용(접근 방식 미공개)
+D20261006-finsector|TA0001|T1190|추정|대출 조회·업무지원·영업지원 등 외부 접점 시스템 공격, 구체 취약점 미공개
+D20261006-finsector|TA0009|T1213|추정|대출·고객 정보 조회·유출, 수집 방식 미공개

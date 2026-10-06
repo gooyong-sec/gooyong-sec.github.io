@@ -17,3 +17,7 @@ title: gooyong-sec
 - [[PortSwigger Web LLM Attacks 랩 실습 — 과도한 권한부터 인다이렉트 인젝션까지]]
 - [[윈도우 AD 침투 자격증명 피벗 권한상승 3가지 기법]]
 - [[취약점 진단 툴에 MCP 붙이기 Ghidra Burp jadx]]
+
+## 도구
+
+- [보안 이슈 · MITRE ATT&CK 정리](/security-issues/) — 최근 보안 사건을 ATT&CK 기법에 매핑해 정리한 타임라인

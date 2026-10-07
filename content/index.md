@@ -17,3 +17,5 @@ title: gooyong-sec
 - [[취약점 진단 툴에 MCP 붙이기 Ghidra Burp jadx]]
 - [[Claude 작업을 Codex로 교차검증하기 — MCP로 두 AI 붙이기]]
 - [[Hera — Frida 기반 동적 보안 분석 워크벤치를 직접 만들다]]
+- [[보안이슈 트래커 빌드 후기 — psv와 build.mjs로 서버 없는 정적 도구 만들기]]
+- [[블로그 인프라 자동화 — Quartz, GitHub Actions, 로컬 빌드 깜빡임 없애기]]

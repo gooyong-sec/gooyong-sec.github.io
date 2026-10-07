@@ -23,10 +23,10 @@ $msg = "security-issues: daily sync " + (Get-Date -Format "yyyy-MM-dd")
 git -C $repo commit -m $msg | Out-Null
 
 Write-Host "[3/3] push..." -ForegroundColor Cyan
-$push = git -C $repo push 2>&1
+git -C $repo push
 if ($LASTEXITCODE -eq 0) {
     Write-Host "Done - site updates in 1-2 min." -ForegroundColor Green
 } else {
-    Write-Host "Push failed: $push" -ForegroundColor Red
+    Write-Host "Push failed (exit code $LASTEXITCODE)." -ForegroundColor Red
     exit 1
 }

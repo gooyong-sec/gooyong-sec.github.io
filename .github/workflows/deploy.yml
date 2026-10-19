@@ -34,6 +34,12 @@ jobs:
         run: |
           mkdir -p public/security-issues
           cp "보안이슈/index.html" public/security-issues/index.html
+      - name: Build CVE-PoC page from source
+        run: node "CVE-PoC/build.mjs"
+      - name: Copy CVE-PoC static page
+        run: |
+          mkdir -p public/CVE-PoC
+          cp "CVE-PoC/index.html" public/CVE-PoC/index.html
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

@@ -1,3 +1,48 @@
 @use "./base.scss";
 
 // put your custom CSS here!
+
+@media (max-width: 800px) {
+  html,
+  body,
+  .page,
+  #quartz-body,
+  .center,
+  article {
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  #quartz-body {
+    width: 100%;
+    padding-inline: 0.75rem !important;
+  }
+
+  article {
+    overflow-wrap: anywhere;
+
+    > h1 {
+      font-size: 1.65rem !important;
+      line-height: 1.25;
+    }
+
+    img,
+    video,
+    svg {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+
+  pre,
+  .table-container {
+    max-width: 100%;
+    box-sizing: border-box;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .table-container > table {
+    margin: 0.75rem 0;
+  }
+}

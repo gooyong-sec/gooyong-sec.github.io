@@ -28,6 +28,7 @@ export const defaultContentPageLayout: PageLayout = {
   left: [
     Component.PageTitle(),
     Component.SecurityIssuesLink(),
+    Component.CvePocLink(),
     Component.MobileOnly(Component.Spacer()),
     Component.Flex({
       components: [
@@ -54,6 +55,7 @@ export const defaultListPageLayout: PageLayout = {
   left: [
     Component.PageTitle(),
     Component.SecurityIssuesLink(),
+    Component.CvePocLink(),
     Component.MobileOnly(Component.Spacer()),
     Component.Flex({
       components: [

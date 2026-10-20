@@ -29,7 +29,11 @@ APKPure류 제3자 다운로드 사이트는 원본 서명이 아닌 재서명(�
 
 iOS는 App Store로 배포되는 앱의 실행 파일이 FairPlay DRM으로 암호화된 상태로 저장되기 때문에, 단순히 앱 번들을 복사하는 것만으로는 정적 분석에 쓸 복호화된 바이너리를 얻지 못합니다. 실무에서는 탈옥 기기에 설치한 뒤 `frida-ios-dump` 같은 도구로 실행 중인 프로세스 메모리에서 복호화된 상태의 IPA를 재구성하는 방식을 씁니다(개발/엔터프라이즈 배포로 받은 비암호화 IPA나 자체 앱의 시뮬레이터 빌드는 탈옥 없이도 분석 가능합니다). App Store에서 정식 구매한 앱을 추출하는 행위가 Apple 개발자 프로그램 라이선스 계약이나 저작권법상 기술적 보호조치 우회 금지 조항과 어떻게 충돌하는지는 관할 법률과 계약 조건에 따라 달라지므로, 진단 목적이라도 앱 소유자(또는 발주사)의 서면 허가 범위와 적용 법률을 먼저 확인해야 합니다.
 
-- 체크 포인트: `pm path`로 나온 APK(스플릿 포함)를 빠짐없이 추출했는지, 제3자 배포 파일이라면 `apksigner verify --print-certs`로 뽑은 인증서 지문을 신뢰할 수 있는 공식 배포본과 대조했는지, iOS 분석 대상이 탈옥 기기 덤프인지 비암호화 배포본인지, 계약상 허용된 범위인지
+- 체크 포인트:
+  - `pm path`로 나온 APK(스플릿 포함)를 빠짐없이 추출했는지
+  - 제3자 배포 파일이라면 `apksigner verify --print-certs`로 뽑은 인증서 지문을 신뢰할 수 있는 공식 배포본과 대조했는지
+  - iOS 분석 대상이 탈옥 기기 덤프인지 비암호화 배포본인지
+  - 계약상 허용된 범위인지
 - 참고: [OWASP MASTG — Android App Extraction](https://mas.owasp.org/MASTG/techniques/android/MASTG-TECH-0003/), [OWASP MASTG — iOS App Binary Extraction](https://mas.owasp.org/MASTG/techniques/ios/MASTG-TECH-0054/), [Android — apksigner](https://developer.android.com/tools/apksigner)
 
 ---
@@ -49,7 +53,11 @@ Frida는 실행 중인 프로세스에 스크립트를 주입해 자바/오브�
 
 **frida-server와 루팅 탐지의 관계**: frida-server를 실기기에 올리려면 보통 root 권한이 필요하므로, 루팅 탐지(su 바이너리, Magisk 흔적 확인 등)와 Frida 탐지(기본 포트, 프로세스 목록, 메모리 내 문자열 확인 등)를 **같은 앱이 함께 구현해 두는 사례가 있습니다**. 다만 둘 다 구현돼 있다는 보장은 없고, 서로 다른 신호만 확인하는 앱도 있어 한쪽을 우회했다고 분석이 바로 가능해진다고 볼 수는 없습니다. 이 우회 기법 자체(Zygisk 모듈, frida-server 리네이밍, objection)는 이후 Frida 동적분석 글에서 다룹니다.
 
-- 체크 포인트: 분석 대상이 난독화돼 있어 jadx 결과만으로 로직 파악이 가능한지, apktool로 재조립한 APK가 정상 서명 후 설치/실행되는지, frida-server 버전이 대상 아키텍처(arm64 등)와 일치하는지, 에뮬레이터에서 앱의 핵심 기능이 정상 동작하는지(제한되면 실기기 전환 검토)
+- 체크 포인트:
+  - 분석 대상이 난독화돼 있어 jadx 결과만으로 로직 파악이 가능한지
+  - apktool로 재조립한 APK가 정상 서명 후 설치/실행되는지
+  - frida-server 버전이 대상 아키텍처(arm64 등)와 일치하는지
+  - 에뮬레이터에서 앱의 핵심 기능이 정상 동작하는지(제한되면 실기기 전환 검토)
 - 참고: [jadx (GitHub)](https://github.com/skylot/jadx), [Apktool 공식 사이트](https://apktool.org/), [Frida — Modes of operation](https://frida.re/docs/modes/), [OWASP MASTG — Root Detection](https://mas.owasp.org/MASTG/knowledge/android/MASVS-RESILIENCE/MASTG-KNOW-0027/), [Android — Play Integrity 판정 유형](https://developer.android.com/google/play/integrity/verdicts)
 
 이 시리즈의 분석 파이프라인을 한 장으로 요약하면 다음과 같습니다.
@@ -65,7 +73,11 @@ flowchart LR
 
 ## 3. OWASP MASVS 구조 소개
 
-**원리**: OWASP에는 "10대 위험 목록" 형식의 **Mobile Top 10**(`M1`~`M10`, 2024년판 기준)이 따로 있는데, 이는 MASVS의 옛 버전이 아니라 **별도로 유지되는 다른 프로젝트**입니다. 반면 이 글에서 기준으로 삼는 **MASVS(Mobile Application Security Verification Standard)는 순위가 아니라, 앱이 충족해야 할 검증 가능한 보안 요구사항을 정의하는 표준**이고, 현재는 요구사항을 8개 카테고리로 묶어 관리합니다(`MASVS-PRIVACY`는 v2.1.0에서 추가된 카테고리로, 8개 구조가 처음부터 고정돼 있던 것은 아닙니다). 이 시리즈의 진단 범위와 보고서 매핑은 Mobile Top 10이 아니라 **MASVS 카테고리와 `MASVS-카테고리-번호` 형식의 컨트롤 ID**를 기준으로 합니다. 카테고리와 코드는 다음과 같습니다(OWASP MASVS 공식 YAML 정의 기준).
+**원리**: OWASP에는 "10대 위험 목록" 형식의 **Mobile Top 10**(`M1`~`M10`, 2024년판 기준)이 따로 있는데, 이는 MASVS의 옛 버전이 아니라 **별도로 유지되는 다른 프로젝트**입니다.
+
+반면 이 글에서 기준으로 삼는 **MASVS(Mobile Application Security Verification Standard)는 순위가 아니라, 앱이 충족해야 할 검증 가능한 보안 요구사항을 정의하는 표준**이고, 현재는 요구사항을 8개 카테고리로 묶어 관리합니다(`MASVS-PRIVACY`는 v2.1.0에서 추가된 카테고리로, 8개 구조가 처음부터 고정돼 있던 것은 아닙니다).
+
+이 시리즈의 진단 범위와 보고서 매핑은 Mobile Top 10이 아니라 **MASVS 카테고리와 `MASVS-카테고리-번호` 형식의 컨트롤 ID**를 기준으로 합니다. 카테고리와 코드는 다음과 같습니다(OWASP MASVS 공식 YAML 정의 기준).
 
 | 카테고리 | 이름 | 이 시리즈의 대응 글 |
 |---|---|---|

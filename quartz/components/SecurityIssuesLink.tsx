@@ -40,6 +40,24 @@ a.security-issues-link.internal:hover {
   color: var(--secondary) !important;
   border-left-color: var(--secondary);
 }
+
+@media (max-width: 800px) {
+  a.security-issues-link,
+  a.security-issues-link.internal {
+    display: inline-block;
+    margin: 0.3rem 0.2rem;
+    padding: 0.2rem 0.55rem !important;
+    border: 1px solid currentColor;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    white-space: nowrap;
+    box-sizing: border-box;
+    max-width: 100%;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
 `
 
 export default (() => SecurityIssuesLink) satisfies QuartzComponentConstructor

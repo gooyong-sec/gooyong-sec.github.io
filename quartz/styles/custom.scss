@@ -72,4 +72,12 @@
   .table-container > table {
     margin: 0.75rem 0;
   }
+
+  // 상단 모바일 바(제목 + 보안이슈/CVE-PoC 칩 + 검색 등)가 한 줄로 밀려나가
+  // 화면 밖으로 잘리지 않도록 줄바꿈 허용
+  #quartz-body .sidebar.left {
+    flex-wrap: wrap;
+    row-gap: 0.3rem;
+    justify-content: center;
+  }
 }

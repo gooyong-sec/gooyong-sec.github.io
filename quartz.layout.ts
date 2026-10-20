@@ -9,7 +9,7 @@ import { FileTrieNode } from "./quartz/util/fileTrie"
 // `new Function("return " + str)()`로 다시 만든다 — 바깥 스코프(클로저)를 전혀
 // 가져가지 못하므로, 참조하는 배열·헬퍼는 전부 함수 "안에" 정의해야 한다.
 const explorerSortFn = (a: FileTrieNode, b: FileTrieNode) => {
-  const folderOrder = ["웹취약점", "모바일취약점", "LLM", "OSCP", "도구", "시큐어코딩"]
+  const folderOrder = ["웹취약점", "모바일취약점", "클라우드인프라", "LLM", "OSCP", "도구", "시큐어코딩"]
 
   const fileOrder = [
     // 웹취약점 시리즈 (읽는 순서)
@@ -19,17 +19,35 @@ const explorerSortFn = (a: FileTrieNode, b: FileTrieNode) => {
     "웹 취약점 진단 정찰편",
     "웹 취약점 진단 인증편",
     "웹 취약점 진단 인가편",
+    "웹 취약점 진단 API편 — Mass Assignment와 필드 단위 인가(BOPLA)",
+    "웹 취약점 진단 — API 자원 소비 진단(Unrestricted Resource Consumption, API4)",
+    "웹 취약점 진단 — 비즈니스 플로우 남용과 봇 방어 우회(API6)",
+    "웹 취약점 진단 — 서드파티 연동·웹훅 신뢰 공격(API7·API10)",
+    "웹 취약점 진단 — 레거시·섀도우 API 자산 인벤토리(API9)",
+    "웹 취약점 진단 — WebSocket·실시간 통신 보안",
     "웹 취약점 진단 SSO편",
     "웹 취약점 진단 로직편",
     "웹 취약점 진단 인프라편",
+    "웹 취약점 진단 — 공급망·의존성 보안(SCA와 악성 패키지)",
     // 모바일취약점 시리즈 (읽는 순서)
     "모바일 모의해킹 입문",
     "모바일 취약점 진단 — 안드로이드 정적분석",
     "모바일 취약점 진단 — iOS 정적분석",
     "모바일 취약점 진단 — Frida 동적분석과 네트워크",
+    "모바일 취약점 진단 — 백엔드 API 토큰 갱신과 디바이스 바인딩",
+    "모바일 취약점 진단 — 딥링크·앱링크 공격표면",
+    "모바일 취약점 진단 — OAuth·PKCE 네이티브 플로우 공격",
+    "모바일 취약점 진단 — 앱 바이너리에서 API 계약 추출하기",
+    "모바일 취약점 진단 — 기기 신뢰 공격(Device Attestation 우회)",
     "모바일 취약점 진단 — 로컬 저장소 포렌식",
     "모바일 취약점 진단 — 안드로이드 IPC 공격면",
     "모바일 취약점 진단 — WebView와 파일 접근 취약점",
+    // 클라우드인프라 시리즈 (읽는 순서)
+    "클라우드 인프라 진단 — AWS IAM 권한상승 체인",
+    "클라우드 인프라 진단 — S3·스토리지 오남용과 데이터 유출 체인",
+    "클라우드 인프라 진단 — IMDS SSRF로 자격증명 탈취",
+    "클라우드 인프라 진단 — 컨테이너·Kubernetes 탈출",
+    "클라우드 인프라 진단 — IaC 보안 스캐닝(Terraform·K8s manifest)",
     // LLM (개념 입문 → 학습 자료 → 심화 → 실습 → 카탈로그)
     "LLM 입문",
     "보안 진단 학습 자료실",

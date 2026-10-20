@@ -6,6 +6,7 @@
   overflow-y: hidden;
   min-height: 1.4rem;
   flex: 0 0.5 auto;
+  max-height: calc(100vh - 12rem);
   &:has(button.toc-header.collapsed) {
     flex: 0 1 1.4rem;
   }
@@ -49,18 +50,29 @@ ul.toc-content.overflow {
 
   & > li > a {
     color: var(--dark);
-    opacity: 0.35;
+    opacity: 0.7;
     transition:
       0.5s ease opacity,
       0.3s ease color;
-    &.in-view {
-      opacity: 0.75;
+    &.active {
+      color: var(--tertiary);
+      opacity: 1;
+      font-weight: 700;
+      border-left: 2px solid var(--tertiary);
+      padding-left: 0.4rem;
     }
   }
 
   @for $i from 0 through 6 {
     & .depth-#{$i} {
-      padding-left: calc(1rem * #{$i});
+      padding-left: calc(0.6rem * #{$i});
     }
+  }
+
+  & .depth-4,
+  & .depth-5,
+  & .depth-6 {
+    font-size: 0.88rem;
+    opacity: 0.8;
   }
 }

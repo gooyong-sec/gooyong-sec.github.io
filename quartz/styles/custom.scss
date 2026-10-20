@@ -2,6 +2,33 @@
 
 // put your custom CSS here!
 
+.page > #quartz-body .center > article {
+  max-width: 72ch;
+  margin-inline: auto;
+  font-size: 1.05rem;
+  line-height: 1.8;
+
+  p,
+  li {
+    line-height: 1.8;
+  }
+
+  p {
+    margin-block: 1.1rem;
+  }
+
+  h2 {
+    margin-top: 2.5rem;
+  }
+
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin-top: 2rem;
+  }
+}
+
 @media (max-width: 800px) {
   html,
   body,

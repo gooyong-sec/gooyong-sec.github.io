@@ -141,6 +141,11 @@ button.desktop-explorer {
       &.active {
         opacity: 1;
         color: var(--tertiary);
+        font-weight: 700;
+        background-color: var(--highlight);
+        border-left: 3px solid var(--tertiary);
+        padding-left: 0.5rem;
+        border-radius: 0 4px 4px 0;
       }
     }
 

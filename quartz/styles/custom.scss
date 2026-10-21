@@ -112,6 +112,12 @@ pre > code > [data-line]::before {
     justify-content: center;
   }
 
+  // 제목이 자기 줄을 혼자 차지하게 해서, 보안이슈·CVE-PoC 칩 둘이
+  // (검색창 등 다음 줄 요소와 섞이지 않고) 한 줄에 같이 묶여 내려가게 함
+  #quartz-body .sidebar.left .page-title {
+    flex-basis: 100%;
+  }
+
   // 브레드크럼 마지막 항목(현재 글)이 바로 아래 H1과 같은 텍스트를 반복해
   // 좁은 화면에서 줄바꿈까지 되며 공간을 많이 차지하던 문제 — 모바일에서는 생략
   .breadcrumb-container .breadcrumb-element:last-child {

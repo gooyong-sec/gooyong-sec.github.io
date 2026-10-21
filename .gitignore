@@ -12,9 +12,14 @@ replit.nix
 .bkit
 .claude
 quartz-serve.log
-auto-sync.ps1
 *.bat
 
 # 작업용 원본 자료 (나중에 글로 정리 후 공개)
 # 루트의 llm/ 만 제외 (content/LLM/ 게시글 폴더는 제외하지 않도록 / 로 고정)
 /llm/
+
+# 공개 PoC 로컬 보관본 — 원본 삭제 대비용이며 블로그 배포·Git 커밋에서는 제외
+/CVE-PoC/archive/
+
+# OSCP 챌린지/시험 풀이 원문 — 머신·자격증명·플래그 포함, 절대 공개 금지 (비공개 보관)
+/oscp 보고서/

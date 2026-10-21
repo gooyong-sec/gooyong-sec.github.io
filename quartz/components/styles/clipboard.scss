@@ -5,7 +5,7 @@
   right: 0;
   padding: 0.4rem;
   margin: 0.3rem;
-  color: var(--gray);
+  color: var(--darkgray);
   border-color: var(--dark);
   background-color: var(--light);
   border: 1px solid;
@@ -14,8 +14,7 @@
   transition: 0.2s;
 
   & > svg {
-    fill: var(--light);
-    filter: contrast(0.3);
+    fill: currentColor;
   }
 
   &:hover {

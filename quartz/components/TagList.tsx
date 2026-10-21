@@ -42,14 +42,19 @@ TagList.css = `
   display: inline-block;
   white-space: nowrap;
   margin: 0;
+  max-width: 100%;
+  overflow: hidden;
   overflow-wrap: normal;
 }
 
 a.internal.tag-link {
+  display: block;
   border-radius: 8px;
   background-color: var(--highlight);
   padding: 0.2rem 0.4rem;
   margin: 0 0.1rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 `
 

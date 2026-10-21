@@ -55,10 +55,10 @@ ul.toc-content.overflow {
       0.5s ease opacity,
       0.3s ease color;
     &.active {
-      color: var(--tertiary);
+      color: var(--secondary);
       opacity: 1;
       font-weight: 700;
-      border-left: 2px solid var(--tertiary);
+      border-left: 2px solid var(--secondary);
       padding-left: 0.4rem;
     }
   }
@@ -73,6 +73,5 @@ ul.toc-content.overflow {
   & .depth-5,
   & .depth-6 {
     font-size: 0.88rem;
-    opacity: 0.8;
   }
 }

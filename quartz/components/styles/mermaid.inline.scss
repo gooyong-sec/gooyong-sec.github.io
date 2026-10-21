@@ -5,7 +5,7 @@
   padding: 0.4rem;
   margin: 0.3rem;
   right: 0; // NOTE: right will be set in mermaid.inline.ts
-  color: var(--gray);
+  color: var(--darkgray);
   border-color: var(--dark);
   background-color: var(--light);
   border: 1px solid;
@@ -14,8 +14,7 @@
   transition: 0.2s;
 
   & > svg {
-    fill: var(--light);
-    filter: contrast(0.3);
+    fill: currentColor;
   }
 
   &:hover {
@@ -103,7 +102,7 @@ pre {
         width: 32px;
         height: 32px;
         padding: 0;
-        border: 1px solid var(--lightgray);
+        border: 1px solid var(--darkgray);
         background: var(--light);
         color: var(--dark);
         border-radius: 4px;

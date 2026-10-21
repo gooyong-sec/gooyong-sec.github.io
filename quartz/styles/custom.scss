@@ -2,6 +2,37 @@
 
 // put your custom CSS here!
 
+a:hover {
+  color: var(--dark);
+}
+
+a.internal.broken {
+  opacity: 0.8;
+}
+
+.page article li:has(> input[type="checkbox"]:checked) {
+  color: var(--darkgray);
+}
+
+input[type="checkbox"] {
+  border-color: var(--darkgray);
+}
+
+pre > code > [data-line]::before {
+  color: var(--darkgray);
+  font-weight: 600;
+}
+
+:is(a, button, input, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--secondary) !important;
+  outline-offset: 2px;
+}
+
+.clipboard-button:focus-visible,
+.expand-button:focus-visible {
+  opacity: 1;
+}
+
 .page > #quartz-body .center > article {
   max-width: 72ch;
   margin-inline: auto;

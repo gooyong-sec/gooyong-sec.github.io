@@ -109,7 +109,7 @@ pre > code > [data-line]::before {
   #quartz-body .sidebar.left {
     flex-wrap: wrap;
     row-gap: 0.3rem;
-    justify-content: center;
+    justify-content: flex-start;
   }
 
   // 제목이 자기 줄을 혼자 차지하게 해서, 보안이슈·CVE-PoC 칩 둘이

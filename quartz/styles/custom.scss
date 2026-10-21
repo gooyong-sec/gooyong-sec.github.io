@@ -111,4 +111,10 @@ pre > code > [data-line]::before {
     row-gap: 0.3rem;
     justify-content: center;
   }
+
+  // 브레드크럼 마지막 항목(현재 글)이 바로 아래 H1과 같은 텍스트를 반복해
+  // 좁은 화면에서 줄바꿈까지 되며 공간을 많이 차지하던 문제 — 모바일에서는 생략
+  .breadcrumb-container .breadcrumb-element:last-child {
+    display: none;
+  }
 }

@@ -228,3 +228,14 @@ D20261026-agentsmd|TA0002|T1204.002|후보|Forever Security 확인: AI 코딩 �
 D20261026-agentsmd|TA0006|T1528|후보|연구진이 별도 PoC 실험에서 악성 CLAUDE.md로 Claude Code API 트래픽을 공격자 서버로 우회시켜 OAuth 토큰을 노출시키는 시나리오를 약 50% 성공률로 재현했을 뿐, 이번 실제 관측 사건(악성 npm 패키지 설치 시도)에 이 기법이 적용됐다는 근거는 없어 후보로 표기
 D20261028-polyshell|TA0001|T1190|확인|CISA KEV 등재(10/27, 실제 악용 증거 근거)·Sansec 연구(보도 인용): 인증 없는 손님 장바구니 REST API의 파일 업로드 제한 결함(PolyShell)을 통해 공개 웹앱에서 원격 코드 실행, 최소 2026-03부터 10월까지 953개 쇼핑몰 감염 확인
 D20261028-polyshell|TA0003|T1505.003|후보|Sansec 연구(보도 인용)·CISA 경보: 취약점 설명상 업로드 파일이 웹서버 권한으로 실행 가능한 구조이고 2차 보도가 '웹셸'로 표현했으나, 실제 설치된 웹셸 파일 자체가 직접 확인·공개되지는 않아(관측된 것은 쇼핑몰 페이지에 삽입된 자바스크립트 로더뿐) 후보로 표기
+D20261029-php2shellroot|TA0001|T1190|확인|CISA KEV 등재(CVE-2026-109618·109619, 10/26 등재)·Dream 연구(보도 인용): 공개 인터페이스에 비인증 HTTP 요청 한 번으로 PHP 프로세스 권한 코드 실행
+D20261029-php2shellroot|TA0004|T1068|확인|CISA KEV 등재(CVE-2026-46300 "Fragnesia", 10/28 등재)·Red Hat 확인: 리눅스 커널 XFRM ESP-in-TCP 처리 결함으로 PHP 프로세스 권한에서 root 권한으로 상승. CISA 경보 원문이 PHP CVE 2건과의 체이닝을 직접 명시
+D20261029-php2shellroot|TA0003|T1505.003|확인|CISA 경보(Fragnesia 설명)·Dream 연구(보도 인용): root 권한 획득 후 방화벽 장비에 PHP 웹셸을 심어 지속 접근 확보
+D20261029-php2shellroot|TA0006|T1003|후보|Dream 연구(보도 인용): 미국 정부 관련 기관 환경에서 자격 증명·개인 키 탈취 흔적이 복구됐으나, 메모리 덤프 등 구체적 탈취 기법이 공개되지 않아 후보로 표기
+D20261029-php2shellroot|TA0007|T1087|확인|Dream 연구(보도 인용): 공격자가 Active Directory 계정 목록을 열거(enumeration)한 흔적이 복구됨
+D20261029-php2shellroot|TA0011|T1572|후보|Dream 연구(보도 인용): 공격자가 피해 환경에 "지속적인 터널"을 구축했다고 보도됐으나, 다른 프로토콜 안에 통신을 캡슐화했는지 등 구체적 방식이 공개되지 않아 후보로 표기
+D20261029-silenttrain|TA0001|T1190|확인|Lumen Black Lotus Labs 확인(보도 인용): VeloCloud Orchestrator(CVE-2026-16812)·Cisco Catalyst SD-WAN(CVE-2026-20127)·N-able N-central(CVE-2025-8875·8876)·Versa Director(CVE-2024-39717) 등 공개 관리 솔루션 제로데이로 최초 침투
+D20261029-silenttrain|TA0003|T1133|확인|Lumen Black Lotus Labs 확인: 침해한 관리형 인프라·중계 장비에 임시 SSH 서비스·키를 설치해 1~3개월 유지되는 접근 확보
+D20261029-silenttrain|TA0005|T1070|확인|Lumen Black Lotus Labs 확인: 작업 종료 후 8시간 내 중계 장비에 설치한 도구·키·설정 파일을 전부 삭제해 흔적 제거
+D20261029-silenttrain|TA0011|T1090|확인|Lumen Black Lotus Labs 확인: 해외 VPS와 해킹된 가정용 라우터(Intelbras·Netgear Orbi 등)를 여러 단계로 연쇄 중계해 공격 출처를 숨기는 "Silent Train" 구조
+D20261029-oracleebs|TA0001|T1190|후보|Horizon3.ai 설명(보도 인용)·Oracle 패치(2026-10-20): 인증 없는 SQL 인젝션이 원격 코드 실행으로 이어질 수 있는 구조이나, 보도 시점까지 실제 악용(성공한 공격)은 확인되지 않았고 정찰성 스캐닝만 관측됨

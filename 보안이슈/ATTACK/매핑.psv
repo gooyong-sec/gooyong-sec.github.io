@@ -239,3 +239,7 @@ D20261029-silenttrain|TA0003|T1133|확인|Lumen Black Lotus Labs 확인: 침해�
 D20261029-silenttrain|TA0005|T1070|확인|Lumen Black Lotus Labs 확인: 작업 종료 후 8시간 내 중계 장비에 설치한 도구·키·설정 파일을 전부 삭제해 흔적 제거
 D20261029-silenttrain|TA0011|T1090|확인|Lumen Black Lotus Labs 확인: 해외 VPS와 해킹된 가정용 라우터(Intelbras·Netgear Orbi 등)를 여러 단계로 연쇄 중계해 공격 출처를 숨기는 "Silent Train" 구조
 D20261029-oracleebs|TA0001|T1190|후보|Horizon3.ai 설명(보도 인용)·Oracle 패치(2026-10-20): 인증 없는 SQL 인젝션이 원격 코드 실행으로 이어질 수 있는 구조이나, 보도 시점까지 실제 악용(성공한 공격)은 확인되지 않았고 정찰성 스캐닝만 관측됨
+D20261030-gitlabrce|TA0001|T1190|확인|GitLab 보안 권고(2026-10-12)·CISA KEV 등재(10/29, 실제 악용 확인): 공개 프로젝트에 푸시 권한만 있는 비인증 상태에서 CI/CD 정규식 처리 결함으로 서버 쪽 코드 실행
+D20261030-ciscoasa|TA0040|T1499.004|확인|Cisco 보안 권고·CISA KEV 등재(10/29, 실제 악용 확인): 비인증 원격 공격자가 조작된 SSL VPN 요청으로 널 포인터 역참조를 유발해 장비를 재부팅시켜 서비스 거부
+D20261030-drupalcommerce|TA0001|T1190|확인|Drupal 보안 권고(SA-contrib-2026-254, 2026-10-28): Drupal이 "실제로 악용되고 있다"고 직접 확인한 Commerce Core 모듈의 비인증 접근제어 우회
+D20261030-ledgerimplant|TA0001|T1195.003|확인|Ledger Donjon 팀 확인·독립 연구자(Tibane Labs 등) 분해 분석: 비인증 리셀러(CryptoBilis) 경유 물량에 제조·유통 단계에서 데이터 가로채기용 하드웨어가 사전에 추가됨

@@ -60,6 +60,13 @@ pre > code > [data-line]::before {
   }
 }
 
+// 제목·브레드크럼·태그(.page-header)는 article과 다른 컨테이너라 위 72ch 제한이
+// 안 먹어서, 본문보다 더 넓게 뻗어나가 오른쪽 끝이 안 맞아 보이던 문제 — 똑같이 맞춤
+.page > #quartz-body .center > .page-header {
+  max-width: 72ch;
+  margin-inline: 0;
+}
+
 @media (max-width: 800px) {
   html,
   body,

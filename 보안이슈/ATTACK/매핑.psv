@@ -243,3 +243,10 @@ D20261030-gitlabrce|TA0001|T1190|확인|GitLab 보안 권고(2026-10-12)·CISA K
 D20261030-ciscoasa|TA0040|T1499.004|확인|Cisco 보안 권고·CISA KEV 등재(10/29, 실제 악용 확인): 비인증 원격 공격자가 조작된 SSL VPN 요청으로 널 포인터 역참조를 유발해 장비를 재부팅시켜 서비스 거부
 D20261030-drupalcommerce|TA0001|T1190|확인|Drupal 보안 권고(SA-contrib-2026-254, 2026-10-28): Drupal이 "실제로 악용되고 있다"고 직접 확인한 Commerce Core 모듈의 비인증 접근제어 우회
 D20261030-ledgerimplant|TA0001|T1195.003|확인|Ledger Donjon 팀 확인·독립 연구자(Tibane Labs 등) 분해 분석: 비인증 리셀러(CryptoBilis) 경유 물량에 제조·유통 단계에서 데이터 가로채기용 하드웨어가 사전에 추가됨
+D20261013-ivanti|TA0005|T1070|확인|Volexity 확인(11/2 보도): 공격자가 Integrity Checker Tool의 탐지를 피하려 한 것으로 보이는 로그 조작이 확인됨
+D20261103-vaporpanda|TA0042|T1588|확인|CrowdStrike 확인: 오픈소스로 공개됐다가 비공개로 전환된 기존 AI 에이전트 프레임워크 ARTEX(DeepSeek 기반)를 가져다 공격에 사용(자체 개발 근거는 없음)
+D20261103-vaporpanda|TA0001|T1190|확인|DIVD 분석(디코이·허니팟 환경): Zammad 헬프데스크 소프트웨어의 제로데이 결함을 악용해 최초 접근
+D20261103-vaporpanda|TA0004|T1068|확인|DIVD 분석(디코이·허니팟 환경): 위 Zammad 제로데이에 로컬 권한상승 결함을 체이닝해 12분 내 root 권한 획득
+D20261103-vaporpanda|TA0003|T1505.003|확인|CrowdStrike 확인: 공격 과정에서 웹셸을 배포한 사례가 관측됨
+D20261103-vaporpanda|TA0006|T1606|확인|CrowdStrike 확인: 그리스 정부 기관 공격에서 2022년 유출된 메일서버 키로 관리자 인증 토큰을 위조한 사례가 관측됨
+D20261103-synologyc3rb3r|TA0040|T1486|확인|Synology 자체 확인: NAS 장비의 파일 암호화 피해(.L0CK3D 확장자, 비트코인 요구 랜섬노트)를 직접 확인(랜섬웨어 계열명 'C3RB3R'은 보도 기준)

@@ -51,9 +51,22 @@ export async function getSatoriFonts(headerFont: FontSpecification, bodyFont: Fo
     }
   })
 
-  const [headerFonts, bodyFonts] = await Promise.all([
+  const koreanFontPromises = ([400, 700] as const).map(async (weight) => {
+    const data = await fetchTtf("Noto Sans KR", weight)
+    return data
+      ? {
+          name: "Noto Sans KR",
+          data,
+          weight,
+          style: "normal" as const,
+        }
+      : null
+  })
+
+  const [headerFonts, bodyFonts, koreanFonts] = await Promise.all([
     Promise.all(headerFontPromises),
     Promise.all(bodyFontPromises),
+    Promise.all(koreanFontPromises),
   ])
 
   // Filter out any failed fetches and combine header and body fonts
@@ -62,6 +75,7 @@ export async function getSatoriFonts(headerFont: FontSpecification, bodyFont: Fo
     ...bodyFonts.filter((font): font is NonNullable<typeof font> => font !== null),
   ]
 
+  fonts.push(...koreanFonts.filter((font) => font !== null))
   return fonts
 }
 

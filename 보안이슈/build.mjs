@@ -11,7 +11,7 @@ const read = (p) => fs.readFileSync(path.join(ROOT, p), 'utf8').replace(/\r/g, '
 const write = (p, s) => fs.writeFileSync(path.join(ROOT, p), s, 'utf8');
 const warn = (m) => console.warn('경고:', m);
 
-// ATT&CK Enterprise v19.2 전술 (표시 순서)
+// ATT&CK Enterprise v20.0 전술 (표시 순서, v19.2와 전술 ID·이름 동일)
 const TACTICS = [
   ['TA0043', '정찰', 'Reconnaissance'], ['TA0042', '자원개발', 'Resource Development'],
   ['TA0001', '초기접근', 'Initial Access'], ['TA0002', '실행', 'Execution'],
@@ -119,7 +119,7 @@ for (const t of TACTICS) {
   const lines = [
     `# ${t.id} ${t.ko} (${t.en})`, '',
     `> **쉽게 말하면**: ${(tacDesc[t.id] || ['', ''])[0]} (비유: ${(tacDesc[t.id] || ['', ''])[1]})`, '',
-    `> 자동 생성 파일 — 원본은 \`매핑.psv\`이며 직접 고치지 않는다. 기준: ATT&CK Enterprise v19.2. 공식 기법 ${all.length}개 중 ${seen.size}개에서 사례가 관측됐다.`, '',
+    `> 자동 생성 파일 — 원본은 \`매핑.psv\`이며 직접 고치지 않는다. 기준: ATT&CK Enterprise v20.0. 공식 기법 ${all.length}개 중 ${seen.size}개에서 사례가 관측됐다.`, '',
   ];
   if (rows.length) {
     lines.push('| 기법 | 사건 | 날짜 | 근거 | 설명 |', '|------|------|------|------|------|');
@@ -137,7 +137,7 @@ const distinct = new Set(mappings.map((m) => m.parent));
 const distinctAll = new Set(catalog.map((c) => c.id));
 write('ATTACK/README.md', [
   '# MITRE ATT&CK 전술별 누적 정리', '',
-  `기준: **ATT&CK Enterprise v19.2**. v19에서 TA0005는 *Defense Evasion*에서 **Stealth**로 개칭됐고 **Defense Impairment(TA0112)** 가 신설됐다. 과거 자료와 전술명이 다를 수 있으니 기법 ID로 비교한다.`, '',
+  `기준: **ATT&CK Enterprise v20.0** (2026-10-13 공식 릴리스). v19에서 TA0005는 *Defense Evasion*에서 **Stealth**로 개칭됐고 **Defense Impairment(TA0112)** 가 신설됐다 — 전술 구성은 v20.0에서도 동일(15개, ID·이름 변경 없음). v20.0에서는 기존 전술/기법의 ID 변경 없이 신규 기법 5개(AI 관련 포함: T1700, T1696, T1699, T1698, T1697)와 기존 기법의 신규 하위기법만 추가됐다. 과거 자료와 전술명이 다를 수 있으니 기법 ID로 비교한다.`, '',
   '> 이 폴더의 `NN-*.md`와 이 파일은 `node build.mjs`가 생성한다. **원본은 `매핑.psv`** (사건-기법 매핑)와 `_catalog.psv`(공식 기법 목록)다. 쉬운 한국어 해설은 `기법해설.psv`·`전술해설.psv`.', '',
   '| 파일 | 전술 | ID | 사례 있는 기법 / 공식 기법 |', '|------|------|----|------|',
   ...coverage.map(({ t, seen, total }) => `| [${t.file}](${t.file}) | ${t.ko} (${t.en}) | ${t.id} | ${seen} / ${total} |`), '',

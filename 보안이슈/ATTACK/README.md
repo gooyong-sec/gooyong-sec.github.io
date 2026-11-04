@@ -1,6 +1,6 @@
 # MITRE ATT&CK 전술별 누적 정리
 
-기준: **ATT&CK Enterprise v19.2**. v19에서 TA0005는 *Defense Evasion*에서 **Stealth**로 개칭됐고 **Defense Impairment(TA0112)** 가 신설됐다. 과거 자료와 전술명이 다를 수 있으니 기법 ID로 비교한다.
+기준: **ATT&CK Enterprise v20.0** (2026-10-13 공식 릴리스). v19에서 TA0005는 *Defense Evasion*에서 **Stealth**로 개칭됐고 **Defense Impairment(TA0112)** 가 신설됐다 — 전술 구성은 v20.0에서도 동일(15개, ID·이름 변경 없음). v20.0에서는 기존 전술/기법의 ID 변경 없이 신규 기법 5개(AI 관련 포함: T1700, T1696, T1699, T1698, T1697)와 기존 기법의 신규 하위기법만 추가됐다. 과거 자료와 전술명이 다를 수 있으니 기법 ID로 비교한다.
 
 > 이 폴더의 `NN-*.md`와 이 파일은 `node build.mjs`가 생성한다. **원본은 `매핑.psv`** (사건-기법 매핑)와 `_catalog.psv`(공식 기법 목록)다. 쉬운 한국어 해설은 `기법해설.psv`·`전술해설.psv`.
 
@@ -9,20 +9,20 @@
 | [01-정찰.md](01-정찰.md) | 정찰 (Reconnaissance) | TA0043 | 0 / 12 |
 | [02-자원개발.md](02-자원개발.md) | 자원개발 (Resource Development) | TA0042 | 5 / 9 |
 | [03-초기접근.md](03-초기접근.md) | 초기접근 (Initial Access) | TA0001 | 8 / 11 |
-| [04-실행.md](04-실행.md) | 실행 (Execution) | TA0002 | 5 / 20 |
+| [04-실행.md](04-실행.md) | 실행 (Execution) | TA0002 | 5 / 22 |
 | [05-지속성.md](05-지속성.md) | 지속성 (Persistence) | TA0003 | 9 / 22 |
 | [06-권한상승.md](06-권한상승.md) | 권한상승 (Privilege Escalation) | TA0004 | 3 / 13 |
-| [07-스텔스.md](07-스텔스.md) | 스텔스 (Stealth (구 Defense Evasion)) | TA0005 | 4 / 30 |
+| [07-스텔스.md](07-스텔스.md) | 스텔스 (Stealth (구 Defense Evasion)) | TA0005 | 4 / 31 |
 | [08-방어약화.md](08-방어약화.md) | 방어약화 (Defense Impairment) | TA0112 | 3 / 18 |
-| [09-자격증명접근.md](09-자격증명접근.md) | 자격증명접근 (Credential Access) | TA0006 | 12 / 17 |
+| [09-자격증명접근.md](09-자격증명접근.md) | 자격증명접근 (Credential Access) | TA0006 | 12 / 18 |
 | [10-탐색.md](10-탐색.md) | 탐색 (Discovery) | TA0007 | 3 / 34 |
 | [11-횡적이동.md](11-횡적이동.md) | 횡적이동 (Lateral Movement) | TA0008 | 2 / 9 |
 | [12-수집.md](12-수집.md) | 수집 (Collection) | TA0009 | 6 / 17 |
 | [13-C2.md](13-C2.md) | C2 (Command and Control) | TA0011 | 7 / 18 |
-| [14-유출.md](14-유출.md) | 유출 (Exfiltration) | TA0010 | 2 / 9 |
+| [14-유출.md](14-유출.md) | 유출 (Exfiltration) | TA0010 | 2 / 10 |
 | [15-영향.md](15-영향.md) | 영향 (Impact) | TA0040 | 7 / 15 |
 
-전체: 서로 다른 상위 기법 74개에서 사례가 관측됨 (공식 222개). 사건 113건, 매핑 264행.
+전체: 서로 다른 상위 기법 74개에서 사례가 관측됨 (공식 227개). 사건 113건, 매핑 264행.
 
 근거 수준: **확인**(벤더·CISA·연구기관 직접 확인) / **추정**(공개 자료에 없어 분석상 추정) / **후보**(조건이 확인되면 적용). 공격자 일방 주장은 표에 넣지 않고 일일 보고서에만 적는다.
 

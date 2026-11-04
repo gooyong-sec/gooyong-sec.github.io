@@ -262,7 +262,7 @@ function resolveDoc(base, href){
 const view = $('#view');
 const NAV = [['home','홈'],['guide','처음이세요?'],['timeline','사건 타임라인'],['korea','국내 소식'],['matrix','ATT&CK 매트릭스'],['actors','위협 행위자'],['daily','일일 보고서'],['glossary','용어집'],['docs','문서']];
 $('#nav').innerHTML = NAV.map(([k, v]) => `<a href="#/${k}" data-k="${k}">${v}</a>`).join('');
-$('#built').textContent = '갱신 ' + DATA.built + ' · ATT&CK v19.2';
+$('#built').textContent = '갱신 ' + DATA.built + ' · ATT&CK v20.0';
 
 function bars(rows, max){
   const m = max || Math.max(1, ...rows.map(r => r[1]));
@@ -336,7 +336,7 @@ function vInc(id){
     <div class="metas">${tag(i.date, 'mute')}${tag(i.type, 'mute')}${tag('행위자: ' + i.actor, 'mute')}${tag(i.region, 'mute')}${tag('근거: ' + i.evidence)}</div>
     <div class="metas">원인 유형: ${clsTags(i) || '-'}</div>
     ${gl(sections(incMd(i)))}
-    <h2>ATT&amp;CK 매핑 (v19.2)</h2>
+    <h2>ATT&amp;CK 매핑 (v20.0)</h2>
     ${ms.length ? `<table class="mtable"><thead><tr><th>전술</th><th>기법</th><th>근거</th><th>설명</th></tr></thead><tbody>${ms.map(m =>
       `<tr><td>${esc((tacById[m.ta] || {}).ko || m.ta)}</td><td><a href="#/matrix/${m.parent}">${m.tech}</a> ${esc(catName[m.parent] || '')}${techNotes[m.parent] ? `<br><span class="sub" style="margin:0">${esc(techNotes[m.parent][0])}</span>` : ''}</td><td>${tag(m.ev)}</td><td>${esc(m.note)}</td></tr>`).join('')}</tbody></table>`
       : '<p class="sub">공개 자료가 부족해 매핑하지 않았습니다.</p>'}
@@ -346,7 +346,7 @@ function vInc(id){
 
 function vMatrix(sel){
   view.innerHTML = `<h1>ATT&amp;CK 매트릭스</h1>
-    <p class="sub">Enterprise v19.2 · 색이 진할수록 사례가 많은 기법 · 같은 기법이 속한 모든 전술 열에 표시 · 기법을 누르면 사례를 본다.</p>
+    <p class="sub">Enterprise v20.0 · 색이 진할수록 사례가 많은 기법 · 같은 기법이 속한 모든 전술 열에 표시 · 기법을 누르면 사례를 본다.</p>
     <div class="filters"><label><input type="checkbox" id="hit" ${state.onlyHit ? 'checked' : ''}> 사례 있는 기법만</label>
       <span class="tag mute">0건</span><span class="tag info">1건</span><span class="tag warn">2~3건</span><span class="tag ok">4건 이상</span></div>
     <div class="mx" id="mx">${tactics.map(t => {

@@ -35,9 +35,11 @@ TA0002|T1651|Cloud Administration Command
 TA0002|T1059|Command and Scripting Interpreter
 TA0002|T1609|Container Administration Command
 TA0002|T1610|Deploy Container
+TA0002|T1699|Direct Prompt Injection
 TA0002|T1675|ESXi Administration Command
 TA0002|T1203|Exploitation for Client Execution
 TA0002|T1574|Hijack Execution Flow
+TA0002|T1698|Indirect Prompt Injection
 TA0002|T1674|Input Injection
 TA0002|T1559|Inter-Process Communication
 TA0002|T1106|Native API
@@ -86,6 +88,7 @@ TA0004|T1055|Process Injection
 TA0004|T1053|Scheduled Task/Job
 TA0004|T1078|Valid Accounts
 TA0005|T1134|Access Token Manipulation
+TA0005|T1696|Anti-Automation Evasion
 TA0005|T1197|BITS Jobs
 TA0005|T1612|Build Image on Host
 TA0005|T1622|Debugger Evasion
@@ -146,6 +149,7 @@ TA0006|T1621|Multi-Factor Authentication Request Generation
 TA0006|T1040|Network Sniffing
 TA0006|T1003|OS Credential Dumping
 TA0006|T1528|Steal Application Access Token
+TA0006|T1697|Steal Application Specific Passwords
 TA0006|T1649|Steal or Forge Authentication Certificates
 TA0006|T1558|Steal or Forge Kerberos Tickets
 TA0006|T1539|Steal Web Session Cookie
@@ -228,6 +232,7 @@ TA0011|T1090|Proxy
 TA0011|T1219|Remote Access Tools
 TA0011|T1205|Traffic Signaling
 TA0011|T1102|Web Service
+TA0010|T1700|AI-Enabled Exfiltration
 TA0010|T1020|Automated Exfiltration
 TA0010|T1030|Data Transfer Size Limits
 TA0010|T1048|Exfiltration Over Alternative Protocol

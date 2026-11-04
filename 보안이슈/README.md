@@ -25,7 +25,7 @@
 | `용어집.psv` | 초보용 용어 설명 (화면에서 처음 나올 때 밑줄) | O |
 | `ATTACK/매핑.psv` | 사건-ATT&CK 기법 매핑 (원본) | O |
 | `ATTACK/기법해설.psv`, `전술해설.psv` | ATT&CK 쉬운 한국어 해설 | O |
-| `ATTACK/_catalog.psv` | ATT&CK v19.2 공식 기법 목록 | 버전 갱신 때만 |
+| `ATTACK/_catalog.psv` | ATT&CK v20.0 공식 기법 목록 | 버전 갱신 때만 |
 | `ATTACK/NN-*.md`, `ATTACK/README.md`, `과거3년/00-타임라인.md`, `용어집.md`, `국내뉴스.md`, `index.html` | **자동 생성** | X |
 
 ## 갱신

@@ -11,6 +11,7 @@ import { concatenateResources } from "../util/resources"
 
 interface Options {
   layout: "modern" | "legacy"
+  defaultOpen?: boolean
 }
 
 const defaultOptions: Options = {
@@ -74,12 +75,15 @@ export default ((opts?: Partial<Options>) => {
   TableOfContents.css = modernStyle
   TableOfContents.afterDOMLoaded = concatenateResources(script, overflowListAfterDOMLoaded)
 
-  const LegacyTableOfContents: QuartzComponent = ({ fileData, cfg }: QuartzComponentProps) => {
+const LegacyTableOfContents: QuartzComponent = ({ fileData, displayClass, cfg }: QuartzComponentProps) => {
     if (!fileData.toc) {
       return null
     }
     return (
-      <details class="toc" open={!fileData.collapseToc}>
+      <details
+        class={classNames(displayClass, "toc")}
+        open={opts?.defaultOpen ?? !fileData.collapseToc}
+      >
         <summary>
           <h3>{i18n(cfg.locale).components.tableOfContents.title}</h3>
         </summary>

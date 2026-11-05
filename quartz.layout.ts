@@ -9,7 +9,7 @@ import { FileTrieNode } from "./quartz/util/fileTrie"
 // `new Function("return " + str)()`로 다시 만든다 — 바깥 스코프(클로저)를 전혀
 // 가져가지 못하므로, 참조하는 배열·헬퍼는 전부 함수 "안에" 정의해야 한다.
 const explorerSortFn = (a: FileTrieNode, b: FileTrieNode) => {
-  const folderOrder = ["모의해킹 기초", "웹취약점", "모바일취약점", "클라우드인프라", "LLM", "OSCP", "시큐어코딩", "도구"]
+  const folderOrder = ["모의해킹 기초", "웹취약점", "시큐어코딩", "모바일취약점", "클라우드인프라", "OSCP", "LLM", "도구"]
 
   const fileOrder = [
     // 모의해킹 기초 (역할 이해 → 범위 합의 → 방법론 → 보고)
@@ -17,6 +17,12 @@ const explorerSortFn = (a: FileTrieNode, b: FileTrieNode) => {
     "스코프와 교전규칙(RoE)",
     "모의해킹 방법론 총정리",
     "모의해킹 리포트 작성법",
+    // Java 웹 선수지식 (요청 흐름 → 실행 모델 → 화면 → 보안 경계 → 프레임워크)
+    "Java 웹 기초 1",
+    "Java 웹 기초 2",
+    "Java 웹 기초 3",
+    "Java 웹 기초 4",
+    "Java 웹 기초 5",
     // 웹취약점 시리즈 (읽는 순서)
     "웹 취약점 진단 기법 입문",
     "웹 취약점 진단 정찰편",
@@ -104,7 +110,17 @@ const explorerSortFn = (a: FileTrieNode, b: FileTrieNode) => {
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
   header: [],
-  afterBody: [],
+  afterBody: [
+    Component.ConditionalRender({
+      component: Component.RecentNotes({
+        title: "최근 글",
+        limit: 5,
+        showTags: false,
+        filter: (page) => page.slug !== "index",
+      }),
+      condition: (page) => page.fileData.slug === "index",
+    }),
+  ],
   footer: Component.Footer({
     links: {
       GitHub: "https://github.com/jackyzha0/quartz",
@@ -123,6 +139,7 @@ export const defaultContentPageLayout: PageLayout = {
     Component.ArticleTitle(),
     Component.ContentMeta(),
     Component.TagList(),
+    Component.MobileOnly(Component.TableOfContents({ layout: "legacy", defaultOpen: false })),
   ],
   left: [
     Component.PageTitle(),
@@ -142,8 +159,8 @@ export const defaultContentPageLayout: PageLayout = {
     Component.Explorer({ sortFn: explorerSortFn }),
   ],
   right: [
-    Component.Graph(),
     Component.DesktopOnly(Component.TableOfContents()),
+    Component.Graph(),
     Component.Backlinks(),
   ],
 }

@@ -182,6 +182,16 @@ button.desktop-explorer {
   }
 }
 
+@media all and not ($mobile) {
+  .sidebar.left > .explorer {
+    margin-top: -0.4rem;
+  }
+
+  .explorer-content {
+    margin-top: 0.25rem;
+  }
+}
+
 .folder-container {
   flex-direction: row;
   display: flex;

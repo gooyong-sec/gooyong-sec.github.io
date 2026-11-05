@@ -69,7 +69,4 @@ Model 2는 특정 클래스 이름을 강제하는 제품이 아니라 책임 �
 - 출력 위치에 맞는 인코딩을 적용했는가?
 - forward와 redirect의 요청 수명 및 인가 경계를 구분했는가?
 
-이전 글: [[Java 웹 기초 2 — Servlet 생명주기·멀티스레딩과 Scope]]
-다음 글: [[Java 웹 기초 4 — Filter·Session과 인증·인가]]
-
 참고: [Jakarta Expression Language](https://jakarta.ee/specifications/expression-language/), [Jakarta Tags](https://jakarta.ee/specifications/tags/)

@@ -65,6 +65,3 @@ Session ID는 인증 상태를 가리키는 열쇠이므로 로그·URL·오류 
 - Cookie에 필요한 Secure·HttpOnly·SameSite·범위·만료 속성이 있는가?
 - 인증과 객체 단위 인가를 별도로 검증하는가?
 - 상태 변경 요청과 동시 Session 변경을 안전하게 처리하는가?
-
-이전 글: [[Java 웹 기초 3 — JSP·EL·JSTL과 MVC Model 1·2]]
-다음 글: [[Java 웹 기초 5 — JDBC·트랜잭션과 Spring MVC 요청 흐름]]

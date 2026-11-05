@@ -81,6 +81,3 @@ Spring은 매핑, 데이터 바인딩, 검증, View 선택, 예외 처리를 편
 - Service의 업무 단위와 트랜잭션 경계가 일치하는가?
 - Controller 입력 검증과 Service 객체 단위 인가가 모두 존재하는가?
 - Filter·Interceptor·Controller·예외 처리의 실행 순서를 이해하고 있는가?
-
-이전 글: [[Java 웹 기초 4 — Filter·Session과 인증·인가]]
-다음 글: [[웹 취약점 진단 기법 입문 — XXE, SSRF부터 SQLi, XSS까지]]

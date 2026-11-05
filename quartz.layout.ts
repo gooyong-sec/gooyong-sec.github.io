@@ -111,6 +111,7 @@ export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
   header: [],
   afterBody: [
+    Component.PageNavigation(),
     Component.ConditionalRender({
       component: Component.RecentNotes({
         title: "최근 글",

@@ -1,0 +1,43 @@
+.page-navigation {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 1rem;
+  margin: 1.5rem 0;
+
+  .page-navigation-link {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    min-width: 0;
+    padding: 0.9rem 1rem;
+    border: 1px solid var(--lightgray);
+    border-radius: 0.5rem;
+    overflow-wrap: anywhere;
+    text-decoration: none;
+
+    &:hover,
+    &:focus-visible {
+      border-color: var(--secondary);
+    }
+  }
+
+  .page-navigation-direction {
+    color: var(--gray);
+    font-size: 0.85rem;
+  }
+
+  .next {
+    grid-column: 2;
+    text-align: right;
+  }
+}
+
+@media all and (max-width: 600px) {
+  .page-navigation {
+    grid-template-columns: 1fr;
+
+    .next {
+      grid-column: 1;
+    }
+  }
+}

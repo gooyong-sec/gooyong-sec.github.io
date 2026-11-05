@@ -25,6 +25,7 @@ import Flex from "./Flex"
 import ConditionalRender from "./ConditionalRender"
 import SecurityIssuesLink from "./SecurityIssuesLink"
 import CvePocLink from "./CvePocLink"
+import PageNavigation from "./PageNavigation"
 
 export {
   ArticleTitle,
@@ -54,4 +55,5 @@ export {
   ConditionalRender,
   SecurityIssuesLink,
   CvePocLink,
+  PageNavigation,
 }

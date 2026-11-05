@@ -1,0 +1,93 @@
+import { FileTrieNode } from "./util/fileTrie"
+
+export type LearningOrderItem = Pick<FileTrieNode, "displayName" | "isFolder">
+
+// Keep every dependency inside this function: Explorer serializes it with toString().
+export const learningOrderSort = (a: LearningOrderItem, b: LearningOrderItem) => {
+  const folderOrder = ["모의해킹 기초", "웹취약점", "시큐어코딩", "모바일취약점", "클라우드인프라", "OSCP", "LLM", "도구"]
+
+  const fileOrder = [
+    "모의해킹 vs 레드팀 vs 퍼플팀",
+    "스코프와 교전규칙(RoE)",
+    "모의해킹 방법론 총정리",
+    "모의해킹 리포트 작성법",
+    "Java 웹 기초 1",
+    "Java 웹 기초 2",
+    "Java 웹 기초 3",
+    "Java 웹 기초 4",
+    "Java 웹 기초 5",
+    "웹 취약점 진단 기법 입문",
+    "웹 취약점 진단 정찰편",
+    "웹 취약점 진단 설정편",
+    "웹 취약점 진단 인증편",
+    "웹 취약점 진단 인가편",
+    "웹 취약점 진단 로직편",
+    "웹 취약점 진단 SSO편",
+    "웹 취약점 진단 API편 — Mass Assignment와 필드 단위 인가(BOPLA)",
+    "웹 취약점 진단 — API 자원 소비 진단(Unrestricted Resource Consumption, API4)",
+    "웹 취약점 진단 — 비즈니스 플로우 남용과 봇 방어 우회(API6)",
+    "웹 취약점 진단 — 서드파티 연동·웹훅 신뢰 공격(API7·API10)",
+    "웹 취약점 진단 — 레거시·섀도우 API 자산 인벤토리(API9)",
+    "웹 취약점 진단 — WebSocket·실시간 통신 보안",
+    "웹 취약점 진단 — XSS 페이로드별 사용처와 목적",
+    "웹 취약점 진단 심화",
+    "웹 취약점 진단 인프라편",
+    "웹 취약점 진단 — 공급망·의존성 보안(SCA와 악성 패키지)",
+    "모바일 모의해킹 입문",
+    "모바일 취약점 진단 — 안드로이드 정적분석",
+    "모바일 취약점 진단 — iOS 정적분석",
+    "모바일 취약점 진단 — 앱 바이너리에서 API 계약 추출하기",
+    "모바일 취약점 진단 — Frida 동적분석과 네트워크",
+    "모바일 취약점 진단 — 로컬 저장소 포렌식",
+    "모바일 취약점 진단 — 안드로이드 IPC 공격면",
+    "모바일 취약점 진단 — WebView와 파일 접근 취약점",
+    "모바일 취약점 진단 — 딥링크·앱링크 공격표면",
+    "모바일 취약점 진단 — OAuth·PKCE 네이티브 플로우 공격",
+    "모바일 취약점 진단 — 백엔드 API 토큰 갱신과 디바이스 바인딩",
+    "모바일 취약점 진단 — 기기 신뢰 공격(Device Attestation 우회)",
+    "클라우드 인프라 진단 — IaC 보안 스캐닝(Terraform·K8s manifest)",
+    "클라우드 인프라 진단 — AWS IAM 권한상승 체인",
+    "클라우드 인프라 진단 — S3·스토리지 오남용과 데이터 유출 체인",
+    "클라우드 인프라 진단 — IMDS SSRF로 자격증명 탈취",
+    "클라우드 인프라 진단 — 컨테이너·Kubernetes 탈출",
+    "LLM 입문",
+    "보안 진단 학습 자료실",
+    "OWASP Top 10 for LLM",
+    "LLM 애플리케이션 모의해킹",
+    "PortSwigger Web LLM Attacks",
+    "LLM 서비스와 클라우드 공격 경로",
+    "LLM·AI 서비스 CVE",
+    "공격 체인 이전의 AD 아키텍처 기초",
+    "OSCP 추천 도구",
+    "윈도우 AD 침투",
+    "AD 환경 Kerberos 체인 공격",
+    "SysReptor로 OSCP 리포트 작성하기",
+    "Java Properties 파일 AES 암호화",
+    "AI한테 윈도우용 프로그램 개발을 통째로 맡겨보았다",
+    "Claude 작업을 Codex로 교차검증하기",
+    "취약점 진단 툴에 MCP 붙이기",
+    "Rea 써봤다",
+    "Hera — Frida 기반 동적 보안 분석 워크벤치를 직접 만들다",
+    "보안이슈 트래커 빌드 후기",
+    "블로그 인프라 자동화",
+  ]
+
+  if (a.isFolder && b.isFolder) {
+    const ai = folderOrder.findIndex((prefix) => a.displayName.startsWith(prefix))
+    const bi = folderOrder.findIndex((prefix) => b.displayName.startsWith(prefix))
+    const diff = (ai === -1 ? folderOrder.length : ai) - (bi === -1 ? folderOrder.length : bi)
+    if (diff !== 0) return diff
+  } else if (!a.isFolder && !b.isFolder) {
+    const ai = fileOrder.findIndex((prefix) => a.displayName.startsWith(prefix))
+    const bi = fileOrder.findIndex((prefix) => b.displayName.startsWith(prefix))
+    const diff = (ai === -1 ? fileOrder.length : ai) - (bi === -1 ? fileOrder.length : bi)
+    if (diff !== 0) return diff
+  } else {
+    return a.isFolder ? -1 : 1
+  }
+
+  return a.displayName.localeCompare(b.displayName, undefined, {
+    numeric: true,
+    sensitivity: "base",
+  })
+}

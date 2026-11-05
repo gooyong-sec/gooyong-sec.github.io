@@ -194,6 +194,4 @@ JSON, 폼 데이터, 파일 업로드는 파서도 다릅니다. 한 형식에 �
 - 요청 형식별 파서와 문자 인코딩이 명확한가?
 - 인증·인가·로그가 같은 정규화 값을 기준으로 동작하는가?
 
-다음 글: [[Java 웹 기초 2 — Servlet 생명주기·멀티스레딩과 Scope]]
-
 참고: [Jakarta Servlet Specification](https://jakarta.ee/specifications/servlet/), [Tomcat Architecture](https://tomcat.apache.org/tomcat-11.0-doc/architecture/overview.html)

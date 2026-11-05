@@ -73,6 +73,4 @@ JVM(Java Virtual Machine: Java 바이트코드를 실행하는 가상 머신)은
 - Request·Session·Application Scope를 필요한 최소 범위로 선택했는가?
 - `jakarta.servlet`과 레거시 `javax.servlet` 버전을 혼동하지 않았는가?
 
-다음 글: [[Java 웹 기초 3 — JSP·EL·JSTL과 MVC Model 1·2]]
-
 참고: [Jakarta Servlet Specification](https://jakarta.ee/specifications/servlet/), [Apache Tomcat Class Loader How-To](https://tomcat.apache.org/tomcat-11.0-doc/class-loader-howto.html)

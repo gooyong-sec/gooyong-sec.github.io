@@ -10,6 +10,8 @@ tags:
 
 이전 글 [[Java 웹 기초 2 — Servlet 생명주기·멀티스레딩과 Scope]]에서 요청 처리 객체의 수명과 동시성을 살펴봤습니다. 이번에는 Java 코드가 만든 데이터를 JSP 화면으로 전달하는 과정과 MVC 구조를 정리합니다.
 
+> **전체 왕복에서 이 글의 위치:** Controller가 Service와 DAO의 결과를 받은 뒤 JSP에 넘기고, JSP가 브라우저로 보낼 HTML을 만드는 부분입니다.
+
 ## 1. JSP는 결국 Servlet으로 실행된다
 
 JSP(JavaServer Pages: HTML 중심 문서에 서버 측 표현을 넣는 View 기술)는 파일 자체가 그대로 실행되는 것이 아닙니다. Container가 JSP를 Java Servlet 소스로 변환하고 컴파일한 뒤 그 Servlet을 실행합니다.

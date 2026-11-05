@@ -10,6 +10,8 @@ tags:
 
 이전 글 [[Java 웹 기초 1 — HTTP·웹 서버·WAS와 요청 처리 흐름]]에서는 요청이 WAS에 도착하기까지의 경계를 살펴봤습니다. 이제 Servlet Container가 Java 코드를 어떻게 만들고 여러 사용자의 요청을 동시에 처리하는지 알아봅니다.
 
+> **전체 왕복에서 이 글의 위치:** WAS가 `/login`에 맞는 Java 코드를 고르고 `service`, `doGet`, `doPost` 같은 메서드를 실행하는 부분입니다. 동시에 여러 사람이 버튼을 눌렀을 때 요청이 섞이지 않는 원리도 다룹니다.
+
 ## 1. Servlet은 요청을 처리하는 Java 컴포넌트다
 
 Servlet은 HTTP 요청을 Java 코드와 연결하는 서버 측 컴포넌트입니다. 현대 Jakarta EE에서는 `jakarta.servlet.*` 패키지를 사용합니다. 오래된 프로젝트의 `javax.servlet.*`는 같은 계보의 이전 네임스페이스이므로 사용하는 플랫폼 버전을 먼저 확인해야 합니다.

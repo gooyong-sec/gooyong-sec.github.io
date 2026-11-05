@@ -10,6 +10,8 @@ tags:
 
 이전 글 [[Java 웹 기초 4 — Filter·Session과 인증·인가]]까지 Servlet 기반 웹의 요청·상태 경계를 살펴봤습니다. 마지막으로 데이터베이스 작업과 Spring MVC가 이 구조를 어떻게 추상화하는지 연결합니다.
 
+> **전체 왕복에서 이 글의 위치:** Controller가 Service를 호출하고, Service가 DAO를 거쳐 데이터베이스에 들어갔다가 조회 결과를 반대 순서로 돌려받는 부분입니다.
+
 ## 1. JDBC와 DataSource
 
 JDBC(Java Database Connectivity: Java에서 관계형 데이터베이스에 접근하는 표준 API)는 연결을 얻고 SQL을 실행하며 결과를 읽는 인터페이스를 제공합니다. `DataSource`는 현재도 `javax.sql.DataSource` 타입이며 연결 획득 방식을 애플리케이션 코드와 분리합니다.

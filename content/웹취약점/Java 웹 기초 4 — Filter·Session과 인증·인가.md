@@ -10,6 +10,8 @@ tags:
 
 이전 글 [[Java 웹 기초 3 — JSP·EL·JSTL과 MVC Model 1·2]]에서 Controller와 View의 책임을 나눴습니다. 이번에는 요청 앞뒤의 공통 처리와 사용자 상태, 인증·인가 경계를 살펴봅니다.
 
+> **전체 왕복에서 이 글의 위치:** 요청이 Controller에 들어가기 전 Filter가 검사하는 부분과, 로그인 성공 응답의 Session ID Cookie가 다음 요청에 다시 실리는 부분입니다.
+
 ## 1. Filter Chain은 요청 앞뒤의 공통 경계다
 
 Filter는 Servlet 호출 전후에 요청과 응답을 처리합니다. 인코딩 설정, 인증 확인, 보안 헤더, 로깅처럼 여러 경로에 공통으로 필요한 작업에 적합합니다.

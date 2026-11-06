@@ -41,8 +41,7 @@ flowchart TD
 
 ## 1. IAM 정책·역할·신뢰 관계와 `iam:PassRole`
 
-> [!tip] 한 줄 비유
-> **IAM 정책(Policy)**은 건물 안에서 어느 문을 열 수 있는지 적은 **출입 규정**, **역할(Role)**은 그 규정이 묶인 **특수 업무용 조끼**, **신뢰 정책(Trust Policy)**은 그 조끼를 누가 입을 수 있는지 적은 **대여 명부**입니다. 그리고 **`iam:PassRole`**은 내가 못 입는 고권한 조끼를 **내가 조종하는 대리인(EC2·Lambda)에게 입혀서 내보내는 권한**입니다.
+**💡 한 줄 비유**: **IAM 정책(Policy)**은 건물 출입 규정, **역할(Role)**은 규정이 묶인 특수 업무용 조끼, **신뢰 정책(Trust Policy)**은 대여 명부이며, **`iam:PassRole`**은 내가 못 입는 고권한 조끼를 **내가 조종하는 대리인(EC2·Lambda)에게 입혀 내보내는 권한**입니다.
 
 ### 핵심 원리
 AWS의 권한 평가는 현재 주체의 자격 기반 정책(Identity-based Policy) 하나만 보지 않고 **리소스 기반 정책, 권한 경계(Permissions Boundary), 세션 정책, AWS Organizations SCP(서비스 제어 정책), 명시적 거부(`Explicit Deny`)**를 모두 교차 계산합니다. 따라서 정책 문서 한 곳에 `Allow`가 보인다고 바로 권한 상승으로 단정할 수 없습니다.
@@ -87,8 +86,7 @@ AWS의 권한 평가는 현재 주체의 자격 기반 정책(Identity-based Pol
 
 ## 2. `iam:PassRole`과 컴퓨트 생성 권한의 결합
 
-> [!tip] 한 줄 비유
-> 마스터키(`Role`)를 건네줄 권한(`PassRole`)만 있어도 손발이 없으면 소용없지만, **내 명령서(코드·스크립트)를 실행할 새 로봇(`Lambda`·`EC2`)을 조립할 권한**이 함께 있으면 마스터키의 힘을 그대로 쓸 수 있습니다.
+**💡 한 줄 비유**: 마스터키(`Role`)를 건네줄 권한(`PassRole`)만 있어도 손발이 없으면 소용없지만, **내 명령서(코드·스크립트)를 실행할 새 로봇(`Lambda`·`EC2`)을 조립할 권한**이 함께 있으면 마스터키의 힘을 그대로 쓸 수 있습니다.
 
 ```mermaid
 flowchart LR
@@ -122,8 +120,7 @@ flowchart LR
 
 ## 3. 관리형 정책 버전 조작 (`Policy Version`)
 
-> [!tip] 한 줄 비유
-> 내 출입증 자체는 못 바꿔도, **출입증이 참조하는 사내 규정집의 '개정판(새 버전)'을 내가 직접 발간해 기본 규정으로 지정**하거나, **예전에 넓게 허용됐던 구판 규정(과거 버전)을 다시 현행 규정으로 되돌리는** 방법입니다.
+**💡 한 줄 비유**: 내 출입증 자체는 못 바꿔도, **출입증이 참조하는 사내 규정집의 '개정판(새 버전)'을 직접 발간해 기본 규정으로 지정**하거나, **예전에 넓게 허용됐던 구판 규정(과거 버전)을 다시 현행으로 되돌리는** 방법입니다.
 
 ### 핵심 원리
 AWS **고객 관리형 정책(Customer Managed Policy)**은 문서를 수정할 때 덮어쓰지 않고 최대 5개까지 버전(`v1`~`v5`)을 관리하며, 그중 하나를 기본 버전(`IsDefaultVersion: true`)으로 지정해 적용합니다.
@@ -156,8 +153,7 @@ aws iam list-entities-for-policy --policy-arn arn:aws:iam::123456789012:policy/C
 
 ## 4. 정책 연결·인라인 정책 변경 동사의 조합
 
-> [!tip] 한 줄 비유
-> 규정집을 고치는 대신, **이미 회사 금고에 있는 '임원용 출입 규정 카드(`AdministratorAccess` 등)'를 내 명찰에 직접 걸거나(`Attach*Policy`)**, **내 명찰 뒷면에 '모든 출입 허용'이라고 포스트잇을 직접 적어 붙이는(`Put*Policy`)** 방식입니다.
+**💡 한 줄 비유**: 규정집을 고치는 대신, **금고에 있는 '임원용 출입 규정 카드(`AdministratorAccess` 등)'를 내 명찰에 직접 걸거나(`Attach*Policy`)**, **내 명찰 뒷면에 '모든 출입 허용'이라고 포스트잇을 직접 적어 붙이는(`Put*Policy`)** 방식입니다.
 
 ### 핵심 원리
 기존 관리형 정책을 주체에 연결하는 `iam:AttachUserPolicy`, `iam:AttachGroupPolicy`, `iam:AttachRolePolicy`와 인라인 정책을 직접 작성해 넣는 `iam:PutUserPolicy`, `iam:PutGroupPolicy`, `iam:PutRolePolicy`는 대상 주체와 허용 정책 범위가 제한되지 않으면 즉각적인 권한 상승 경로가 됩니다.
@@ -176,8 +172,7 @@ aws iam list-entities-for-policy --policy-arn arn:aws:iam::123456789012:policy/C
 
 ## 5. 체인 단위 진단 절차와 CloudTrail 탐지
 
-> [!tip] 한 줄 비유
-> 범인은 '열쇠 전달(`PassRole`)'이라는 단독 발자국을 남기지 않습니다. **'어떤 로봇을 만들면서(`CreateFunction`/`RunInstances`) 그 안에 무슨 열쇠(Role ARN)를 넣었는지'** 작업 지시서를 봐야 잡을 수 있습니다.
+**💡 한 줄 비유**: 범인은 '열쇠 전달(`PassRole`)'이라는 단독 발자국을 남기지 않습니다. **'어떤 로봇을 만들면서(`CreateFunction`/`RunInstances`) 그 안에 무슨 열쇠(Role ARN)를 넣었는지'** 작업 지시서를 봐야 잡을 수 있습니다.
 
 ### 실무 4단계 진단 워크플로
 1. **시작 주체 고정**: `aws sts get-caller-identity`로 현재 IAM User 또는 Assumed Role ARN과 계정 ID를 확인합니다.

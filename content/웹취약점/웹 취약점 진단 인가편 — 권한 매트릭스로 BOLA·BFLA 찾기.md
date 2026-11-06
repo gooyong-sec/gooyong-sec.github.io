@@ -8,91 +8,152 @@ tags:
   - IDOR
 ---
 
-[[웹 취약점 진단 기법 입문 — XXE, SSRF부터 SQLi, XSS까지]]에서 IDOR을 "계정 2개로 번호를 바꿔보는" 수준으로 다뤘다면, 이번 글은 그 뿌리를 **API 전체를 빠짐없이 훑는 테스트 매트릭스**로 확장합니다. ID 하나 바꿔보고 끝내면 같은 뿌리의 다른 구멍들(관리자 기능 직접 호출, 응답에 숨어든 권한 필드, REST/GraphQL 경로 불일치)을 놓치기 쉽습니다. [[웹 취약점 진단 심화 — 실무에서 보는 기법들]]의 GraphQL 섹션과 겹치지 않게, 이 글은 "인가 검증이 어디서 빠지는가"에만 초점을 맞춥니다.
+> [!summary] ⏱️ 5초 핵심 요약
+> - **한 줄 비유**: 인가(Authorization) 진단은 **"일반 사원·타 부서 사원·외부 방문객(역할)이 인사팀 캐비닛과 임원실(리소스)에 가서 열람·수정·폐기 버튼(동작)을 하나씩 전부 눌러보며 잠기지 않은 서랍을 찾는 전수 조사"**입니다.
+> - **핵심 원리**: 단순히 숫자 ID 하나만 바꿔보는 주먹구구식 IDOR 테스트를 넘어, **`역할(Role) × 리소스(Resource) × 동작(Action)`의 3차원 권한 매트릭스**로 펼쳐야 **객체 단위(BOLA), 기능 단위(BFLA), 속성 단위(BOPLA/Mass Assignment), 경로 간(REST vs GraphQL) 인가 누락**을 빠짐없이 찾아낼 수 있습니다.
+> - **핵심 진단 포인트**: ① UUID 식별자라도 소유권 검증 유무 확인, ② 타인 데이터 부분 마스킹에 속지 말 것, ③ 조회(`GET`)가 막혀 있어도 수정/삭제(`PUT`/`DELETE`)를 따로 호출할 것, ④ 응답에만 있던 권한 필드(`role`, `isAdmin`)를 수정 요청에 끼워 넣어볼 것.
 
----
-
-## 1. 권한 매트릭스 설계 — 역할 × 리소스 × 동작
-
-**원리**: IDOR 테스트를 "계정 A로 받은 요청을 계정 B 세션으로 재전송"에만 그치면 놓치는 축이 있습니다. 인가 결함은 **"누가"(역할) "무엇을"(객체/리소스) "어떻게"(동작=HTTP 메서드·기능) 건드리느냐**라는 세 축의 조합마다 따로 터질 수 있어서, 한 축만 고정해서 테스트하면 다른 축의 구멍을 체계적으로 놓치게 됩니다.
-
-OWASP API Security Top 10 2023은 이 두 축을 아예 별개 항목으로 분리해 둡니다: 객체 단위 인가 누락은 API1:2023(BOLA, Broken Object Level Authorization), 기능 단위 인가 누락은 API5:2023(BFLA, Broken Function Level Authorization)입니다. "남의 데이터를 볼 수 있는가"(BOLA)만 테스트하고 "일반 유저가 관리자 전용 기능을 호출할 수 있는가"(BFLA)를 빼먹으면, 데이터 열람 자체는 막혀 있어도 관리자 엔드포인트를 그대로 호출해 데이터를 바꾸거나 삭제하는 경로가 뚫린 채로 남습니다.
-
-실무에서는 역할(비로그인/일반 유저/타 유저/관리자/서비스 계정) × 리소스(주문, 결제수단, 사용자 프로필, 내부 설정 등) × 동작(GET/POST/PUT/PATCH/DELETE, 그리고 벌크 처리·내보내기 같은 비-CRUD 기능)을 표로 펼쳐 놓고 칸마다 "이 조합이 허용되어야 하는가 / 실제로 허용되는가"를 채웁니다. 매트릭스가 커 보여도 핵심은 "권한이 달라지는 모든 지점에서, 모든 메서드를 다 쳐 봤는가"라는 질문 하나입니다.
+[[웹 취약점 진단 기법 입문 — XXE, SSRF부터 SQLi, XSS까지]]에서 IDOR을 "계정 2개로 번호를 바꿔보는 기초 수준"으로 다뤘다면, 이번 글은 그 뿌리를 **API 전체를 빠짐없이 훑는 3차원 권한 매트릭스(Authorization Matrix)**로 확장합니다. ID 하나만 바꿔보고 끝내면 같은 뿌리에서 파생되는 관리자 기능 직접 호출(BFLA), 응답에 숨어든 권한 필드 변조(BOPLA), REST/GraphQL 경로 간 인가 불일치를 놓치기 쉽습니다.
 
 ```mermaid
 flowchart TD
-    A["역할(Role): 비로그인/일반/타 유저/관리자"] --> D{"테스트 매트릭스"}
-    B["리소스(Resource): 주문/결제수단/프로필 등"] --> D
-    C["동작(Action): GET/POST/PUT/PATCH/DELETE"] --> D
-    D --> E["칸마다 허용 여부(기대값 vs 실제 응답) 확인"]
+    Matrix["📐 3차원 권한 진단 매트릭스<br/>역할(Role) × 리소스(Resource) × 동작(Action)"] --> Axis1 & Axis2 & Axis3 & Axis4
+    Axis1["1️⃣ 객체 단위 (BOLA / IDOR)<br/>API1:2023<br/>남의 주문·프로필 ID(순번·UUID) 접근"]
+    Axis2["2️⃣ 기능 단위 (BFLA)<br/>API5:2023<br/>관리자 엔드포인트 및 PUT/DELETE 메서드 호출"]
+    Axis3["3️⃣ 속성 단위 (BOPLA / Mass Assignment)<br/>API3:2023<br/>내 정보 수정 시 role·isAdmin 필드 주입"]
+    Axis4["4️⃣ 다중 경로 불일치<br/>REST vs GraphQL vs BFF<br/>동일 리소스의 우회 진입로 탐색"]
 ```
-
-- 체크 포인트: 역할(최소 비로그인/일반/타 유저/관리자 4종)마다 각 엔드포인트의 GET/POST/PUT/PATCH/DELETE를 전부 호출해 기대값과 실제 응답(상태 코드·바디)을 표로 기록. OpenAPI/Swagger 문서가 있으면 그대로 엔드포인트 목록의 뼈대로 사용
-- 참고: [OWASP API Security Top 10 2023](https://api-security.owasp.org/editions/2023/en/0x11-t10/), [PortSwigger — API testing](https://portswigger.net/web-security/api-testing)
-
-## 2. 객체 단위 권한 누락 심화 (BOLA)
-
-**원리**: 식별자를 "예측 가능한 순번"에서 "UUID/GUID"로 바꾸면 많은 팀이 "이제 IDOR은 해결됐다"고 착각합니다. 하지만 식별자를 **추측하기 어렵다는 것**과 서버가 **소유권을 검증한다는 것**은 완전히 별개 문제입니다.
-
-UUID는 다른 경로(응답 바디, 알림 이메일, 공유 링크, 로그 노출, 레퍼러 헤더)로 유출되는 순간 그 자체로 접근 키가 되어 버리고, 서버가 "이 UUID의 주인이 요청자인지"를 매 요청마다 확인하지 않으면 비예측성은 아무 방어도 되지 않습니다. 즉 BOLA 방어는 식별자 설계가 아니라 **조회/수정/삭제 로직 안의 소유권 체크**에 있습니다.
-
-또 하나 놓치기 쉬운 함정이 "부분 마스킹"입니다. 타 유저의 주문을 조회했을 때 이름·이메일 같은 필드는 가려져 있지만 금액, 상태, 배송지, 주문 항목 같은 나머지 필드가 그대로 노출되면, 테스터가 "민감 정보는 가려졌으니 괜찮다"고 성급히 결론 내리고 지나가기 쉽습니다. 실제로는 그 자체로 BOLA이고, 마스킹된 필드가 일부 있다는 사실이 "권한 검증이 존재한다"는 증거가 되지 않습니다 — 오히려 필드별로 서로 다른 로직이 적용되고 있다는 신호이므로, 마스킹되지 않은 각 필드를 전부 별도로 민감도 판단해야 합니다.
-
-- 체크 포인트:
-  - UUID/GUID 식별자여도 소유자 검증 로직이 코드에 실제로 존재하는지(추측 난이도와 무관하게 확인)
-  - 타 유저 리소스 조회 응답에서 일부 필드만 마스킹되고 나머지가 노출되는지
-  - 식별자가 응답 바디·알림·공유 URL·Referer로 새어나가는 경로가 있는지
-- 참고: [OWASP API Security Top 10 2023 — API1 Broken Object Level Authorization](https://api-security.owasp.org/editions/2023/en/0xa1-broken-object-level-authorization/), [PortSwigger — Insecure direct object references](https://portswigger.net/web-security/access-control/idor)
-
-## 3. 기능 단위 권한 누락 (BFLA)
-
-**원리**: 관리자 화면에서만 호출하도록 만든 엔드포인트가, 실제로는 그 화면을 거치지 않고 직접 호출해도 응답하는 경우가 흔합니다. 원인은 서버가 "이 요청이 관리자 UI에서 왔다"는 사실과 "이 호출자가 실제로 관리자 역할이다"는 사실을 혼동하기 때문입니다 — URL이 `/admin/...`으로 시작한다거나, 프런트엔드 라우팅에서만 접근을 막아 뒀다거나, 특정 내부 호스트에서만 접근 가능하다고 가정하는 것은 **클라이언트 쪽 통제**일 뿐 서버 쪽 역할 검증이 아닙니다. 일반 유저 토큰으로 그 엔드포인트를 직접 호출했을 때 서버가 역할을 다시 확인하지 않으면 그대로 뚫립니다.
-
-같은 리소스에 대해 메서드별로 인가 체크가 다르게 구현된 경우도 자주 보입니다. 예를 들어 `GET /admin/users/{id}`는 역할 검증 미들웨어를 거치는데 `PUT /admin/users/{id}`나 `DELETE /admin/users/{id}`는 별도 핸들러로 늦게 추가되면서 같은 미들웨어를 타지 않는 식입니다. 조회(GET)는 막혀 있다는 사실이 수정·삭제(PUT/DELETE)도 막혀 있다는 보장이 전혀 되지 않으므로, 매트릭스에서 메서드 축을 생략하면 바로 이 구멍을 놓치게 됩니다.
-
-- 체크 포인트:
-  - 관리자 전용으로 보이는 엔드포인트를 일반 유저 토큰으로 직접 호출(프런트엔드 경유 없이)
-  - 같은 경로·같은 리소스에 대해 GET/POST/PUT/PATCH/DELETE 전부를 각 역할로 반복 호출해 메서드별 결과 비교
-  - 역할 검증이 라우터 레벨 미들웨어로 일괄 적용되는지 아니면 핸들러마다 개별 구현돼 있는지
-- 참고: [OWASP API Security Top 10 2023 — API5 Broken Function Level Authorization](https://api-security.owasp.org/editions/2023/en/0xa5-broken-function-level-authorization/), [OWASP Authorization Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html)
-
-## 4. 속성 단위 권한 누락 — 권한 상승으로 이어지는 필드
-
-**원리**: Mass assignment 자체는 "클라이언트가 보낸 필드를 서버가 화이트리스트 없이 객체에 그대로 바인딩한다"는 넓은 범주의 문제이지만, 여기서 다루는 것은 그중에서도 **권한 상승으로 직결되는 특정 필드**입니다. 사용자 프로필 수정(`PATCH /users/me`) 같은, 겉보기엔 평범한 자기 자신에 대한 요청에 서버 응답 바디에서 미리 확인한 `role`, `isAdmin`, `balance`, `planTier` 같은 필드를 요청 바디에 끼워 넣었을 때, 서버가 "요청자가 자기 자신의 레코드를 수정하는 것"까지는 제대로 검증하면서도 "어떤 필드까지 수정 가능한지"는 검증하지 않으면 그대로 반영됩니다.
-
-즉 이건 소유권 검증(BOLA)과는 다른 축의 문제입니다 — 본인 소유 리소스를 본인이 수정하는 것 자체는 정상이지만, 수정 가능한 속성의 범위를 서버가 제한하지 않은 것이 문제입니다.
-
-이 패턴을 찾으려면 먼저 GET 응답에 어떤 필드가 내려오는지부터 확인해야 합니다. 응답에 `role`이나 `isAdmin`이 보인다면, 그 필드를 PATCH/PUT 요청 바디에 그대로 포함시켜 보내 보고 응답이나 후속 GET에서 값이 바뀌었는지 확인합니다. 바뀐다면 서버가 입력 필드를 화이트리스트 없이 그대로 객체에 바인딩하고 있다는 뜻이고, 그 필드가 권한과 관련되어 있으므로 바로 권한 상승입니다.
-
-- 체크 포인트:
-  - GET 응답에 노출되는 전체 필드 목록 확보 후 권한 관련 필드(`role`, `isAdmin`, `permissions`, `balance`, `tier` 등) 식별
-  - 해당 필드를 PATCH/PUT 요청에 추가 삽입했을 때 서버가 거부하는지 그대로 반영하는지
-  - 서버 측에 요청 바디 바인딩용 화이트리스트(DTO 등)가 있는지 아니면 수신 JSON을 통째로 모델에 바인딩하는지
-- 참고: [OWASP API Security Top 10 2023 — API3 Broken Object Property Level Authorization](https://api-security.owasp.org/editions/2023/en/0xa3-broken-object-property-level-authorization/), [OWASP Mass Assignment Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Mass_Assignment_Cheat_Sheet.html)
-
-## 5. REST/GraphQL 혼용 환경의 인가 불일치
-
-**원리**: 같은 리소스를 REST 엔드포인트와 GraphQL 필드로 동시에 노출하는 구조에서는, 두 경로가 서로 다른 코드베이스나 서로 다른 리졸버를 거치는 경우가 많습니다. 이때 인가 검증 로직을 한쪽에만 구현하고 다른 쪽에는 "이미 다른 경로에서 막았으니 괜찮다"고 가정한 채 넘어가는 실수가 나옵니다 — 예를 들어 REST의 `GET /users/{id}/orders`는 요청자와 `{id}`가 일치하는지 확인하는 미들웨어를 거치지만, GraphQL 스키마의 `user(id: ID!) { orders { ... } }` 필드 리졸버는 별도로 구현되면서 같은 검증을 빠뜨리는 식입니다.
-
-이건 GraphQL 자체의 기능([[웹 취약점 진단 심화 — 실무에서 보는 기법들]]에서 다룬 introspection·배치 쿼리 문제)과는 다른 축의 문제로, **같은 데이터에 도달하는 경로가 여러 개일 때 인가 체크를 경로마다 중복 구현해야 하는데 하나를 빠뜨리는** 구조적 함정입니다.
-
-- 체크 포인트: 같은 리소스에 접근 가능한 모든 경로(REST 엔드포인트, GraphQL 쿼리/뮤테이션, 내부 BFF 경유 등)를 먼저 나열하고, 그중 인가 검증이 약한 경로로 동일한 데이터에 도달 가능한지 비교 테스트. 공통 인가 로직이 공유 미들웨어/디렉티브로 구현돼 있는지 아니면 경로마다 각자 구현돼 있는지
-- 참고: [OWASP GraphQL Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/GraphQL_Cheat_Sheet.html), [OWASP Authorization Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html)
-
-## 6. (참고) Rate Limit과의 교차 점검
-
-권한 매트릭스를 자동화 스크립트로 전부 돌리다 보면, 짧은 시간에 같은 계정으로 수십~수백 건의 요청이 몰려 rate limit에 걸리는 경우가 있습니다. 이때 나오는 403/429 응답을 "인가 검증이 정상 동작한다"고 잘못 해석하면 실제 인가 결함을 놓칩니다. 매트릭스 테스트 중 거부 응답을 받으면 상태 코드와 응답 바디(rate limit 메시지인지 인가 실패 메시지인지)를 반드시 구분하고, 필요하면 요청 사이에 지연을 주거나 계정을 분리해 재검증하세요.
 
 ---
 
-## 정리
+## 한눈에 보는 API 인가(Authorization) 4대 취약점 비교표
 
-| 축 | 핵심 질문 | 관련 OWASP API Top 10 |
-|---|---|---|
-| 객체(BOLA) | 다른 사용자의 리소스를 식별자만 바꿔 접근 가능한가 | API1:2023 |
-| 속성(필드) | 응답에만 있던 권한 필드를 요청에 끼워 넣으면 반영되는가 | API3:2023 |
-| 기능(BFLA) | 관리자 전용 기능을 일반 유저 토큰으로 직접 호출 가능한가 | API5:2023 |
-| 경로 불일치 | 같은 데이터에 도달하는 다른 경로(REST/GraphQL)는 인가 체크가 같은가 | - |
+| 인가 결함 분류 | OWASP API Top 10 (2023) | 핵심 진단 질문 | 실무에서 자주 빠지는 함정 |
+|---|---|---|---|
+| **1. 객체 단위 권한 누락 (BOLA / IDOR)** | **API1:2023** Broken Object Level Authorization | 사용자 A의 세션으로 사용자 B의 리소스 ID(`1002` 또는 `UUID`)를 조회·수정·삭제할 수 있는가? | 식별자를 UUID로 바꿨다고 안전하다고 착각하거나, 일부 필드(`**`)가 마스킹되어 있다고 정상으로 오판함 |
+| **2. 기능 단위 권한 누락 (BFLA)** | **API5:2023** Broken Function Level Authorization | 일반 유저 토큰으로 관리자 전용 URL(`/admin/...`)이나 다른 HTTP 메서드(`PUT`/`DELETE`/`export`)를 호출할 수 있는가? | `GET` 조회가 `403`으로 막혔다고 해서 같은 경로의 `PUT`/`POST`/`DELETE`도 막혔을 것이라 단정함 |
+| **3. 속성 단위 권한 누락 (BOPLA / Mass Assignment)** | **API3:2023** Broken Object Property Level Authorization | 내 정보를 정상 수정(`PATCH /users/me`)할 때 응답에서 본 `role`, `isAdmin`, `balance` 필드를 끼워 넣으면 반영되는가? | 본인 소유 객체를 수정하는 요청이라 BOLA 검사는 통과하지만, 수정 허용 필드 화이트리스트(DTO)가 빠져 있음 |
+| **4. 경로 간 인가 불일치 (REST vs GraphQL)** | 아키텍처 / 공통 인가 결손 | REST API(`GET /orders/1`)는 막혀 있는데, 같은 데이터를 가리키는 GraphQL 쿼리나 레거시/모바일 API 경로는 열려 있는가? | 인가 로직을 도메인/서비스 계층이 아닌 특정 라우터 미들웨어 한 곳에만 구현해 다른 진입로가 뚫림 |
 
-이 매트릭스는 한 번 짜 두면 신규 엔드포인트가 추가될 때마다 행만 늘리면 되는 재사용 가능한 체크리스트가 됩니다. 더 넓은 공격 표면은 [[웹 취약점 진단 심화 — 실무에서 보는 기법들]]을, 설정값 기반 결함은 [[웹 취약점 진단 설정편 — CORS·SOP부터 후속 공격까지]]를 참고하세요.
+---
+
+## 1. 권한 매트릭스 설계 — `역할 × 리소스 × 동작`
+
+**💡 한 줄 비유**: 건물 보안 점검을 할 때 1층 정문만 흔들어보는 대신, **출입자 등급별(외부인·일반직원·타팀직원·관리자)로 모든 방(리소스)의 열기·넣기·고치기·부수기(HTTP 메서드)를 체크리스트 표로 만들어 빈칸 없이 전부 채워보는 방법**입니다.
+
+```mermaid
+flowchart LR
+    R["👤 역할 (Role)<br/>비로그인 / 일반유저 A / 타 유저 B / 관리자"] --> M{"📋 권한 매트릭스 교차 대입"}
+    O["📦 리소스 (Resource)<br/>주문 / 결제수단 / 프로필 / 시스템 설정"] --> M
+    A["⚡ 동작 (Action)<br/>GET / POST / PUT / PATCH / DELETE / Bulk·Export"] --> M
+    M --> V["🔍 기대 결과(401/403) vs 실제 응답(200 OK) 비교"]
+```
+
+- **왜 3차원 매트릭스가 필요한가?**: 인가 결함은 **"누가(역할)" × "무엇을(리소스/객체)" × "어떻게(동작/메서드)"**라는 세 축의 조합마다 독립적으로 발생합니다. "남의 데이터를 볼 수 있는가(BOLA)"만 확인하고 "일반 유저가 관리자 기능이나 삭제 메서드를 호출할 수 있는가(BFLA)"를 빼먹으면 절반만 진단한 셈이 됩니다.
+- **실전 권한 매트릭스 작성 예시**:
+
+| 리소스 엔드포인트 | 동작 (Method) | 비로그인 | 타 유저 (B 세션 → A 객체) | 본인 (A 세션 → A 객체) | 관리자 | 진단 포인트 |
+|---|---|---|---|---|---|---|
+| `/api/orders/{id}` | `GET` | ❌ `401` | ❌ `403` (허용 시 **BOLA**) | ✅ `200` | ✅ `200` | 수평적 조회 권한 검증 |
+| `/api/orders/{id}` | `DELETE` | ❌ `401` | ❌ `403` (허용 시 **BOLA**) | ⚠️ 정책 확인 | ✅ `200` | 조회는 막고 삭제는 열린 경우 |
+| `/api/admin/users/export` | `POST` | ❌ `401` | ❌ `403` (허용 시 **BFLA**) | ❌ `403` (허용 시 **BFLA**) | ✅ `200` | 수직적 기능 권한 검증 |
+
+- **체크 포인트**:
+  - 최소 4종 역할(비로그인 / 일반 유저 A / 타 유저 B / 관리자) 준비
+  - OpenAPI(Swagger) 문서나 JS 번들에서 추출한 모든 엔드포인트에 대해 `GET`/`POST`/`PUT`/`PATCH`/`DELETE`를 전수 호출하여 표 기록
+- **참고**: [OWASP API Security Top 10 2023](https://api-security.owasp.org/editions/2023/en/0x11-t10/), [PortSwigger — API testing](https://portswigger.net/web-security/api-testing)
+
+---
+
+## 2. 객체 단위 권한 누락 심화 (BOLA / IDOR)
+
+**💡 한 줄 비유**: 아파트 현관문 번호를 `101호` 대신 추측하기 어려운 긴 암호 이름(`f47ac10b-58cc-...` UUID)으로 바꿨다고 해서 **현관문 도어락(서버의 소유권 확인)을 아예 안 달아놓으면, 택배 송장이나 우편물에서 그 긴 이름을 본 사람은 누구나 문을 열고 들어갈 수 있습니다.**
+
+- **함정 1 — "UUID를 썼으니 IDOR은 막았다"는 착각**:
+  - 식별자를 순차 번호(`1001`, `1002`)에서 UUID/GUID로 바꾸면 공격자가 숫자를 1씩 늘려가며 대입하기는 어려워집니다. 하지만 **식별자를 추측하기 어렵다는 것(Obscurity)과 서버가 소유권을 검증한다는 것(Authorization)은 전혀 다른 문제**입니다.
+  - UUID는 공개 게시글 작성자 정보, 공유 링크, 알림 이메일, 로그, `Referer` 헤더 등 다른 API 응답에서 생각보다 쉽게 노출됩니다. 서버 코드에 `WHERE order_id = ? AND user_id = ?` 같은 소유권 검증이 없다면 UUID를 쓰는 순간에도 BOLA는 그대로 성립합니다.
+- **함정 2 — "부분 마스킹(`홍*동`)이 되어 있으니 안전하다"는 오판**:
+  - 타 유저의 주문을 조회했을 때 이름(`홍*동`)이나 전화번호 뒷자리가 마스킹되어 내려오면 진단자가 "보안 처리가 되어 있네"라고 넘어가기 쉽습니다.
+  - 그러나 마스킹은 화면 표시용 유틸리티가 돌아간 결과일 뿐 **타인의 주문 객체 자체에 대한 접근통제가 실패했다는 명백한 증거**이며, 함께 내려오는 주문 상품명·결제 금액·배송 상태·주소 일부 등 마스킹되지 않은 나머지 필드만으로도 심각한 개인정보 유출(BOLA)이 성립합니다.
+- **체크 포인트**:
+  - 식별자가 UUID이더라도 계정 A의 UUID를 복사해 계정 B의 세션으로 요청했을 때 차단되는지 확인
+  - 응답에 마스킹된 필드가 일부 있더라도 전체 응답 구조와 노출 필드의 민감도를 끝까지 평가
+- **참고**: [OWASP API Security Top 10 2023 — API1 Broken Object Level Authorization](https://api-security.owasp.org/editions/2023/en/0xa1-broken-object-level-authorization/), [PortSwigger — Insecure direct object references](https://portswigger.net/web-security/access-control/idor)
+
+---
+
+## 3. 기능 단위 권한 누락 (BFLA)
+
+**💡 한 줄 비유**: 일반 직원 화면에서는 '전 사원 급여 내역 다운로드' 버튼을 안 보이게 감춰뒀지만, **서버 담당 창구에서는 요청서를 낸 사람이 인사팀장인지 확인하지 않아 일반 직원이 직접 신청서 URL(`/api/admin/payroll/export`)을 적어 내면 그대로 파일을 내주는 상황**입니다.
+
+- **핵심 원리와 자주 뚫리는 2가지 패턴**:
+  1. **관리자 UI 숨김에 의존한 백엔드 미검증**: 서버가 "이 API는 관리자 화면에서만 호출하도록 프런트엔드를 짰으니 일반 유저는 못 부를 것"이라고 가정하고 백엔드 역할(Role) 검증을 빼먹는 경우입니다. JS 번들 정찰([[웹 취약점 진단 정찰편 — 공격표면 매핑과 헤더 기반 접근통제 우회]])이나 URL 추측(`/api/users` → `/api/admin/users`)으로 찾아내 일반 유저 토큰으로 호출하면 그대로 실행됩니다.
+  2. **HTTP 메서드별 미들웨어 적용 누락**: 예를 들어 `GET /api/admin/notices`에는 관리자 확인 어노테이션을 붙였는데, 나중에 추가한 `POST`나 `DELETE /api/admin/notices/{id}` 핸들러에는 어노테이션을 빠뜨리는 실수가 실무에서 매우 흔합니다. 따라서 `GET`이 `403`으로 막혔더라도 반드시 **`POST`, `PUT`, `PATCH`, `DELETE` 메서드를 각각 바꿔가며 호출**해 봐야 합니다.
+- **체크 포인트**:
+  - 관리자/매니저 전용 엔드포인트를 일반 유저(및 비로그인) 토큰으로 직접 호출
+  - 동일 URL에 대해 HTTP 메서드를 `GET`/`POST`/`PUT`/`PATCH`/`DELETE`로 모두 변경하며 역할 검증 누락 여부 확인
+- **참고**: [OWASP API Security Top 10 2023 — API5 Broken Function Level Authorization](https://api-security.owasp.org/editions/2023/en/0xa5-broken-function-level-authorization/), [OWASP Authorization Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html)
+
+---
+
+## 4. 속성 단위 권한 누락 (BOPLA / Mass Assignment)
+
+**💡 한 줄 비유**: 동사무소에 '내 전화번호 변경 신청서(`PATCH /users/me`)'를 내면서 신청서 빈 공간에 내가 직접 **`"직급: 시장님(`"role": "ADMIN"`), 보유 포인트: 1000만 점"`이라고 한 줄 더 적어 냈더니, 직원이 적힌 내용을 가리지 않고 컴퓨터 DB에 통째로 덮어써 주는 허점**입니다.
+
+- **핵심 원리**: 이 취약점은 남의 객체를 건드리는 BOLA와 다릅니다. **분명히 '내 소유의 프로필이나 내 데이터'를 수정하는 정당한 요청이지만, 사용자가 수정해서는 안 되는 내부 권한·상태 속성(`role`, `isAdmin`, `balance`, `planTier`, `verified`)까지 서버가 구분 없이 도메인 엔티티에 통째로 바인딩할 때** 발생합니다.
+
+### 진단 절차와 취약한 코드 vs 안전한 코드
+1. 먼저 내 정보 조회(`GET /api/users/me`) 응답 JSON을 유심히 관찰해 서버 모델이 어떤 필드 이름(`"role": "USER"`, `"is_admin": false`, `"credit": 0` 등)을 쓰는지 단서를 확보합니다.
+2. 내 닉네임을 수정하는 정상 요청(`PATCH /api/users/me`)의 JSON 바디에 위에서 발견한 권한 필드를 슬쩍 추가해 전송합니다.
+
+```http
+PATCH /api/users/me HTTP/1.1
+Host: api.example.com
+Authorization: Bearer <일반유저_토큰>
+Content-Type: application/json
+
+{
+  "nickname": "alice",
+  "role": "ADMIN",
+  "isAdmin": true
+}
+```
+
+```java
+// ❌ 취약한 코드: 요청 JSON을 DB 엔티티(User)에 직접 바인딩 (role, isAdmin까지 덮어써짐!)
+@PatchMapping("/users/me")
+public User updateMe(@RequestBody User inputUser, @AuthenticationPrincipal Long myId) {
+    return userService.saveDirect(myId, inputUser);
+}
+
+// ✅ 안전한 코드: 수정이 허용된 필드만 담긴 전용 DTO(UpdateProfileRequest)로만 입력 수신
+public record UpdateProfileRequest(String nickname, String bio) {} // role 필드 자체가 없음!
+```
+
+- **체크 포인트**:
+  - 모든 `GET` 응답에 등장하는 권한·등급·잔액·승인 상태 필드명을 수집한 뒤, 대응하는 `POST`/`PUT`/`PATCH` 요청 바디에 추가 삽입해 값 반영 여부 확인
+- **참고**: [OWASP API Security Top 10 2023 — API3 Broken Object Property Level Authorization](https://api-security.owasp.org/editions/2023/en/0xa3-broken-object-property-level-authorization/), [OWASP Mass Assignment Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Mass_Assignment_Cheat_Sheet.html)
+
+---
+
+## 5. REST / GraphQL / 다중 경로 혼용 환경의 인가 불일치
+
+**💡 한 줄 비유**: 본관 정문(REST API)에는 경비원을 세워 신분증을 꼼꼼히 확인하면서, **같은 금고실로 연결된 별관 통로(GraphQL 쿼리·모바일 BFF·구버전 API)에는 "본관에서 이미 막았겠지"라고 경비원을 안 세워둔 구조적 사각지대**입니다.
+
+- **핵심 원리**: 하나의 서비스가 REST 엔드포인트(`GET /users/{id}/orders`)와 GraphQL 엔드포인트(`/graphql`의 `user(id: "...") { orders { ... } }`), 또는 웹용 API와 모바일 앱 전용 API를 동시에 운영하는 경우가 많습니다.
+- 이때 인가 검증 로직을 도메인 Service 계층 한곳에 모으지 않고 **각 컨트롤러나 리졸버마다 따로 구현하면**, REST 쪽에서는 막혀 있는 BOLA/BFLA가 GraphQL의 하위 중첩 리졸버나 레거시 경로에서는 아무 검증 없이 뚫리는 불일치가 발생합니다.
+- **체크 포인트**:
+  - 동일한 비즈니스 데이터(주문, 회원 정보 등)에 도달할 수 있는 모든 진입 경로(REST v1/v2, GraphQL 쿼리·뮤테이션, 모바일/외부 연동 API)를 나열하고 동일한 권한 매트릭스를 교차 적용
+- **참고**: [OWASP GraphQL Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/GraphQL_Cheat_Sheet.html), [OWASP Authorization Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html)
+
+---
+
+## 6. 권한 매트릭스 자동화 시 주의사항: Rate Limit과의 교차 점검
+
+**💡 한 줄 비유**: 서랍이 잠겼는지 확인하려고 1초에 100번씩 손잡이를 당겼더니, **방범 셔터(Rate Limit)가 내려와 안 열리는 것인데 그걸 보고 "아, 서랍 자물쇠(인가 검증)가 튼튼하게 잠겨 있구나!"라고 착각하는 실수**입니다.
+
+- 권한 매트릭스를 스크립트나 Burp Intruder로 빠르게 돌리다 보면 짧은 시간에 동일 계정/IP로 수백 건의 요청이 몰려 WAF나 API 게이트웨이의 **Rate Limit**에 걸릴 수 있습니다.
+- 이때 반환되는 `429 Too Many Requests` 또는 WAF의 일괄 `403 Forbidden` 응답을 **"서버의 인가 검증이 정상적으로 거부했다"고 오판하면 실제 인가 취약점을 놓치게 됩니다.**
+- **체크 포인트**:
+  - 거부 응답 수신 시 상태 코드(`401`/`403` vs `429`)와 **응답 본문 메시지(권한 부족 메시지인지, 호출 횟수 초과/WAF 차단 메시지인지)**를 반드시 구분해 확인하고, 필요 시 요청 간 지연(Throttle)을 두어 정확히 검증하세요.
+- 더 넓은 공격 표면은 [[웹 취약점 진단 심화 — 실무에서 보는 기법들]]을, 브라우저 설정 기반 결함은 [[웹 취약점 진단 설정편 — CORS·SOP부터 후속 공격까지]]를 이어서 참고하세요.

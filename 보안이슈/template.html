@@ -269,9 +269,12 @@ function bars(rows, max){
   return rows.map(([k, n, href]) => `<div class="bar"><span title="${esc(k)}">${href ? `<a href="${href}">${esc(k)}</a>` : esc(k)}</span><i style="width:${Math.max(3, n / m * 100)}%"></i><span>${n}</span></div>`).join('');
 }
 const count = (arr, f) => { const o = {}; arr.forEach(x => { const k = f(x); if (k) o[k] = (o[k] || 0) + 1; }); return Object.entries(o).sort((a, b) => b[1] - a[1]); };
+// 날짜 필드가 "결함 패치(벤더) 보도 기준..."처럼 자유 서술로 시작해도 연도별 집계가 깨지지 않도록,
+// 맨 앞 4글자 대신 문자열 어디든 있는 첫 20xx년을 찾는다.
+const yearOf = (date) => (date.match(/20\d{2}/) || [date.slice(0, 4)])[0];
 
 function vHome(){
-  const years = count(incidents, i => i.date.slice(0, 4)).sort((a, b) => a[0].localeCompare(b[0]));
+  const years = count(incidents, i => yearOf(i.date)).sort((a, b) => a[0].localeCompare(b[0]));
   const topT = Object.entries(byTech).map(([k, v]) => [`${k} ${catName[k] || ''}`, v.length, `#/matrix/${k}`]).sort((a, b) => b[1] - a[1]).slice(0, 10);
   const types = count(incidents, i => i.cls && i.cls[0] ? `${i.cls[0]} ${classes[i.cls[0]]}` : '');
   const distinctAll = new Set(catalog.map(c => c.id)).size;
@@ -309,10 +312,10 @@ function incCard(i){
     <div>${ts.map(techChip).join('')}</div></article>`;
 }
 function vTimeline(){
-  const years = [...new Set(incidents.map(i => i.date.slice(0, 4)))].sort().reverse();
+  const years = [...new Set(incidents.map(i => yearOf(i.date)))].sort().reverse();
   const types = [...new Set(incidents.map(i => i.type))].sort();
   const q = state.q.trim().toLowerCase();
-  const rows = incidents.filter(i => (!state.year || i.date.startsWith(state.year)) && (!state.type || i.type === state.type) &&
+  const rows = incidents.filter(i => (!state.year || yearOf(i.date) === state.year) && (!state.type || i.type === state.type) &&
     (!state.cls || (i.cls || []).includes(state.cls)) &&
     (!state.ev || i.evidence === state.ev) && (!q || searchText[i.id].includes(q))).sort((a, b) => b.date.localeCompare(a.date));
   view.innerHTML = `<h1>사건 타임라인</h1><p class="sub">${rows.length}건 · 카드를 누르면 원인·침투 경로·조치를 본다.</p>

@@ -313,3 +313,11 @@ D20261110-gpustack|TA0002|T1059|확인|벤더 확인: 내장 관리자 권한 �
 D20261110-freeswitch|TA0001|T1190|확인|벤더 보안 권고·CISA KEV 확인: 조작된 SIP MESSAGE 요청(CVE-2026-116779)을 통한 실제 악용
 D20261110-freeswitch|TA0002|T1059|확인|벤더 확인: To 헤더 api 프로토콜 라우팅으로 switch_api_execute() 및 운영체제 명령 실행
 D20261110-faspex|TA0004|T1068|확인|IBM 보안 권고·CISA KEV 확인: 조작된 메시지로 인가 검사를 우회해 전체 관리자 권한 획득(CVE-2026-123218) 실제 악용
+D20261111-chrome|TA0001|T1189|확인|Google 보안 권고·CISA KEV 확인: 조작된 HTML/XML 웹페이지 방문을 통한 브라우저 침투(CVE-2026-125350)
+D20261111-chrome|TA0002|T1203|확인|Google 보안 권고·CISA KEV 확인: Chrome XML 파서 UAF 결함을 악용해 브라우저 샌드박스 내 임의 코드 실행
+D20261111-outlook|TA0002|T1204.002|확인|Microsoft 보안 권고·CISA KEV 확인: 사용자가 조작된 메시지 파일을 Outlook에서 열도록 유도해 취약점 트리거(CVE-2026-124194)
+D20261111-outlook|TA0006|T1187|확인|Microsoft 보안 권고·CISA KEV 확인: 외부 콘텐츠 경고창 없이 공격자 제어 원격 경로로 자동 연결을 유도해 NTLMv2 인증 해시 탈취
+D20261111-barracuda|TA0001|T1190|확인|Barracuda 보안 공지·CISA KEV 확인: 노출된 ESG 관리 화면에서 설정 가져오기 기능 인증 우회(CVE-2026-116606) 실제 악용
+D20261111-barracuda|TA0002|T1059|확인|Barracuda 보안 공지·CISA KEV 확인: 시간대(timezone) 설정 필드에 OS 명령을 삽입해 root 권한으로 실행(CVE-2026-111560)
+D20261111-broadworks|TA0001|T1190|확인|Cisco 보안 공지·CISA KEV 확인: BroadWorks OCI-P 서비스에 조작된 XML(XXE) 메시지를 보내 비인증 악용(CVE-2026-20320)
+D20261111-broadworks|TA0009|T1005|확인|Cisco 보안 공지·CISA KEV 확인: XXE를 통해 파일 시스템 내 민감한 시스템 설정 파일 열람·수집

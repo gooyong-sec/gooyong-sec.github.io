@@ -17,9 +17,9 @@ flowchart LR
     Track --> T2["🛡️ 2. 시큐어코딩<br/>암호화 · 입력 검증 · 인가 설계"]
     Track --> T3["📱 3. 모바일 보안<br/>MASVS · Android/iOS 정적 · Frida 동적"]
     Track --> T4["☁️ 4. 클라우드·컨테이너<br/>IaC → IAM → IMDS → S3 → K8s 탈출"]
-    Track --> T5["🏰 5. 시스템·AD·OSCP<br/>AD 기초 → 도구 → 피벗·Kerberos 체인 → 리포트"]
+    Track --> T5["🏰 5. 시스템·AD·OSCP<br/>추천 도구 → AD 기초 → 피벗·Kerberos 체인 → 리포트"]
     Track --> T6["🤖 6. LLM·AI 보안<br/>LLM/RAG 기초 → OWASP Top 10 → 14개 진단"]
-    Track --> T7["⚙️ 7. 보안 도구·자동화<br/>AI 활용 · 교차검증 · MCP 연동 · 제작 · 운영"]
+    Track --> T7["⚙️ 7. 보안 도구·자동화<br/>MCP 연동 · Rea · Hera · AI 교차검증 · 자동화"]
 ```
 
 ---
@@ -33,9 +33,9 @@ flowchart LR
 | **2. 시큐어코딩** | 취약점이 코드·암호 설계에서 발생하는 원인과 안전한 구현법을 찾을 때 | AES, 블록 암호 모드(ECB/CBC/GCM), 입력 검증 | [[Java Properties 파일 AES 암호화 — ECB 모드의 함정]] |
 | **3. 모바일 보안** | Android/iOS 앱의 정적 리버싱부터 Frida 후킹·컴포넌트·인증 분석까지 익힐 때 | OWASP MASVS, jadx, iOS Binary, Frida, IPC, WebView, Attestation | [[모바일 모의해킹 입문 — 환경 구축과 MASVS 체크리스트]] |
 | **4. 클라우드·컨테이너 보안** | Terraform/K8s 코드 스캔부터 AWS IAM·IMDS·S3·K8s 탈출 체인을 볼 때 | IaC, IAM `PassRole`, IMDSv2, S3 BPA, K8s RBAC | [[클라우드 인프라 진단 — IaC 보안 스캐닝(Terraform·K8s manifest)]] |
-| **5. 시스템·AD·OSCP** | Windows AD 아키텍처 원리와 실전 자격증명 피벗·Kerberos 체인·리포팅을 익힐 때 | Kerberos, DACL/ACE, LSASS, 위임 남용, OSCP, SysReptor | [[공격 체인 이전의 AD 아키텍처 기초 — Kerberos, NTLM, DACL·ACE, GPO·SYSVOL, 도메인 트러스트]] |
+| **5. 시스템·AD·OSCP** | OSCP 시험 도구 세팅부터 Windows AD 아키텍처·자격증명 피벗·Kerberos 체인·리포팅까지 익힐 때 | OSCP, Kerberos, DACL/ACE, LSASS, 위임 남용, SysReptor | [[OSCP 사용 도구|OSCP 추천 도구]] |
 | **6. LLM·AI 보안** | 생성형 AI·RAG·에이전트 서비스의 신규 위협과 모의해킹 기법을 다룰 때 | Prompt Injection, RAG, Excessive Agency, OWASP LLM | [[LLM 입문 — 거대언어모델·에이전트·RAG 개념 정리]] |
-| **7. 보안 도구·자동화** | AI 코딩·교차검증부터 Ghidra·Burp·Frida에 MCP를 붙여 분석을 자동화할 때 | MCP, Ghidra, Burp Suite, Frida, Rea, Hera, Quartz | [[AI한테 윈도우용 프로그램 개발을 통째로 맡겨보았다 — Gemini CLI 바이브 코딩 후기]] |
+| **7. 보안 도구·자동화** | Ghidra·Burp·Frida에 MCP를 붙여 분석을 자동화하고 AI 교차검증·인프라를 구축할 때 | MCP, Ghidra, Burp Suite, Frida, Rea, Hera, Quartz | [[취약점 진단 툴에 MCP 붙이기 Ghidra Burp jadx|취약점 진단 툴에 MCP 붙이기 — Ghidra · Burp · jadx를 Claude에 연동하기]] |
 
 ---
 
@@ -69,28 +69,28 @@ flowchart LR
 
 **💡 한 줄 비유**: 건물의 배관과 전기 배선도(Java 웹 서버·서블릿·세션·DB 흐름)를 먼저 이해해야 어디서 누수(SQLi, XSS, SSRF, 인증·인가·API 결함)가 터지는지 정확히 짚어낼 수 있습니다.
 
-- **웹 아키텍처 기초 (Java Web 5부작)**
+- **Step 1. 웹 아키텍처 기초 (Java Web 5부작)**
   - [[Java 웹 기초 1 — HTTP·웹 서버·WAS와 요청 처리 흐름]]
   - [[Java 웹 기초 2 — Servlet 생명주기·멀티스레딩과 Scope]]
   - [[Java 웹 기초 3 — JSP·EL·JSTL과 MVC Model 1·2]]
   - [[Java 웹 기초 4 — Filter·Session과 인증·인가]]
   - [[Java 웹 기초 5 — JDBC·트랜잭션과 Spring MVC 요청 흐름]]
-- **웹 취약점 진단 기본 (입문 → 정찰·설정·인증·인가·로직·SSO)**
+- **Step 2. 웹 취약점 입문 및 진단 단계별 본편 (입문 → 정찰 → 설정 → 인증·SSO → 인가·BOPLA → 비즈니스 로직·API)**
   - [[웹 취약점 진단 기법 입문 — XXE, SSRF부터 SQLi, XSS까지]]
+  - [[웹 취약점 진단 — XSS 페이로드별 사용처와 목적]]
   - [[웹 취약점 진단 정찰편 — 공격표면 매핑과 헤더 기반 접근통제 우회]]
+  - [[웹 취약점 진단 — 레거시·섀도우 API 자산 인벤토리(API9)]]
   - [[웹 취약점 진단 설정편 — CORS·SOP부터 후속 공격까지]]
   - [[웹 취약점 진단 인증편 — 계정 잠금 우회부터 세션 하이재킹까지]]
-  - [[웹 취약점 진단 인가편 — 권한 매트릭스로 BOLA·BFLA 찾기]]
-  - [[웹 취약점 진단 로직편 — 비즈니스 로직 결함 찾는 법]]
   - [[웹 취약점 진단 SSO편 — OAuth·OIDC 플로우 공격]]
-- **API·실시간 통신·심화·인프라·공급망 진단**
+  - [[웹 취약점 진단 인가편 — 권한 매트릭스로 BOLA·BFLA 찾기]]
   - [[웹 취약점 진단 API편 — Mass Assignment와 필드 단위 인가(BOPLA)]]
-  - [[웹 취약점 진단 — API 자원 소비 진단(Unrestricted Resource Consumption, API4)]]
+  - [[웹 취약점 진단 로직편 — 비즈니스 로직 결함 찾는 법]]
   - [[웹 취약점 진단 — 비즈니스 플로우 남용과 봇 방어 우회(API6)]]
+  - [[웹 취약점 진단 — API 자원 소비 진단(Unrestricted Resource Consumption, API4)]]
+- **Step 3. 외부 연동·실시간 채널·실무 심화 및 인프라·공급망 보안**
   - [[웹 취약점 진단 — 서드파티 연동·웹훅 신뢰 공격(API7·API10)]]
-  - [[웹 취약점 진단 — 레거시·섀도우 API 자산 인벤토리(API9)]]
   - [[웹 취약점 진단 — WebSocket·실시간 통신 보안]]
-  - [[웹 취약점 진단 — XSS 페이로드별 사용처와 목적]]
   - [[웹 취약점 진단 심화 — 실무에서 보는 기법들]]
   - [[웹 취약점 진단 인프라편 — CI-CD와 클라우드 설정 노출|웹 취약점 진단 인프라편 — CI/CD와 클라우드 설정 노출]]
   - [[웹 취약점 진단 — 공급망·의존성 보안(SCA와 악성 패키지)]]
@@ -108,23 +108,23 @@ flowchart LR
 
 ### 3. 모바일 보안
 
-**💡 한 줄 비유**: 내 손안의 스마트폰(클라이언트)은 공격자가 통제하는 영역입니다. **앱 패키지를 뜯어보는 정적 분석부터 메모리·네트워크 동적 분석, 로컬 저장소·IPC·인증·기기 신뢰 우회까지** 순서대로 익힙니다.
+**💡 한 줄 비유**: 내 손안의 스마트폰(클라이언트)은 공격자가 통제하는 영역입니다. **앱 패키지를 뜯어보는 정적 분석과 로컬 포렌식부터 IPC·딥링크·WebView 공격면, Frida 동적 분석·기기 신뢰 우회, 모바일 인증 플로우까지** 순서대로 익힙니다.
 
-- **환경 구축 및 정적 분석**
+- **Step 1. 환경 구축·정적 분석 및 로컬 포렌식**
   - [[모바일 모의해킹 입문 — 환경 구축과 MASVS 체크리스트]]
   - [[모바일 취약점 진단 — 안드로이드 정적분석]]
   - [[모바일 취약점 진단 — iOS 정적분석]]
   - [[모바일 취약점 진단 — 앱 바이너리에서 API 계약 추출하기]]
-- **동적 분석 및 로컬 포렌식**
-  - [[모바일 취약점 진단 — Frida 동적분석과 네트워크]]
   - [[모바일 취약점 진단 — 로컬 저장소 포렌식]]
-- **컴포넌트 공격면 및 인증·기기 신뢰 심화**
+- **Step 2. 클라이언트 컴포넌트 공격면 (IPC → 딥링크 → WebView)**
   - [[모바일 취약점 진단 — 안드로이드 IPC 공격면]]
-  - [[모바일 취약점 진단 — WebView와 파일 접근 취약점]]
   - [[모바일 취약점 진단 — 딥링크·앱링크 공격표면]]
+  - [[모바일 취약점 진단 — WebView와 파일 접근 취약점]]
+- **Step 3. 동적 계측·기기 신뢰 우회 및 인증·토큰 보안**
+  - [[모바일 취약점 진단 — Frida 동적분석과 네트워크]]
+  - [[모바일 취약점 진단 — 기기 신뢰 공격(Device Attestation 우회)]]
   - [[모바일 취약점 진단 — OAuth·PKCE 네이티브 플로우 공격]]
   - [[모바일 취약점 진단 — 백엔드 API 토큰 갱신과 디바이스 바인딩]]
-  - [[모바일 취약점 진단 — 기기 신뢰 공격(Device Attestation 우회)]]
 
 ---
 
@@ -144,46 +144,47 @@ flowchart LR
 
 ### 5. 시스템·Active Directory·OSCP
 
-**💡 한 줄 비유**: Windows 도메인(AD)의 정상 출입·위임 규정을 먼저 이해한 뒤, **실전 도구를 챙겨 자격증명 피벗과 Kerberos 티켓 체인으로 도메인 컨트롤러(DC)까지 장악하고, 마지막에 보고서(SysReptor)로 완성하는 과정**입니다.
+**💡 한 줄 비유**: 시험장에 들어가기 전 **필수 전동 공구(추천 도구)부터 손에 익히고, Windows 도메인(AD)의 정상 출입·위임 규정을 이해한 뒤, 자격증명 피벗과 Kerberos 티켓 체인으로 도메인 컨트롤러(DC)까지 장악하고 마지막에 보고서(SysReptor)로 마무리하는 과정**입니다.
 
-- **선행 아키텍처 기초 및 실전 도구**
-  - [[공격 체인 이전의 AD 아키텍처 기초 — Kerberos, NTLM, DACL·ACE, GPO·SYSVOL, 도메인 트러스트]]
+- **Step 1. 시험 준비 및 필수 실전 도구**
   - [[OSCP 사용 도구|OSCP 추천 도구]]
-- **AD 자격증명 피벗 & Kerberos 공격 체인**
+- **Step 2. AD 아키텍처 기초 및 공격 체인 (피벗·권한상승 → Kerberos 위임)**
+  - [[공격 체인 이전의 AD 아키텍처 기초 — Kerberos, NTLM, DACL·ACE, GPO·SYSVOL, 도메인 트러스트]]
   - [[윈도우 AD 침투 자격증명 피벗 권한상승 3가지 기법|윈도우 AD 침투: 자격증명 피벗·권한상승 3가지 기법]]
   - [[AD 환경 Kerberos 체인 공격 - 위임 남용과 토큰 가장|AD 환경 Kerberos 체인 공격: 위임 남용과 토큰 가장으로 DC 장악]]
-- **실전 리포팅**
+- **Step 3. 시험 마무리 리포팅**
   - [[SysReptor로 OSCP 리포트 작성하기]]
 
 ---
 
 ### 6. LLM·AI 보안
 
-**💡 한 줄 비유**: 말 한마디로 데이터베이스를 조회하고 외부 API를 호출하는 **AI 대리인(LLM·RAG·Agent)을 속여, 의도치 않은 기밀 유출과 권한 남용을 일으키는 최신 공격 표면**을 진단합니다.
+**💡 한 줄 비유**: 말 한마디로 데이터베이스를 조회하고 외부 API를 호출하는 **AI 대리인(LLM·RAG·Agent)의 동작 원리와 OWASP Top 10 위협부터, 14개 실전 진단 항목·핸즈온 실습·클라우드 연계 공격·CVE 카탈로그·학습 로드맵까지** 순서대로 정복합니다.
 
-- **기초 개념과 위협 프레임워크**
+- **Step 1. 개념 입문 및 위협 프레임워크**
   - [[LLM 입문 — 거대언어모델·에이전트·RAG 개념 정리]]
-  - [[보안 진단 학습 자료실]]
   - [[OWASP Top 10 for LLM 2025 심화 해설]]
-- **실전 모의해킹·실습·클라우드 연계 및 CVE 카탈로그**
+- **Step 2. 실전 모의해킹·랩 실습·클라우드 연계 및 CVE 카탈로그**
   - [[LLM 애플리케이션 모의해킹 14개 취약점 진단|LLM 애플리케이션 모의해킹: 14개 취약점 진단]]
   - [[PortSwigger Web LLM Attacks 랩 실습 — 과도한 권한부터 인다이렉트 인젝션까지]]
   - [[LLM 서비스와 클라우드 공격 경로 — 실무 진단 체크리스트]]
   - [[LLM·AI 서비스 CVE와 공개 PoC 카탈로그]]
+- **Step 3. 종합 학습 로드맵**
+  - [[보안 진단 학습 자료실]]
 
 ---
 
 ### 7. 보안 도구와 자동화
 
-**💡 한 줄 비유**: AI 에이전트 활용과 교차 검증부터 정적 디컴파일러(Ghidra, jadx)·동적 분석기(Burp, Frida)에 **MCP를 직접 연결해 반복 분석을 자동화하고 정적 서비스를 구축·운영하는 엔지니어링 기록**입니다.
+**💡 한 줄 비유**: 정적 디컴파일러(Ghidra, jadx)·동적 분석기(Burp, Frida)에 **MCP를 직접 연결하고 자체 분석 워크벤치(Hera)를 만드는 것부터, AI 교차검증과 정적 보안 서비스·블로그 자동화까지 이어지는 엔지니어링 기록**입니다.
 
-- **AI 개발·교차검증 및 보안 도구 MCP 연동**
-  - [[AI한테 윈도우용 프로그램 개발을 통째로 맡겨보았다 — Gemini CLI 바이브 코딩 후기]]
-  - [[Claude 작업을 Codex로 교차검증하기 — MCP로 두 AI 붙이기]]
+- **Step 1. 보안 진단 도구 MCP 연동 및 동적 분석 워크벤치 제작**
   - [[취약점 진단 툴에 MCP 붙이기 Ghidra Burp jadx|취약점 진단 툴에 MCP 붙이기 — Ghidra · Burp · jadx를 Claude에 연동하기]]
-- **자체 분석 도구 제작 및 블로그·트래커 인프라 자동화**
   - [[Rea 써봤다 — MCP로 붙는 AI 역공학 에이전트 도구]]
   - [[Hera — Frida 기반 동적 보안 분석 워크벤치를 직접 만들다]]
+- **Step 2. AI 에이전트 교차검증 및 서비스·인프라 자동화**
+  - [[Claude 작업을 Codex로 교차검증하기 — MCP로 두 AI 붙이기]]
+  - [[AI한테 윈도우용 프로그램 개발을 통째로 맡겨보았다 — Gemini CLI 바이브 코딩 후기]]
   - [[보안이슈 트래커 빌드 후기 — psv와 build.mjs로 서버 없는 정적 도구 만들기]]
   - [[블로그 인프라 자동화 — Quartz, GitHub Actions, 로컬 빌드 깜빡임 없애기|블로그 인프라 자동화 — Quartz · GitHub Actions · 로컬 빌드 깜빡임 없애기]]
 

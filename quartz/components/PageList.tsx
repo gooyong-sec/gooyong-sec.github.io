@@ -3,8 +3,23 @@ import { QuartzPluginData } from "../plugins/vfile"
 import { Date, getDate } from "./Date"
 import { QuartzComponent, QuartzComponentProps } from "./types"
 import { GlobalConfiguration } from "../cfg"
+import { learningOrderSort } from "../learningOrder"
 
 export type SortFn = (f1: QuartzPluginData, f2: QuartzPluginData) => number
+
+export function byLearningOrderFolderFirst(): SortFn {
+  return (f1, f2) =>
+    learningOrderSort(
+      {
+        displayName: f1.frontmatter?.title ?? "",
+        isFolder: isFolderPath(f1.slug ?? ""),
+      },
+      {
+        displayName: f2.frontmatter?.title ?? "",
+        isFolder: isFolderPath(f2.slug ?? ""),
+      },
+    )
+}
 
 export function byDateAndAlphabetical(cfg: GlobalConfiguration): SortFn {
   return (f1, f2) => {
@@ -58,7 +73,7 @@ type Props = {
 } & QuartzComponentProps
 
 export const PageList: QuartzComponent = ({ cfg, fileData, allFiles, limit, sort }: Props) => {
-  const sorter = sort ?? byDateAndAlphabeticalFolderFirst(cfg)
+  const sorter = sort ?? byLearningOrderFolderFirst()
   let list = allFiles.sort(sorter)
   if (limit) {
     list = list.slice(0, limit)

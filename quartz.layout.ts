@@ -12,7 +12,11 @@ const explorerSortFn = (a: FileTrieNode, b: FileTrieNode) => {
   const folderOrder = ["모의해킹 기초", "웹취약점", "시큐어코딩", "모바일취약점", "클라우드인프라", "OSCP", "LLM", "도구"]
 
   const fileOrder = [
-    // 모의해킹 기초 (역할 이해 → 범위 합의 → 방법론 → 열거·피벗팅 → OS 내부구조 → 보고)
+    // 모의해킹 기초 (IT 기초 → 핵심 용어집 → 역할 이해 → 범위 합의 → 방법론 → 열거·피벗팅 → OS 내부구조 → 보고)
+    "모의해킹 전에 알아야 할 IT 기초 — 클라이언트-서버, IP·포트, HTTP",
+    "모의해킹 전에 알아야 할 IT 기초 — 운영체제, 파일과 권한, 터미널",
+    "모의해킹 전에 알아야 할 IT 기초 — 인증과 인가, 세션과 토큰",
+    "모의해킹 핵심 용어집",
     "모의해킹 vs 레드팀 vs 퍼플팀",
     "스코프와 교전규칙(RoE)",
     "모의해킹 방법론 총정리",
@@ -27,7 +31,7 @@ const explorerSortFn = (a: FileTrieNode, b: FileTrieNode) => {
     "Java 웹 기초 3",
     "Java 웹 기초 4",
     "Java 웹 기초 5",
-    // 웹취약점 시리즈 (읽는 순서)
+    // 웹취약점 시리즈 (입문 → 정찰·설정·인증·인가·로직·SSO → API·실시간·심화·인프라·공급망)
     "웹 취약점 진단 기법 입문",
     "웹 취약점 진단 정찰편",
     "웹 취약점 진단 설정편",
@@ -45,7 +49,9 @@ const explorerSortFn = (a: FileTrieNode, b: FileTrieNode) => {
     "웹 취약점 진단 심화",
     "웹 취약점 진단 인프라편",
     "웹 취약점 진단 — 공급망·의존성 보안(SCA와 악성 패키지)",
-    // 모바일취약점 시리즈 (읽는 순서)
+    // 시큐어코딩
+    "Java Properties 파일 AES 암호화",
+    // 모바일취약점 시리즈 (환경·MASVS → 정적분석·API 추출 → 동적분석·포렌식 → 컴포넌트·인증·기기 신뢰)
     "모바일 모의해킹 입문",
     "모바일 취약점 진단 — 안드로이드 정적분석",
     "모바일 취약점 진단 — iOS 정적분석",
@@ -58,13 +64,19 @@ const explorerSortFn = (a: FileTrieNode, b: FileTrieNode) => {
     "모바일 취약점 진단 — OAuth·PKCE 네이티브 플로우 공격",
     "모바일 취약점 진단 — 백엔드 API 토큰 갱신과 디바이스 바인딩",
     "모바일 취약점 진단 — 기기 신뢰 공격(Device Attestation 우회)",
-    // 클라우드인프라 시리즈 (읽는 순서)
+    // 클라우드인프라 시리즈 (IaC 사전 스캔 → IAM 권한상승 → IMDS 자격증명 탈취 → S3 데이터 유출 → K8s 탈출)
     "클라우드 인프라 진단 — IaC 보안 스캐닝(Terraform·K8s manifest)",
     "클라우드 인프라 진단 — AWS IAM 권한상승 체인",
-    "클라우드 인프라 진단 — S3·스토리지 오남용과 데이터 유출 체인",
     "클라우드 인프라 진단 — IMDS SSRF로 자격증명 탈취",
+    "클라우드 인프라 진단 — S3·스토리지 오남용과 데이터 유출 체인",
     "클라우드 인프라 진단 — 컨테이너·Kubernetes 탈출",
-    // LLM (개념 입문 → 학습 자료 → 심화 → 실습 → 카탈로그)
+    // OSCP (AD 아키텍처 기초 → 실전 도구 → AD 자격증명 피벗·권한상승 → Kerberos 위임 체인 → 리포트 작성)
+    "공격 체인 이전의 AD 아키텍처 기초",
+    "OSCP 추천 도구",
+    "윈도우 AD 침투",
+    "AD 환경 Kerberos 체인 공격",
+    "SysReptor로 OSCP 리포트 작성하기",
+    // LLM (개념 입문 → 학습 자료 → OWASP Top 10 → 14개 취약점 진단 → 실습 랩 → 클라우드 경로 → CVE 카탈로그)
     "LLM 입문",
     "보안 진단 학습 자료실",
     "OWASP Top 10 for LLM",
@@ -72,15 +84,7 @@ const explorerSortFn = (a: FileTrieNode, b: FileTrieNode) => {
     "PortSwigger Web LLM Attacks",
     "LLM 서비스와 클라우드 공격 경로",
     "LLM·AI 서비스 CVE",
-    // OSCP (기초 구조 → 도구 → 공격 체인 → 보고)
-    "공격 체인 이전의 AD 아키텍처 기초",
-    "OSCP 추천 도구",
-    "윈도우 AD 침투",
-    "AD 환경 Kerberos 체인 공격",
-    "SysReptor로 OSCP 리포트 작성하기",
-    // 시큐어코딩
-    "Java Properties 파일 AES 암호화",
-    // 도구 (일반 AI 활용 → 보안 도구 연동 → 제작 사례 → 운영 자동화)
+    // 도구 (일반 AI 활용 → 교차검증 → 보안 도구 MCP 연동 → 제작 사례 → 운영 자동화)
     "AI한테 윈도우용 프로그램 개발을 통째로 맡겨보았다",
     "Claude 작업을 Codex로 교차검증하기",
     "취약점 진단 툴에 MCP 붙이기",

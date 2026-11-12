@@ -19,10 +19,10 @@ tags:
 flowchart TD
     Code["📝 IaC 선언 코드 작성<br/>(Terraform .tf / K8s .yaml)"] --> Scan["🔍 정적 보안 스캐닝 (CI Gate)<br/>Checkov · Trivy · KICS"]
     Scan --> R1 & R2 & R3 & R4
-    R1["1. 네트워크 노출<br/>0.0.0.0/0 · ::/0 · 외부 LB"]
-    R2["2. 하드코딩 시크릿<br/>평문 비밀번호 · K8s Secret YAML"]
-    R3["3. 상태 파일(tfstate)<br/>Git 커밋 · 취약한 원격 백엔드"]
-    R4["4. 워크로드 격리 약화<br/>privileged · hostPath · 과도한 IAM"]
+    R1["① 네트워크 노출<br/>0.0.0.0/0 · ::/0 · 외부 LB"]
+    R2["② 하드코딩 시크릿<br/>평문 비밀번호 · K8s Secret YAML"]
+    R3["③ 상태 파일(tfstate)<br/>Git 커밋 · 취약한 원격 백엔드"]
+    R4["④ 워크로드 격리 약화<br/>privileged · hostPath · 과도한 IAM"]
     R1 & R2 & R3 & R4 --> Gate{"고위험 규칙 위반 및<br/>예외 승인 여부"}
     Gate -->|"미승인 고위험 탐지"| Block["🛑 PR 병합 및 배포 차단"]
     Gate -->|"통과 + 런타임 드리프트 점검"| Deploy["✅ 클라우드·클러스터 배포"]

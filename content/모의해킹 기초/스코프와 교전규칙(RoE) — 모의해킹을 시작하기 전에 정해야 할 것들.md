@@ -17,11 +17,11 @@ tags:
 
 ```mermaid
 flowchart TD
-    Start["📝 모의해킹 착수 전 (PTES 1단계: Pre-Engagement)"] --> Auth["1. 서면 허가 및 승인권자 확인<br/>(자사 소유 vs 클라우드/SaaS 제3자 자산)"]
-    Auth --> Scope["2. 스코프(Scope) 확정<br/>(In-Scope 목록 + Out-of-Scope 명시)"]
-    Scope --> Design["3. 테스트 설계 2축 정의<br/>(정보량: Black·Grey·White / 출발점: 외부·Assumed Breach)"]
-    Design --> RoE["4. 교전규칙(RoE) 세부 합의<br/>(허용 시간·출발지 IP·금지 행위·중단 조건)"]
-    RoE --> Safety["5. 현장 안전장치 가동<br/>(서면 승인서 소지 + SOC Deconfliction 절차)"]
+    Start["📝 모의해킹 착수 전 (PTES 1단계: Pre-Engagement)"] --> Auth["① 서면 허가 및 승인권자 확인<br/>(자사 소유 vs 클라우드/SaaS 제3자 자산)"]
+    Auth --> Scope["② 스코프(Scope) 확정<br/>(In-Scope 목록 + Out-of-Scope 명시)"]
+    Scope --> Design["③ 테스트 설계 2축 정의<br/>(정보량: Black·Grey·White / 출발점: 외부·Assumed Breach)"]
+    Design --> RoE["④ 교전규칙(RoE) 세부 합의<br/>(허용 시간·출발지 IP·금지 행위·중단 조건)"]
+    RoE --> Safety["⑤ 현장 안전장치 가동<br/>(서면 승인서 소지 + SOC Deconfliction 절차)"]
     Safety --> Go["🚀 안전한 본 진단 시작"]
 ```
 

@@ -25,13 +25,13 @@ flowchart LR
         Infra["모델 서버 · MLOps<br/>(Ollama · MLflow)"]
     end
     subgraph VulnClass["7대 주요 CVE 발생 패턴"]
-        V1["1. 무인증 관리·코드 실행 API"]
-        V2["2. URL 가져오기 → SSRF"]
-        V3["3. 파일·아티팩트 경로 조작 (LFI)"]
-        V4["4. Pickle·직렬화 인젝션"]
-        V5["5. 도구·샌드박스 호스트 탈출"]
-        V6["6. 악성 모델 서버 SSE 코드 인젝션"]
-        V7["7. CSRF · 로컬 서비스 · 업로드 경계"]
+        V1["① 무인증 관리·코드 실행 API"]
+        V2["② URL 가져오기 → SSRF"]
+        V3["③ 파일·아티팩트 경로 조작 (LFI)"]
+        V4["④ Pickle·직렬화 인젝션"]
+        V5["⑤ 도구·샌드박스 호스트 탈출"]
+        V6["⑥ 악성 모델 서버 SSE 코드 인젝션"]
+        V7["⑦ CSRF · 로컬 서비스 · 업로드 경계"]
     end
     Surface --> VulnClass --> Impact["🚨 호스트 RCE · 내부망/IMDS 접근 · 비밀 탈취"]
 ```

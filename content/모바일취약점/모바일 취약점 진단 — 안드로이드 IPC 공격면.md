@@ -17,11 +17,11 @@ tags:
 ```mermaid
 flowchart TD
     Start["🔓 열려 있는 진입점 확인<br/>(exported='true' & 권한 미흡)"] --> C1 & C2 & C3 & C4 & C5
-    C1["1. Activity 하이재킹<br/>Explicit Intent로 직접 호출<br/>→ Extra URL을 WebView.loadUrl()이나<br/>파일 경로/상태 플래그에 직결"]
-    C2["2. 민감 Service 호출<br/>startService / bindService(AIDL)<br/>→ getCallingUid() 검증 없이<br/>백그라운드 결제·설정 변경 실행"]
-    C3["3. Broadcast 스니핑 & 스푸핑<br/>암묵적 송신 → 타 앱 동적 리시버가 가로채기<br/>exported Receiver → 위조 상태 수신"]
-    C4["4. ContentProvider 인젝션<br/>selection 문자열 결합 → SQLi<br/>openFile(../) 미정규화 → Path Traversal"]
-    C5["5. PendingIntent 변조<br/>FLAG_MUTABLE + 미지정 필드<br/>→ fillIn()으로 목적지·권한 가로채기"]
+    C1["① Activity 하이재킹<br/>Explicit Intent로 직접 호출<br/>→ Extra URL을 WebView.loadUrl()이나<br/>파일 경로/상태 플래그에 직결"]
+    C2["② 민감 Service 호출<br/>startService / bindService(AIDL)<br/>→ getCallingUid() 검증 없이<br/>백그라운드 결제·설정 변경 실행"]
+    C3["③ Broadcast 스니핑 & 스푸핑<br/>암묵적 송신 → 타 앱 동적 리시버가 가로채기<br/>exported Receiver → 위조 상태 수신"]
+    C4["④ ContentProvider 인젝션<br/>selection 문자열 결합 → SQLi<br/>openFile(../) 미정규화 → Path Traversal"]
+    C5["⑤ PendingIntent 변조<br/>FLAG_MUTABLE + 미지정 필드<br/>→ fillIn()으로 목적지·권한 가로채기"]
 ```
 
 ---

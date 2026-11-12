@@ -17,19 +17,19 @@ tags:
 
 ```mermaid
 flowchart LR
-    subgraph Source["1. 텍스트 원본 데이터 (Git 관리)"]
+    subgraph Source["① 텍스트 원본 데이터 (Git 관리)"]
         MD["일일/*.md · 과거3년/*.md<br/>(쉽게 말하면 / 원인 / 침투 경로 / 조치)"]
         PSV1["ATTACK/매핑.psv<br/>(사건ID|전술|기법|근거|설명)"]
         PSV2["ATTACK/_catalog.psv<br/>(ATT&CK 공식 기법 카탈로그)"]
         PSV3["국내뉴스.psv · 분류.psv · 용어집.psv"]
     end
-    subgraph Build["2. 무의존성 빌드 & 검증 (node build.mjs)"]
+    subgraph Build["② 무의존성 빌드 & 검증 (node build.mjs)"]
         Parse["PSV/MD 파싱<br/>(Node.js 내장 fs · path만 사용)"]
         Check["🔍 참조 무결성 검증<br/>(미존재 사건ID · 오타 기법ID 경고)"]
         Inline["📦 템플릿 치환 & 인라인 패키징<br/>(데이터 + CSS + JS 결합)"]
         Parse --> Check --> Inline
     end
-    subgraph Output["3. 배포 산출물"]
+    subgraph Output["③ 배포 산출물"]
         HTML["📄 단일 index.html (~320KB)<br/>서버 없이 더블클릭 실행 & /security-issues/ 배포"]
     end
     Source --> Build --> Output

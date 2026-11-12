@@ -19,12 +19,12 @@ tags:
 flowchart TD
     subgraph PTES["🗺️ PTES: 모의해킹 프로젝트 전체 7단계 생명주기"]
         direction LR
-        P1["1. Pre-Engagement<br/>(범위·RoE 합의)"] --> P2["2. Intelligence Gathering<br/>(자산·공격 표면 수집)"]
-        P2 --> P3["3. Threat Modeling<br/>(중요 자산·위협 우선순위)"]
-        P3 --> P4["4. Vulnerability Analysis<br/>(약점 식별·오탐 제거)"]
-        P4 --> P5["5. Exploitation<br/>(승인 범위 내 최소 영향 입증)"]
-        P5 --> P6["6. Post-Exploitation<br/>(파급 범위·탐지 흔적 확인)"]
-        P6 --> P7["7. Reporting<br/>(증적·위험·조치 의사결정)"]
+        P1["① Pre-Engagement<br/>(범위·RoE 합의)"] --> P2["② Intelligence Gathering<br/>(자산·공격 표면 수집)"]
+        P2 --> P3["③ Threat Modeling<br/>(중요 자산·위협 우선순위)"]
+        P3 --> P4["④ Vulnerability Analysis<br/>(약점 식별·오탐 제거)"]
+        P4 --> P5["⑤ Exploitation<br/>(승인 범위 내 최소 영향 입증)"]
+        P5 --> P6["⑥ Post-Exploitation<br/>(파급 범위·탐지 흔적 확인)"]
+        P6 --> P7["⑦ Reporting<br/>(증적·위험·조치 의사결정)"]
     end
 
     subgraph WSTG["📋 OWASP WSTG: 웹 보안 테스트 세부 카탈로그"]

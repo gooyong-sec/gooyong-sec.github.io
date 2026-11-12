@@ -20,13 +20,13 @@ SSO는 "토큰을 발급하는 서버(IdP)"와 "토큰을 받아쓰는 서버(�
 
 ```mermaid
 flowchart TD
-    Start["🔑 OAuth 2.0 / OIDC 로그인 시작"] --> S1["1. 인가 요청 단계<br/>(redirect_uri · state · code_challenge)"]
+    Start["🔑 OAuth 2.0 / OIDC 로그인 시작"] --> S1["① 인가 요청 단계<br/>(redirect_uri · state · code_challenge)"]
     S1 -->|"redirect_uri 느슨한 매칭"| A1["🚨 인가 코드 외부 유출"]
     S1 -->|"state 생성·검증 누락"| A2["🚨 로그인 CSRF / 강제 계정 연결"]
-    S1 --> S2["2. 코드 전달 및 토큰 교환 단계<br/>(PKCE code_verifier · 1회성 코드)"]
+    S1 --> S2["② 코드 전달 및 토큰 교환 단계<br/>(PKCE code_verifier · 1회성 코드)"]
     S2 -->|"PKCE 미적용 / 코드 재사용 허용"| A3["🚨 인가 코드 가로채기·리플레이"]
     S2 -->|"Implicit Flow (response_type=token)"| A4["🚨 URL Fragment 토큰 평문 노출"]
-    S2 --> S3["3. 토큰 검증 및 계정 매핑 단계<br/>(id_token vs access_token · email_verified)"]
+    S2 --> S3["③ 토큰 검증 및 계정 매핑 단계<br/>(id_token vs access_token · email_verified)"]
     S3 -->|"id_token을 API 인가에 무검증 사용"| A5["🚨 Audience(aud) 혼동 인증 우회"]
     S3 -->|"email_verified 미확인 자동 연결"| A6["🚨 기존 계정 가로채기 (Pre-hijacking)"]
     S3 -->|"localStorage 저장 + XSS 존재"| A7["🚨 토큰 영구 탈취"]

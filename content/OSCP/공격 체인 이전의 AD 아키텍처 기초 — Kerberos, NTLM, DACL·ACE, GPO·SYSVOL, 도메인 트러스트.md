@@ -20,13 +20,13 @@ tags:
 ```mermaid
 flowchart TD
     Arch["🏛️ Active Directory 6대 아키텍처 기둥"] --> P1 & P2 & P3
-    P1["1. 논리 계층과 경계<br/>Forest(보안 경계) > Domain(인증·복제) > OU(위임·GPO)"]
-    P2["2. 인증 프로토콜<br/>Kerberos(TGT·TGS·SPN) vs NTLM(Challenge-Response 폴백)"]
-    P3["3. 기본 디렉터리 가독성<br/>Authenticated Users의 LDAP 읽기 → BloodHound 그래프 수집"]
+    P1["① 논리 계층과 경계<br/>Forest(보안 경계) > Domain(인증·복제) > OU(위임·GPO)"]
+    P2["② 인증 프로토콜<br/>Kerberos(TGT·TGS·SPN) vs NTLM(Challenge-Response 폴백)"]
+    P3["③ 기본 디렉터리 가독성<br/>Authenticated Users의 LDAP 읽기 → BloodHound 그래프 수집"]
     P1 & P2 & P3 --> P4 & P5 & P6
-    P4["4. 객체별 권한 제어 (DACL·ACE)<br/>GenericAll · GenericWrite · WriteDACL · ForceChangePassword"]
-    P5["5. 정책 배포와 보호 (GPO·AdminSDHolder)<br/>GPC(AD) + GPT(SYSVOL) · SDProp 상속 차단"]
-    P6["6. 도메인·포레스트 트러스트 (Trust)<br/>신뢰 방향(A→B) vs 접근 요청 방향(B→A) 분리"]
+    P4["④ 객체별 권한 제어 (DACL·ACE)<br/>GenericAll · GenericWrite · WriteDACL · ForceChangePassword"]
+    P5["⑤ 정책 배포와 보호 (GPO·AdminSDHolder)<br/>GPC(AD) + GPT(SYSVOL) · SDProp 상속 차단"]
+    P6["⑥ 도메인·포레스트 트러스트 (Trust)<br/>신뢰 방향(A→B) vs 접근 요청 방향(B→A) 분리"]
 ```
 
 ---

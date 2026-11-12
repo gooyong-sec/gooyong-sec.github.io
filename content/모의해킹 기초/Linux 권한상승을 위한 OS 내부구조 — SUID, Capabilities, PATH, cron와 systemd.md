@@ -17,9 +17,9 @@ tags:
 
 ```mermaid
 flowchart TD
-    Start["🔍 Linux 로컬 권한상승 가설 검증 3단계 사슬"] --> Step1["1. 높은 권한 실행 주체 식별 (Who)<br/>• SUID (EUID=0 전환)<br/>• File Capabilities (CAP_SETUID 등)<br/>• root 소유 cron / systemd 유닛"]
-    Step1 --> Step2["2. 이름 해석·파일 참조 경계 확인 (What & Where)<br/>• 상대경로 명령 ($PATH 하이재킹)<br/>• 공유 라이브러리 (RPATH / RUNPATH / LD_*)<br/>• 호출 대상 스크립트·설정·상위 디렉터리 쓰기 권한"]
-    Step2 --> Step3["3. 커널·로더 제한 및 실행 트리거 검증 (When & Guardrails)<br/>• nosuid / no_new_privs / secure-execution 차단 여부<br/>• 실제 예약 실행 주기도래 또는 서비스 재시작 가능 여부"]
+    Start["🔍 Linux 로컬 권한상승 가설 검증 3단계 사슬"] --> Step1["① 높은 권한 실행 주체 식별 (Who)<br/>• SUID (EUID=0 전환)<br/>• File Capabilities (CAP_SETUID 등)<br/>• root 소유 cron / systemd 유닛"]
+    Step1 --> Step2["② 이름 해석·파일 참조 경계 확인 (What & Where)<br/>• 상대경로 명령 ($PATH 하이재킹)<br/>• 공유 라이브러리 (RPATH / RUNPATH / LD_*)<br/>• 호출 대상 스크립트·설정·상위 디렉터리 쓰기 권한"]
+    Step2 --> Step3["③ 커널·로더 제한 및 실행 트리거 검증 (When & Guardrails)<br/>• nosuid / no_new_privs / secure-execution 차단 여부<br/>• 실제 예약 실행 주기도래 또는 서비스 재시작 가능 여부"]
     Step3 --> Result["🎯 재현 가능한 실제 권한상승 경로 확정 (오탐 제거)"]
 ```
 
@@ -130,15 +130,15 @@ capsh --decode=00000000a80425fb
 
 ```mermaid
 flowchart TD
-    Start["동적 로더(ld.so): 슬래시 없는 공유 라이브러리(예: libcustom.so) 탐색"] --> R1{"1. 바이너리에 DT_RPATH가 있고<br/>DT_RUNPATH는 없는가?"}
+    Start["동적 로더(ld.so): 슬래시 없는 공유 라이브러리(예: libcustom.so) 탐색"] --> R1{"① 바이너리에 DT_RPATH가 있고<br/>DT_RUNPATH는 없는가?"}
     R1 -- "예" --> CheckRPATH["DT_RPATH 지정 경로 탐색<br/>(하위 의존성까지 전파됨)"]
-    R1 -- "아니오" --> R2{"2. Secure-execution 모드인가?<br/>(SUID / SGID / 파일 Capabilities 등)"}
+    R1 -- "아니오" --> R2{"② Secure-execution 모드인가?<br/>(SUID / SGID / 파일 Capabilities 등)"}
     CheckRPATH --> R2
     R2 -- "예 (특권 전환 상태)" --> IgnoreLD["⚠️ LD_PRELOAD 및 LD_LIBRARY_PATH 무시/제거!"]
     R2 -- "아니오 (일반 실행 / sudo env_keep 예외)" --> UseLD["LD_LIBRARY_PATH 탐색"]
-    IgnoreLD --> R3["3. DT_RUNPATH 지정 경로 탐색<br/>(직접 의존성에만 적용)"]
+    IgnoreLD --> R3["③ DT_RUNPATH 지정 경로 탐색<br/>(직접 의존성에만 적용)"]
     UseLD --> R3
-    R3 --> R4["4. /etc/ld.so.cache 및 기본 시스템 경로<br/>(/lib, /usr/lib 등) 탐색"]
+    R3 --> R4["④ /etc/ld.so.cache 및 기본 시스템 경로<br/>(/lib, /usr/lib 등) 탐색"]
 ```
 
 - **왜 SUID 바이너리에 그냥 `LD_PRELOAD`를 걸면 안 통하는가?**:

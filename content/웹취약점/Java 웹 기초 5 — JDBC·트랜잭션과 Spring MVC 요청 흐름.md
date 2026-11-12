@@ -124,14 +124,14 @@ Spring MVC의 중심인 **`DispatcherServlet`**은 표준 Servlet API(`HttpServl
 
 ```mermaid
 flowchart TD
-    F["1. Servlet Filter<br/>(WAS 레벨: 인코딩 · Spring Security)"] --> D["2. DispatcherServlet<br/>(Spring MVC 단일 진입 Servlet)"]
-    D --> H["3. HandlerMapping<br/>(요청 URL에 맞는 @Controller 탐색)"]
-    H --> I["4. HandlerInterceptor (preHandle)<br/>(Spring 컨텍스트 내부 공통 검사)"]
-    I --> C["5. @Controller<br/>(데이터 바인딩 · @Valid 검증)"]
-    C --> S["6. @Service (@Transactional)<br/>(업무 로직 · 객체 인가 · 트랜잭션)"]
-    S --> A["7. DAO / Repository<br/>(JDBC / JPA / MyBatis)"]
-    A --> DB[("8. Database")]
-    C --> V["9. ViewResolver / HttpMessageConverter<br/>(JSP 렌더링 또는 JSON 응답 변환)"]
+    F["① Servlet Filter<br/>(WAS 레벨: 인코딩 · Spring Security)"] --> D["② DispatcherServlet<br/>(Spring MVC 단일 진입 Servlet)"]
+    D --> H["③ HandlerMapping<br/>(요청 URL에 맞는 @Controller 탐색)"]
+    H --> I["④ HandlerInterceptor (preHandle)<br/>(Spring 컨텍스트 내부 공통 검사)"]
+    I --> C["⑤ @Controller<br/>(데이터 바인딩 · @Valid 검증)"]
+    C --> S["⑥ @Service (@Transactional)<br/>(업무 로직 · 객체 인가 · 트랜잭션)"]
+    S --> A["⑦ DAO / Repository<br/>(JDBC / JPA / MyBatis)"]
+    A --> DB[("⑧ Database")]
+    C --> V["⑨ ViewResolver / HttpMessageConverter<br/>(JSP 렌더링 또는 JSON 응답 변환)"]
     C -.->|"예외 발생 시"| E["@ControllerAdvice / @ExceptionHandler<br/>(안전한 공통 에러 응답 처리)"]
 ```
 

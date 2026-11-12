@@ -163,10 +163,10 @@ Set-Cookie: JSESSIONID=새로운값; HttpOnly; Secure
 
 ```mermaid
 flowchart LR
-    C1["1. 브라우저 DNS 캐시"] -->|"없으면"| C2["2. OS DNS 캐시 · hosts 파일"]
-    C2 -->|"없으면"| R["3. 재귀 DNS 확인자<br/>(통신사·사내·공용 DNS)"]
-    R -->|"캐시 없으면 순차 질의"| Tree["4. 루트 DNS → TLD DNS(.com) → 권한 DNS"]
-    Tree --> Ans["5. A(IPv4) / AAAA(IPv6) 레코드 응답"]
+    C1["① 브라우저 DNS 캐시"] -->|"없으면"| C2["② OS DNS 캐시 · hosts 파일"]
+    C2 -->|"없으면"| R["③ 재귀 DNS 확인자<br/>(통신사·사내·공용 DNS)"]
+    R -->|"캐시 없으면 순차 질의"| Tree["④ 루트 DNS → TLD DNS(.com) → 권한 DNS"]
+    Tree --> Ans["⑤ A(IPv4) / AAAA(IPv6) 레코드 응답"]
 ```
 
 - **스텁 리졸버(Stub Resolver)와 재귀 확인자**: 브라우저와 OS 캐시에 결과가 없으면 OS의 스텁 리졸버가 설정된 재귀 DNS 확인자(공유기, 통신사, 클라우드 DNS 등)에 질문합니다. (브라우저가 DoH 같은 보안 DNS를 직접 쓰면 OS와 다른 경로로 질문할 수도 있습니다.)

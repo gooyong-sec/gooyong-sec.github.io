@@ -21,10 +21,10 @@ tags:
 ```mermaid
 flowchart LR
     subgraph SupplyChain["🏗️ 1~3절: CI/CD 빌드·배포 파이프라인 구간"]
-        S1["1. .git 디렉터리 노출<br/>(과거 커밋 시크릿 복원)"] --> S2["2. 소스맵(.map) 노출<br/>(원본 트리·숨은 API 복원)"] --> S3["3. 파이프라인 시크릿 유출<br/>(pull_request_target · 가변 태그)"]
+        S1["① .git 디렉터리 노출<br/>(과거 커밋 시크릿 복원)"] --> S2["② 소스맵(.map) 노출<br/>(원본 트리·숨은 API 복원)"] --> S3["③ 파이프라인 시크릿 유출<br/>(pull_request_target · 가변 태그)"]
     end
     subgraph CloudInfra["☁️ 4~6절: 클라우드 런타임 인프라 구간"]
-        C1["4. IMDS 메타데이터 탈취<br/>(SSRF + IMDSv1/v2)"] --> C2["5. S3/GCS 버킷 설정 오류<br/>(Block Public Access 해제)"] --> C3["6. 서버리스(Lambda) 공격면<br/>(과도한 Role · 평문 환경변수)"]
+        C1["④ IMDS 메타데이터 탈취<br/>(SSRF + IMDSv1/v2)"] --> C2["⑤ S3/GCS 버킷 설정 오류<br/>(Block Public Access 해제)"] --> C3["⑥ 서버리스(Lambda) 공격면<br/>(과도한 Role · 평문 환경변수)"]
     end
     SupplyChain -->|"배포 및 자격증명 연결"| CloudInfra
 ```

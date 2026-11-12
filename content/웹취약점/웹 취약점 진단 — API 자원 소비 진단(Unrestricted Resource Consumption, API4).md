@@ -118,8 +118,8 @@ GraphQL은 단일 HTTP 요청 안에서 중첩 필드를 선택하고 **별칭(A
 
 ```mermaid
 flowchart LR
-    A["GraphQL 요청 1건"] --> B["1. 배칭(Array)·별칭(Alias) 분해"]
-    B --> C["2. 깊이(Depth) · 목록 인자(first) · 필드 가중치 계산"]
+    A["GraphQL 요청 1건"] --> B["① 배칭(Array)·별칭(Alias) 분해"]
+    B --> C["② 깊이(Depth) · 목록 인자(first) · 필드 가중치 계산"]
     C --> D{"요청 총 비용이<br/>허용 예산 이내인가?"}
     D -->|"예"| E["리졸버 실행"]
     D -->|"아니오"| F["🚫 리졸버 실행 전 즉시 거부"]

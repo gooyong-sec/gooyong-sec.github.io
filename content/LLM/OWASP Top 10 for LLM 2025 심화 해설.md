@@ -18,17 +18,17 @@ tags:
 
 ```mermaid
 flowchart TD
-    subgraph Input_RAG["1. 입력 · 컨텍스트 계층"]
+    subgraph Input_RAG["① 입력 · 컨텍스트 계층"]
         L01["LLM01: Prompt Injection<br/>(직접 / 간접 명령 주입)"]
         L07["LLM07: System Prompt Leakage<br/>(프롬프트 내 비밀·규칙 노출)"]
         L08["LLM08: Vector & Embedding<br/>(RAG 오염 · 테넌트 격리 실패)"]
     end
-    subgraph Model_Supply["2. 모델 · 데이터 공급망 계층"]
+    subgraph Model_Supply["② 모델 · 데이터 공급망 계층"]
         L03["LLM03: Supply Chain<br/>(악성 모델 포맷 · LoRA · 플러그인)"]
         L04["LLM04: Data & Model Poisoning<br/>(학습 데이터 오염 · 백도어)"]
         L10["LLM10: Unbounded Consumption<br/>(DoW 요금 폭탄 · 모델 추출)"]
     end
-    subgraph Output_Action["3. 출력 · 에이전트 실행 계층"]
+    subgraph Output_Action["③ 출력 · 에이전트 실행 계층"]
         L02["LLM02: Sensitive Info Disclosure<br/>(PII · 학습/타인 데이터 유출)"]
         L05["LLM05: Improper Output Handling<br/>(출력 검증 미흡 → XSS · SQLi · RCE)"]
         L06["LLM06: Excessive Agency<br/>(과도한 도구 권한 · 무승인 실행)"]

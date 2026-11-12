@@ -17,9 +17,9 @@ tags:
 
 ```mermaid
 flowchart TD
-    Start["🚀 실행 중인 앱 프로세스<br/>(Frida JS 엔진 주입)"] --> Step1["1. 환경 탐지 우회<br/>루팅/탈옥·Frida 탐지 함수<br/>(Java + Native 중복 경로 파악)"]
-    Step1 --> Step2["2. SSL 피닝 & 프록시 연동<br/>TrustManager / OkHttp / SecTrustEvaluateWithError<br/>또는 BoringSSL 네이티브 콜백 후킹"]
-    Step2 --> Step3["3. 런타임 데이터 & 로직 검증"]
+    Start["🚀 실행 중인 앱 프로세스<br/>(Frida JS 엔진 주입)"] --> Step1["① 환경 탐지 우회<br/>루팅/탈옥·Frida 탐지 함수<br/>(Java + Native 중복 경로 파악)"]
+    Step1 --> Step2["② SSL 피닝 & 프록시 연동<br/>TrustManager / OkHttp / SecTrustEvaluateWithError<br/>또는 BoringSSL 네이티브 콜백 후킹"]
+    Step2 --> Step3["③ 런타임 데이터 & 로직 검증"]
     Step3 --> SubA["🔓 암호화 API 후킹 (Cipher.doFinal / CCCrypt)<br/>ENCRYPT(onEnter) · DECRYPT(onLeave) 평문 확보"]
     Step3 --> SubB["⚖️ 인자/반환값 변조 (retval.replace)<br/>서버 측 재검증 유무로 실제 취약점 판정"]
 ```

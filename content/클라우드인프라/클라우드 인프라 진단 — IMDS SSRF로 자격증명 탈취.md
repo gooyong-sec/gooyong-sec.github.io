@@ -17,11 +17,11 @@ tags:
 
 ```mermaid
 flowchart TD
-    Start["🌐 외부 공격자 요청<br/>(SSRF 또는 컨테이너 침해)"] --> Cond1{"1. IMDS(169.254.169.254)<br/>도달 및 응답 열람 가능?"}
+    Start["🌐 외부 공격자 요청<br/>(SSRF 또는 컨테이너 침해)"] --> Cond1{"① IMDS(169.254.169.254)<br/>도달 및 응답 열람 가능?"}
     Cond1 -->|"Blind SSRF (응답 불가)"| Fail1["🛡️ 직접 탈취 불성립"]
-    Cond1 -->|"응답 열람 가능"| Cond2{"2. 인스턴스 IMDS 버전 설정<br/>(HttpTokens)"}
+    Cond1 -->|"응답 열람 가능"| Cond2{"② 인스턴스 IMDS 버전 설정<br/>(HttpTokens)"}
     Cond2 -->|"optional (IMDSv1 허용)"| V1["단일 GET 요청으로<br/>자격증명 즉시 조회"]
-    Cond2 -->|"required (IMDSv2 강제)"| Cond3{"3. PUT 토큰 발급 +<br/>HopLimit 통과 +<br/>X-Forwarded-For 미부착?"}
+    Cond2 -->|"required (IMDSv2 강제)"| Cond3{"③ PUT 토큰 발급 +<br/>HopLimit 통과 +<br/>X-Forwarded-For 미부착?"}
     Cond3 -->|"조건 불충족"| Fail2["🛡️ 토큰 발급·전달 차단"]
     Cond3 -->|"모두 충족"| V2["세션 토큰 획득 후<br/>후속 GET으로 자격증명 조회"]
     V1 & V2 --> Role["🔑 임시 IAM 자격증명 확보<br/>(AccessKeyId · SecretAccessKey · Token)"]

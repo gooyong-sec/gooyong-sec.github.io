@@ -20,8 +20,8 @@ tags:
 flowchart TD
     Edit["✍️ 로컬 편집<br/>content/*.md · 보안이슈/*.psv, *.md"] -->|"일회성 sync.ps1 실행 (UTF-8 BOM)<br/>또는 git push"| CI["⚙️ GitHub Actions (deploy.yml)"]
     subgraph CIPipeline["CI 단일 빌드 파이프라인 (로컬 빌드 깜빡임 원천 제거)"]
-        Q["1. npx quartz build"] --> B["2. node 보안이슈/build.mjs"]
-        B --> C["3. cp 보안이슈/index.html → public/security-issues/"]
+        Q["① npx quartz build"] --> B["② node 보안이슈/build.mjs"]
+        B --> C["③ cp 보안이슈/index.html → public/security-issues/"]
     end
     CI --> CIPipeline --> Pages["🌐 GitHub Pages 배포 (Fastly CDN)"]
     Pages -->|"내부 링크에 data-router-ignore 부착"| SPA["✅ Quartz SPA 라우터 우회하여<br/>/security-issues/ 독립 HTML 정상 로드"]

@@ -20,20 +20,20 @@ LLM 서비스는 채팅창 하나가 아닙니다. 실제 서비스는 보통 **
 
 ```mermaid
 flowchart TD
-    subgraph Entry["1. 진입점 (비신뢰 입력)"]
+    subgraph Entry["① 진입점 (비신뢰 입력)"]
         E1["텍스트 · 대화 기록"]
         E2["PDF · Office · 이미지 · 음성 (OCR/비전)"]
         E3["URL · 이메일 · 외부 웹페이지"]
     end
-    subgraph Web_API["2. 웹 · API 경계 (W1~W12)"]
+    subgraph Web_API["② 웹 · API 경계 (W1~W12)"]
         GW["API Gateway / 애플리케이션<br/>(IDOR · OAuth · CSRF · CORS · SSE · 캐시)"]
         Prompt["프롬프트 조립기 & LLM<br/>(메인 모델 / 폴백 모델)"]
     end
-    subgraph Context_Tool["3. 지식 · 실행 경계 (경로 1~14)"]
+    subgraph Context_Tool["③ 지식 · 실행 경계 (경로 1~14)"]
         RAG["Vector DB · RAG · 메모리<br/>(문서 오염 · 테넌트 필터)"]
         Agent["Agent · MCP · Plugin<br/>(SaaS · DB · 브라우저 · 코드 실행)"]
     end
-    subgraph Cloud["4. 클라우드 제어면 (경로 A~H)"]
+    subgraph Cloud["④ 클라우드 제어면 (경로 A~H)"]
         IAM["IAM 역할 · Lambda/Function · 크로스 계정"]
         Sec["Secrets Manager · S3 · 관측 로그(CloudWatch 등)"]
     end

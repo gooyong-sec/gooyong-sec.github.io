@@ -20,17 +20,17 @@ tags:
 
 ```mermaid
 flowchart LR
-    subgraph Tools["1. 진단 도구 내부 서버 (Localhost)"]
+    subgraph Tools["① 진단 도구 내부 서버 (Localhost)"]
         G["Ghidra<br/>GhidraMCPPlugin (:8080)"]
         B["Burp Suite<br/>MCP Server BApp (:9876 SSE)"]
         J["jadx-gui<br/>jadx-ai-mcp 플러그인 (:8650)"]
     end
-    subgraph Bridges["2. MCP 브리지 / 트랜스포트"]
+    subgraph Bridges["② MCP 브리지 / 트랜스포트"]
         GB["Python 브리지<br/>(bridge_mcp_ghidra.py)"]
         BB["SSE 직접 연결 또는<br/>Java stdio 프록시 (mcp-proxy.jar)"]
         JB["uv + Python 서버<br/>(jadx_mcp_server.py :8651)"]
     end
-    subgraph Client["3. MCP 클라이언트 (AI)"]
+    subgraph Client["③ MCP 클라이언트 (AI)"]
         C["🤖 Claude Desktop / Claude Code<br/>디컴파일 · xref 추적 · 패킷 분석 · APK SAST"]
     end
     G <--> GB <--> C

@@ -321,3 +321,18 @@ D20261111-barracuda|TA0001|T1190|확인|Barracuda 보안 공지·CISA KEV 확인
 D20261111-barracuda|TA0002|T1059|확인|Barracuda 보안 공지·CISA KEV 확인: 시간대(timezone) 설정 필드에 OS 명령을 삽입해 root 권한으로 실행(CVE-2026-111560)
 D20261111-broadworks|TA0001|T1190|확인|Cisco 보안 공지·CISA KEV 확인: BroadWorks OCI-P 서비스에 조작된 XML(XXE) 메시지를 보내 비인증 악용(CVE-2026-20320)
 D20261111-broadworks|TA0009|T1005|확인|Cisco 보안 공지·CISA KEV 확인: XXE를 통해 파일 시스템 내 민감한 시스템 설정 파일 열람·수집
+D20261112-secta9ine|TA0001|T1078|추정|섹타나인 자체 공지 기반 분석상 연결: '가맹점 관리자 계정 침해'로 외부 비정상 접근이 발생했다고 공지(구체적 인증·계정 탈취 경위는 미공개여서 추정 표기)
+D20261112-secta9ine|TA0009|T1213|확인|섹타나인 자체 공지: 지급대행·결제 관리 시스템에서 구매자명·마스킹된 카드번호·카드사 등 고객 정보 유출 확인
+D20261112-xenorchestra|TA0001|T1190|확인|Vates 보안 권고(VSA-2026-062): 노출된 Xen Orchestra REST API에 빈 JSON 쿠키(authenticationToken=j:{})를 보내 인증을 우회하고 관리자 권한 획득 실제 악용
+D20261112-xenorchestra|TA0006|T1528|확인|Vates 보안 권고: 인증 우회 후 /rest/v0/users/me/authentication_tokens 경로에서 재사용 가능한 로그인 토큰 ID 추출
+D20261112-xenorchestra|TA0002|T1059|확인|Vates·보안연구진 확인: 관리 대상 가상화 풀 및 연결된 XCP-ng 호스트에서 root 권한으로 임의 명령·코드 실행
+D20261112-xenorchestra|TA0003|T1053.003|확인|보안연구진 관측: 침해된 호스트의 /etc/cron.d/zz-ustar 등에 악성 cron 작업을 등록해 지속성 확보
+D20261112-sap-icm2shell|TA0001|T1190|후보|SAP 11월 보안 패치·Onapsis: NetWeaver ICM·Web Dispatcher(CVE-2026-76964·89126), Gateway(CVE-2026-89103), SAML(CVE-2026-120017) 등 비인증 원격 취약점 4건(CVSS 10.0) 공개(실제 악용 미확인)
+D20261112-sap-icm2shell|TA0002|T1059|후보|SAP·Onapsis: ICM2Shell(CVE-2026-76964·89126) 악용 시 분할 WebSocket 힙 메모리 오염을 통해 <sid>adm 권한으로 OS 명령 실행 가능
+D20261112-screenconnect-msp|TA0001|T1199|확인|ConnectWise·Huntress 확인: 침해된 MSP의 ScreenConnect 관리 환경을 경유해 하위 고객사 엔드포인트 수백 대에 접근
+D20261112-screenconnect-msp|TA0002|T1072|확인|ConnectWise·Huntress 확인: ScreenConnect의 Run Command 및 서드파티 확장(RMM+ 계열 5종) API를 악용해 원격 명령·페이로드 배포
+D20261112-screenconnect-msp|TA0011|T1219|확인|Huntress 확인: 피해 엔드포인트에 공격자가 통제하는 변조(rogue) ScreenConnect 원격 제어 클라이언트를 추가 설치해 백도어로 활용
+D20261112-screenconnect-msp|TA0006|T1539|확인|Huntress 확인: MSP 기술자가 감염된 엔드포인트에 대화형으로 접속할 때 역으로 기술자 PC의 인증 토큰·브라우저 세션을 탈취해 타 패널로 확산
+D20261112-ivanti-fortinet|TA0001|T1190|후보|Ivanti·Fortinet 보안 권고: Ivanti EPM 비인증 SQLi(CVE-2026-121653)·CSA 인증 누락(CVE-2026-121683) 및 FortiManager JRPC(CVE-2026-126170)·FortiOS OSPF(CVE-2026-126253) 취약점 공개(실제 악용 미확인)
+D20261112-ivanti-fortinet|TA0002|T1059|후보|Ivanti·Fortinet 보안 권고: Ivanti EPM SQL 삽입 및 FortiManager JRPC 인코딩 결함 악용 시 비인증 원격 코드·명령 실행 가능
+D20261112-maersk|TA0040|T1657|확인|Maersk 공식 확인 및 보도: 인수 법인 로컬 레거시 시스템 비인가 접근·데이터 추출이 확인됐고, 공격자(WhiteArmor)가 유출을 빌미로 500만 달러 몸값을 요구(100GB 규모는 공격자 주장)

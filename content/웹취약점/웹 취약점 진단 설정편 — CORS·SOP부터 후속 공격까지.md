@@ -18,11 +18,11 @@ tags:
 ```mermaid
 flowchart TD
     Browser["🌐 피해자 브라우저 (로그인 세션 쿠키 보유)"] --> Check{"서버 보안 설정 · 헤더 점검"}
-    Check -->|"1. CORS: Origin 무조건 반사<br/>+ Allow-Credentials: true"| A1["🚨 교차 출처에서 피해자 세션으로<br/>API 응답(토큰·개인정보) 탈취"]
-    Check -->|"2. postMessage: event.origin 미검증<br/>또는 targetOrigin '*' 오용"| A2["🚨 악성 창에서 DOM XSS 유발<br/>또는 민감 메시지 가로채기"]
-    Check -->|"3. CSP: unsafe-inline / unsafe-eval<br/>또는 JSONP 도메인 와일드카드"| A3["🚨 XSS 발생 시 방어선 무력화"]
-    Check -->|"4. Cookie / 5. Frame 헤더 미비<br/>(SameSite/HttpOnly, frame-ancestors)"| A4["🚨 CSRF 상태 변조 · 쿠키 탈취 ·<br/>투명 iframe 클릭재킹"]
-    Check -->|"6. COOP/CORP · 7. HSTS · 8. Referrer"| A5["🚨 Tabnabbing · XS-Leaks ·<br/>평문 스니핑 · URL 토큰 유출"]
+    Check -->|"① CORS: Origin 무조건 반사<br/>+ Allow-Credentials: true"| A1["🚨 교차 출처에서 피해자 세션으로<br/>API 응답(토큰·개인정보) 탈취"]
+    Check -->|"② postMessage: event.origin 미검증<br/>또는 targetOrigin '*' 오용"| A2["🚨 악성 창에서 DOM XSS 유발<br/>또는 민감 메시지 가로채기"]
+    Check -->|"③ CSP: unsafe-inline / unsafe-eval<br/>또는 JSONP 도메인 와일드카드"| A3["🚨 XSS 발생 시 방어선 무력화"]
+    Check -->|"④ Cookie / ⑤ Frame 헤더 미비<br/>(SameSite/HttpOnly, frame-ancestors)"| A4["🚨 CSRF 상태 변조 · 쿠키 탈취 ·<br/>투명 iframe 클릭재킹"]
+    Check -->|"⑥ COOP/CORP · ⑦ HSTS · ⑧ Referrer"| A5["🚨 Tabnabbing · XS-Leaks ·<br/>평문 스니핑 · URL 토큰 유출"]
 ```
 
 ---

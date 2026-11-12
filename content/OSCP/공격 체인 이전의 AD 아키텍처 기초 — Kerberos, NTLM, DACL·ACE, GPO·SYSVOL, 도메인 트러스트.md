@@ -191,9 +191,9 @@ sequenceDiagram
 flowchart LR
     A["🏢 Domain A<br/>(Trusting / Resource Domain)"]
     B["🏢 Domain B<br/>(Trusted / Account Domain)"]
-    A -->|"1. 신뢰 방향 (A trusts B)<br/>A가 B의 DC 신원 확인을 믿어줌"| B
-    B -->|"2. 접근 요청 방향 (B → A)<br/>B의 주체가 A의 리소스에 접근 요청"| R["🗄️ Domain A의 리소스"]
-    R -->|"3. A 리소스의 DACL에<br/>B 주체 허용 ACE가 있는가?"| X{"최종 Allow or Deny"}
+    A -->|"① 신뢰 방향 (A trusts B)<br/>A가 B의 DC 신원 확인을 믿어줌"| B
+    B -->|"② 접근 요청 방향 (B → A)<br/>B의 주체가 A의 리소스에 접근 요청"| R["🗄️ Domain A의 리소스"]
+    R -->|"③ A 리소스의 DACL에<br/>B 주체 허용 ACE가 있는가?"| X{"최종 Allow or Deny"}
 ```
 
 ### 핵심 원리: 헷갈리지 않는 Trust 판독 4단계

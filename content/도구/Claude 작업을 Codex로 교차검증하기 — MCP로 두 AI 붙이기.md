@@ -18,10 +18,10 @@ tags:
 
 ```mermaid
 flowchart LR
-    User["👤 사용자 / 진단가"] -->|"1. 구현·분석·초안 작성 지시"| Claude["🤖 Claude (Desktop / Claude Code)<br/>1차 작성자 & 오케스트레이터"]
-    Claude -->|"2. 비민감 요약 + 검증 쟁점 전달<br/>(codex mcp-server 호출)"| Codex["🕵️ OpenAI Codex CLI<br/>독립 교차검증자 (2차 소견)"]
-    Codex -->|"3. 논리 허점 · 엣지 케이스 · 반론 반환"| Claude
-    Claude -->|"4. 원문 코드/데이터와 대조 후 수정 반영"| Result["✅ 교차검증 완료 결과물"]
+    User["👤 사용자 / 진단가"] -->|"① 구현·분석·초안 작성 지시"| Claude["🤖 Claude (Desktop / Claude Code)<br/>1차 작성자 & 오케스트레이터"]
+    Claude -->|"② 비민감 요약 + 검증 쟁점 전달<br/>(codex mcp-server 호출)"| Codex["🕵️ OpenAI Codex CLI<br/>독립 교차검증자 (2차 소견)"]
+    Codex -->|"③ 논리 허점 · 엣지 케이스 · 반론 반환"| Claude
+    Claude -->|"④ 원문 코드/데이터와 대조 후 수정 반영"| Result["✅ 교차검증 완료 결과물"]
 ```
 
 ---

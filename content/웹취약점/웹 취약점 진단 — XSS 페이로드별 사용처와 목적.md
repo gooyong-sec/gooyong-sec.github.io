@@ -20,12 +20,12 @@ tags:
 ```mermaid
 flowchart TD
     Input["🔍 사용자 입력 반사/저장 위치(Sink) 확인"] --> Q{"어느 컨텍스트에 안착하는가?"}
-    Q -->|"1. SSR 원시 HTML 태그 사이"| P1["1절: &lt;script&gt;alert(1)&lt;/script&gt;"]
-    Q -->|"2. innerHTML / DOM 동적 삽입"| P2["2절: &lt;img src=x onerror=...&gt;<br/>&lt;svg onload=...&gt;"]
-    Q -->|"3. 따옴표로 감싼 HTML 속성값 안"| P3["3절: &quot;&gt;&lt;svg onload=...&gt; (속성 탈출)"]
-    Q -->|"4. href / src / action URL 속성"| P4["4절: javascript:alert(1)<br/>5절: HTML 엔티티 인코딩 우회"]
-    Q -->|"5. 컨텍스트 미상 (블라인드/복합)"| P6["6절: Polyglot 다중 컨텍스트 탐침"]
-    Q -->|"6. 태그 인코딩 완료 + Vue/Angular"| P8["8절: CSTI {{constructor...}}"]
+    Q -->|"① SSR 원시 HTML 태그 사이"| P1["1절: &lt;script&gt;alert(1)&lt;/script&gt;"]
+    Q -->|"② innerHTML / DOM 동적 삽입"| P2["2절: &lt;img src=x onerror=...&gt;<br/>&lt;svg onload=...&gt;"]
+    Q -->|"③ 따옴표로 감싼 HTML 속성값 안"| P3["3절: &quot;&gt;&lt;svg onload=...&gt; (속성 탈출)"]
+    Q -->|"④ href / src / action URL 속성"| P4["4절: javascript:alert(1)<br/>5절: HTML 엔티티 인코딩 우회"]
+    Q -->|"⑤ 컨텍스트 미상 (블라인드/복합)"| P6["6절: Polyglot 다중 컨텍스트 탐침"]
+    Q -->|"⑥ 태그 인코딩 완료 + Vue/Angular"| P8["8절: CSTI {{constructor...}}"]
     P1 & P2 & P3 --> CSP{"CSP 헤더가 실행을 막는가?"}
     CSP -->|"예 (화이트리스트/지시자 점검)"| P7["7절: 신뢰 도메인 JSONP / base-uri 우회"]
 ```

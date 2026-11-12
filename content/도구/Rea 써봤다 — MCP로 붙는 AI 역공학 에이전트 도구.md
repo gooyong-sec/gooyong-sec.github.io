@@ -19,8 +19,8 @@ tags:
 ```mermaid
 flowchart TD
     CLI["🤖 AI 에이전트 / CLI 호출<br/>(npx --yes rea-agents ...)"] --> Rea["📦 Rea (rea-agents 6.7.0)<br/>100+ 커맨드 통합 MCP 오케스트레이터"]
-    Rea -->|"1. 내장 자체 엔진 (외부 도구 불필요)"| Builtin["✅ JS / Electron AST 정적 분석<br/>(analyze-javascript-application)<br/>4,943줄 · 35,808토큰 Evidence 그래프 생성"]
-    Rea -->|"2. 외부 엔진 오케스트레이션 (환경변수/설치 필요)"| Ext["⚠️ 네이티브 · 모바일 · 패킷 도구<br/>Ghidra · IDA · Hopper · jadx · adb · tshark · GDB"]
+    Rea -->|"① 내장 자체 엔진 (외부 도구 불필요)"| Builtin["✅ JS / Electron AST 정적 분석<br/>(analyze-javascript-application)<br/>4,943줄 · 35,808토큰 Evidence 그래프 생성"]
+    Rea -->|"② 외부 엔진 오케스트레이션 (환경변수/설치 필요)"| Ext["⚠️ 네이티브 · 모바일 · 패킷 도구<br/>Ghidra · IDA · Hopper · jadx · adb · tshark · GDB"]
     Ext -.->|"미설치 시 doctor가 즉시 보고"| Doctor["🩺 rea doctor<br/>missing_analysis_engine 분류 및 해결책 안내"]
 ```
 

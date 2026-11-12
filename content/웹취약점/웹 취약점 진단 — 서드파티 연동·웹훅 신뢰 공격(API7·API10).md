@@ -32,6 +32,7 @@ flowchart TD
         S1["사용자가 알림 받을 콜백 URL 등록"] --> S2{"목적지 Allowlist + 매 홉 DNS/IP<br/>사설망·IMDS 차단?"}
         S2 -->|"미검증 호출"| V7["🚨 API7 SSRF: 내부 관리망·메타데이터 탈취"]
     end
+    Outbound_API10 ~~~ Inbound_Webhook ~~~ Outbound_API7
 ```
 
 ---

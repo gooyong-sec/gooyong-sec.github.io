@@ -29,6 +29,7 @@ flowchart TD
         L3_In["상품 리뷰에 가짜 USER RESPONSE 은닉"] --> L3_Tool["carlos가 상품 조회 시 product_info가 리뷰 로드"]
         L3_Tool --> L3_Out["🚨 carlos 세션에서 delete_account 자동 호출"]
     end
+    Lab1 ~~~ Lab2 ~~~ Lab3
 ```
 
 ---

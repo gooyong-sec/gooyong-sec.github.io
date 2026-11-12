@@ -31,6 +31,7 @@ flowchart TD
         S2 --> S3["AES/GCM/NoPadding<br/>(AEAD: 기밀성 + 128비트 인증 태그)"]
         S3 --> S4["🛡️ 결과: 매번 다른 암호문 생성<br/>+ 위변조 즉시 탐지 + 디컴파일 내성"]
     end
+    Vuln ~~~ Safe
 ```
 
 ---

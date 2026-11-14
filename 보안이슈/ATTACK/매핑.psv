@@ -353,3 +353,23 @@ D20261113-adobeconnect|TA0002|T1059|후보|Adobe·MITRE CVE 확인: CRLF 삽입(
 D20261113-adobeconnect|TA0009|T1005|후보|Adobe·MITRE CVE 확인: 비인증 경로 조작 결함(CVE-2026-121351·121354) 악용 시 제한된 디렉터리 밖의 민감한 파일 시스템 임의 열람 가능
 D20261113-apify|TA0001|T1078|확인|Apify 공식 공지: 공격자가 침해된 자격 증명을 이용해 내부 시스템 일부에 비인가 접근(2026-11-09~10)
 D20261113-apify|TA0006|T1552|확인|Apify 공식 공지: 내부 시스템 접근을 통해 다수 고객 계정 자격 증명 및 2단계 인증(2FA) 관련 정보 등에 접근(API 토큰·프록시 비밀번호 강제 교체 및 GitHub OAuth 연동 해제 조치)
+D20261114-moduchangup|TA0001|T1190|확인|KISA 신고 내역 보도 및 기업 확인: 관리자 페이지 SQL 삽입(SQL Injection) 및 보안이 취약한 API를 악용해 외부에서 비인가 접근
+D20261114-moduchangup|TA0009|T1213|확인|아미쿠스렉스·중기부 확인: 솔루션 시스템에서 창업 지원 사업 참가자 818명을 포함한 전체 이용자 2만28명의 이름·전화번호·이메일 정보 탈취
+D20261114-checkpoint-kev|TA0001|T1190|확인|Check Point·Aviatrix 확인: 인터넷에 노출된 Check Point Security Gateway(Mobile Access 포털 등)에서 PHP2Shell(CVE-2026-109618·109619) 원격 코드 실행 결함을 악용해 초기 침투
+D20261114-checkpoint-kev|TA0004|T1068|확인|Check Point(sk1000362)·CISA KEV 확인: Gaia OS DynamicCLI 데몬의 로컬 제어 소켓(/tmp/dynamic_socket) 권한 설정 및 인증 누락 결함(CVE-2026-123039)을 악용해 root 권한 상승
+D20261114-checkpoint-kev|TA0003|T1505.003|확인|Check Point·Aviatrix 확인: 침해된 게이트웨이에 PHP 웹셸 및 지속성 백도어(TSGA) 배포
+D20261114-checkpoint-kev|TA0011|T1090|확인|Aviatrix 확인: TSGA 백도어에 내장된 TSProxy 네트워크 컴포넌트를 이용해 내부망 중계(프록시) 통로 구축
+D20261114-checkpoint-kev|TA0008|T1021.004|확인|Aviatrix 확인: 루트 권한을 장악한 게이트웨이에서 SSH를 통해 내부 VMware ESXi 하이퍼바이저로 횡적 이동
+D20261114-checkpoint-kev|TA0040|T1485|확인|Aviatrix 확인: 내부 VMware ESXi 호스트에서 파괴형 와이퍼(destroy_v6)를 실행해 가상화 스토리지 데이터를 재귀 삭제
+D20261114-unrealircd-kev|TA0001|T1190|확인|UnrealIRCd 보안 권고·CISA KEV 확인: 2대 이상 연결된 IRC 서버 네트워크에서 labeled-response 모듈의 구분자 이스케이프 누락 결함(CVE-2026-114713)을 악용해 최고 서버 권한의 서버 간 명령 주입 실제 악용
+D20261114-barracuda-cloud|TA0001|T1199|추정|Barracuda 공식 분석상 추정: 지난 10월 외부 협력사의 개발 환경이 침해됐을 때 프로젝트 종료 후에도 폐기되지 않은 바라쿠다 클라우드 접근 키가 탈취된 것으로 분석
+D20261114-barracuda-cloud|TA0001|T1078.004|확인|Barracuda 공식 공지: 과거 협력사 프로젝트용으로 발급한 뒤 폐기하지 않은 유효 클라우드 접근 키를 이용해 약 44시간 동안 내부 클라우드 계정 10여 개 및 고객 XDR 연동 자격 증명 저장 시스템에 접근
+D20261114-qubole-expedia|TA0001|T1199|확인|Sentra·Wiz·Mandiant 확인(Qubole AWS 교차 계정 IAM 역할 악용 캠페인) 및 Expedia 확인(서드파티 데이터 플랫폼 신뢰 접근 침해): 침해된 서드파티 데이터 플랫폼의 자격 증명과 고객사 클라우드에 설정된(일부는 서비스 종료 후 방치된) 교차 계정 IAM 역할(AssumeRole) 등 신뢰 관계를 타고 다수 기업 환경에 침투
+D20261114-qubole-expedia|TA0007|T1613|확인|Sentra·Wiz 확인: 교차 계정 역할로 진입한 고객사 AWS 환경에서 클라우드 스토리지 및 시스템 리소스 열거 수행
+D20261114-qubole-expedia|TA0006|T1552|확인|Sentra·Wiz 확인: 고객사 AWS 스토리지 및 Systems Manager(SSM)에서 비밀정보와 자격 증명 수확
+D20261114-qubole-expedia|TA0009|T1530|확인|Sentra·Wiz 확인: 다수 피해 기업의 AWS 클라우드 스토리지 객체에서 데이터 수집·반출(단, 갈취 그룹 n0n이 주장한 익스피디아 10억 건 규모는 공격자 일방 주장으로 미검증)
+D20261114-notion-fireworks|TA0009|T1530|확인|Notion·Fireworks AI 공식 확인: 추론 인프라 공급사 Fireworks AI의 클라우드 개발/R&D 환경 침해로 데이터셋·모델 가중치 및 엔드포인트에 남아 있던 일부 워크스페이스(1% 미만)의 Notion AI 채팅 기록 노출
+D20261114-facestealer-fbi|TA0001|T1566.003|확인|미 법무부(DOJ)·FBI 확인: 탈취한 지인의 텔레그램·링크드인·슬랙·디스코드 계정으로 피해자에게 접근해 줌·팀즈·구글 미트로 위장한 가짜 화상회의에 초대
+D20261114-facestealer-fbi|TA0002|T1204.002|확인|DOJ·FBI 확인: 가짜 화상회의에서 이전 피해자의 웹캠 녹화 영상·딥페이크를 보여주며 오디오 오류 해결 프로그램으로 위장한 악성코드를 직접 실행하도록 유도
+D20261114-facestealer-fbi|TA0009|T1125|확인|DOJ·FBI 확인: 감염된 피해자의 웹캠 영상을 몰래 수집해 다음 사칭 공격에 재사용(압수된 클라우드 인프라에서 피해자 웹캠 영상 900개 이상 확보)
+D20261114-facestealer-fbi|TA0040|T1657|확인|DOJ·FBI 확인: 감염 수개월~1년 뒤 가상자산 지갑 등에 접근해 최근 18개월간 4억 달러 이상의 가상자산 탈취

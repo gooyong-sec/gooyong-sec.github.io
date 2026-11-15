@@ -373,3 +373,26 @@ D20261114-facestealer-fbi|TA0001|T1566.003|확인|미 법무부(DOJ)·FBI 확인
 D20261114-facestealer-fbi|TA0002|T1204.002|확인|DOJ·FBI 확인: 가짜 화상회의에서 이전 피해자의 웹캠 녹화 영상·딥페이크를 보여주며 오디오 오류 해결 프로그램으로 위장한 악성코드를 직접 실행하도록 유도
 D20261114-facestealer-fbi|TA0009|T1125|확인|DOJ·FBI 확인: 감염된 피해자의 웹캠 영상을 몰래 수집해 다음 사칭 공격에 재사용(압수된 클라우드 인프라에서 피해자 웹캠 영상 900개 이상 확보)
 D20261114-facestealer-fbi|TA0040|T1657|확인|DOJ·FBI 확인: 감염 수개월~1년 뒤 가상자산 지갑 등에 접근해 최근 18개월간 4억 달러 이상의 가상자산 탈취
+D20261115-idearo|TA0001|T1190|확인|한국발명진흥회 공지·보도 확인: 온라인 아이디어 플랫폼 '아이디어로'의 파일 등록(업로드) 기능 보안 취약점을 악용해 방화벽을 우회하고 서버 침입
+D20261115-idearo|TA0003|T1505.003|확인|한국발명진흥회 공지·보도 확인: 침입한 서버에 악성 프로그램(웹셸 등 서버 악성 컴포넌트)을 설치·실행해 거점 확보
+D20261115-idearo|TA0009|T1005|확인|한국발명진흥회 공지·보도 확인: 서버 및 첨부파일 저장장치에 접근해 약 62MB 규모의 데이터를 수집·외부 반출
+D20261115-cursor-fireworks|TA0001|T1199|확인|Cursor 공식 조사 발표: 서드파티 AI 인프라 공급사(Fireworks AI) 침해를 통해 데이터 공유용 스토리지 접근 키가 노출되어 진입
+D20261115-cursor-fireworks|TA0009|T1530|확인|Cursor 공식 조사 발표: 노출된 키로 읽기 전용 클라우드 스토리지 버킷에 접근해 과거 코딩 에이전트 실행 기록(트레이스) 다운로드
+D20261115-cursor-fireworks|TA0006|T1552|확인|Cursor 공식 조사 발표: 과거 코딩 트레이스 일부에 비마스킹 상태로 남아 있던 API 자격 증명을 수확해 내부 SaaS 도구에 접근
+D20261115-cursor-fireworks|TA0001|T1195.002|확인|Cursor 공식 조사 발표: 내부 SaaS 접근권을 악용해 Cursor 마켓플레이스에 트로이목마화한 Claude Code 확장(2.1.312·2.1.313)을 약 11시간 동안 게시, 최대 약 5,000대 개발자 시스템에 배포
+D20261115-cursor-fireworks|TA0003|T1176|확인|Cursor 공식 조사 발표: 개발자 에디터(IDE) 환경에서 악성 VS Code 확장 프로그램이 로드·실행
+D20261115-cursor-fireworks|TA0007|T1082|확인|Cursor 공식 조사 발표: 감염된 개발자 시스템에서 OS 세부 정보, 사용자명, 환경변수, Git 설정 정보 수집
+D20261115-cursor-fireworks|TA0011|T1572|확인|Cursor 공식 조사 발표: 로컬 SSH 활성화 및 역방향 SSH 터널(reverse SSH tunnel)을 열어 원격 접속 백도어 연결 시도(일반 권한 단말에서는 로컬 SSH 데몬 활성화가 대부분 실패)
+D20261115-nable-4ever|TA0001|T1190|확인|MITRE CVE·N-able·SOCRadar·Huntress 확인: 레거시 API가 활성화된 N-central 서버(2026.4 Hotfix 2 포함)에서 Apache Axis 1.x SOAP Fault 역직렬화 결함(CVE-2026-90436)을 악용해 인증 전 초기 침투
+D20261115-nable-4ever|TA0002|T1059|확인|MITRE CVE·SOCRadar 확인: SOAP Fault 내 클래스 인스턴스화를 통해 서비스 계정 권한으로 원격 명령·스크립트 실행
+D20261115-nable-4ever|TA0004|T1068|확인|SOCRadar·BleepingComputer 확인: N-central 로컬 권한 상승 결함(setLDFileOwner 및 심볼릭 링크 조작)을 연쇄 악용해 root 권한 획득(4EverAble2Shell 체인)
+D20261115-nable-4ever|TA0040|T1496|확인|SOCRadar·Huntress 확인: 침해한 N-central 운영 서버에 XMRig 암호화폐 채굴기(크립토마이너) 배포·실행
+D20261115-ms-gsocket|TA0001|T1190|확인|Microsoft Threat Intelligence 확인: 인터넷에 노출된 리눅스 웹 애플리케이션(PHP·Apache·cPanel 등)의 취약점을 악용해 초기 침투
+D20261115-ms-gsocket|TA0002|T1059.004|확인|Microsoft 확인: 침투 직후 curl·bash 배포 스크립트를 실행해 GSocket 클라이언트를 /dev/shm·/tmp 등에 설치
+D20261115-ms-gsocket|TA0011|T1105|확인|Microsoft 확인: 외부에서 오픈소스 원격 접근 도구 GSocket 바이너리를 침해 서버로 다운로드
+D20261115-ms-gsocket|TA0005|T1036.004|확인|Microsoft 확인: GSocket 바이너리 및 프로세스 이름을 [kworker], [kswapd0], [watchdogd] 등 정상 리눅스 커널 스레드로 위장
+D20261115-ms-gsocket|TA0003|T1053.003|확인|Microsoft 확인: cron 작업(및 systemd 서비스·쉘 프로필)에 등록해 웹 취약점 패치 및 재부팅 후에도 백도어 실행 유지
+D20261115-ms-gsocket|TA0011|T1090|확인|Microsoft 확인: 공용 Global Socket Relay Network(gs.thc.org, 443 포트)로 아웃바운드 연결을 맺어 인바운드 방화벽·NAT를 우회하고 원격 제어 유지
+D20261115-us-universities|TA0001|T1190|확인|텍사스대 알링턴(UTA) 발표 및 보도 확인: 캠퍼스 내 온라인 설문·행사 등록용 웹 폼 빌더(MachForms) 인프라를 침해해 초기 접근
+D20261115-us-universities|TA0009|T1213|확인|텍사스대 알링턴(UTA) 공식 확인: 침해된 캠퍼스 시스템에서 학생·교직원 개인정보 탈취 확인(Qilin 랜섬웨어 조직이 다크웹에 게시)
+D20261115-us-universities|TA0040|T1486|확인|밴더빌트대 공식 확인 및 보도: 대학 시스템·단말에 BYOD 랜섬웨어(랜섬 노트 README_BYOD_31.txt) 공격이 발생해 캠퍼스 와이파이 차단 및 행정 시스템 장애 유발(단, BYOD의 SSN 100만 건 탈취·DC 장악 주장은 미검증)

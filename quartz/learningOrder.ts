@@ -56,6 +56,7 @@ export const learningOrderSort = (a: LearningOrderItem, b: LearningOrderItem) =>
     "웹 취약점 진단 — 공급망·의존성 보안(SCA와 악성 패키지)",
     // 2. 시큐어코딩
     "Java Properties 파일 AES 암호화",
+    "시큐어코딩 — Java·Spring·Node 인증·인가 화이트박스 리뷰",
     // 3. 모바일취약점 (입문·MASVS → 정적분석·API 추출 → 로컬 포렌식 → IPC·딥링크·WebView → Frida 동적분석·기기 신뢰 → OAuth/PKCE·토큰 바인딩)
     "모바일 모의해킹 입문",
     "모바일 취약점 진단 — 안드로이드 정적분석",
@@ -75,6 +76,7 @@ export const learningOrderSort = (a: LearningOrderItem, b: LearningOrderItem) =>
     "클라우드 인프라 진단 — IMDS SSRF로 자격증명 탈취",
     "클라우드 인프라 진단 — S3·스토리지 오남용과 데이터 유출 체인",
     "클라우드 인프라 진단 — 컨테이너·Kubernetes 탈출",
+    "클라우드 인프라 진단 — EKS RBAC",
     // 5. OSCP (시험 전 추천 도구 준비 → AD 아키텍처 기초 → AD 자격증명 피벗·권한상승 → Kerberos 위임 체인 → SysReptor 리포트 작성)
     "OSCP 추천 도구",
     "공격 체인 이전의 AD 아키텍처 기초",
@@ -97,6 +99,7 @@ export const learningOrderSort = (a: LearningOrderItem, b: LearningOrderItem) =>
     "AI한테 윈도우용 프로그램 개발을 통째로 맡겨보았다",
     "보안이슈 트래커 빌드 후기",
     "블로그 인프라 자동화",
+    "MCP와 LLM으로 취약점 진단·리포팅 자동화 파이프라인",
   ]
 
   if (a.isFolder && b.isFolder) {

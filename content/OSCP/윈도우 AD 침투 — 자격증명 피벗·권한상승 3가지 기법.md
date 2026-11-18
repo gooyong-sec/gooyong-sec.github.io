@@ -103,7 +103,7 @@ findstr /i "INSERT password admin user" C:\Windows\Temp\dump.sql
 
 ### 핵심 원리
 - **왜 서비스 계정에 이 권한이 있는가?**: IIS(`iis apppool\...`), MSSQL(`nt service\mssqlserver`), Apache/XAMPP 서비스 등 윈도우 서비스로 돌아가는 프로세스는 접속한 클라이언트의 권한으로 작업을 대행해야 할 때가 많아, 기본적으로 **`SeImpersonatePrivilege`(인증 후 클라이언트 가장)** 또는 **`SeAssignPrimaryTokenPrivilege`**가 부여됩니다. 반면 일반 도메인 사용자 계정에는 이 권한이 없습니다.
-- **PrintSpoofer의 작동 원리**: 공격자가 로컬에 명명된 파이프(Named Pipe)를 만들고 Windows Print Spooler 서비스(`spoolsv.exe`, `NT AUTHORITY\SYSTEM`으로 실행됨)에 RPC 요청을 보내 그 파이프에 강제로 연결하게 만듭니다. 연결되는 순간 `SeImpersonatePrivilege`를 이용해 `SYSTEM` 토큰을 복제하고 원하는 명령이나 리버스 셸을 최고 권한으로 띄웁니다. (만약 Print Spooler가 꺼져 있는 환경이라면 RPC/DCOM 기반인 **GodPotato**를 사용하면 됩니다 — [[AD 환경 Kerberos 체인 공격 - 위임 남용과 토큰 가장]] 참고)
+- **PrintSpoofer의 작동 원리**: 공격자가 로컬에 명명된 파이프(Named Pipe)를 만들고 Windows Print Spooler 서비스(`spoolsv.exe`, `NT AUTHORITY\SYSTEM`으로 실행됨)에 RPC 요청을 보내 그 파이프에 강제로 연결하게 만듭니다. 연결되는 순간 `SeImpersonatePrivilege`를 이용해 `SYSTEM` 토큰을 복제하고 원하는 명령이나 리버스 셸을 최고 권한으로 띄웁니다. (만약 Print Spooler가 꺼져 있는 환경이라면 RPC/DCOM 기반인 **GodPotato**를 사용하면 됩니다 — [[AD 환경 Kerberos 체인 공격 — 위임 남용과 토큰 가장으로 DC 장악]] 참고)
 
 ### 실전 명령어 흐름
 ```powershell
@@ -161,4 +161,4 @@ whoami /priv
 - [NetExec(nxc) 공식 위키](https://www.netexec.wiki/)
 - [PrintSpoofer (itm4n)](https://github.com/itm4n/PrintSpoofer)
 - [lsassy (Hackndo)](https://github.com/Hackndo/lsassy)
-- 확보한 도메인 자격증명으로 Kerberos 위임을 넘어가는 심화 체인은 [[AD 환경 Kerberos 체인 공격 - 위임 남용과 토큰 가장]] 글을 이어서 참고하세요.
+- 확보한 도메인 자격증명으로 Kerberos 위임을 넘어가는 심화 체인은 [[AD 환경 Kerberos 체인 공격 — 위임 남용과 토큰 가장으로 DC 장악]] 글을 이어서 참고하세요.

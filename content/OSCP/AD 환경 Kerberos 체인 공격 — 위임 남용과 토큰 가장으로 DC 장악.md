@@ -129,7 +129,7 @@ impacket-mssqlclient -k -no-pass "<domain>/administrator@<dc-hostname>"
 
 ### 핵심 원리
 - **`xp_cmdshell`로 OS 명령 실행 개방**: MSSQL에서 `administrator`(sysadmin) 세션으로 들어왔으므로 기본적으로 꺼져 있는 `xp_cmdshell` 옵션을 켜서 호스트 OS 명령어를 실행합니다.
-- **`SeImpersonatePrivilege`와 Potato 권한상승**: `xp_cmdshell`이 띄운 셸은 MSSQL 서비스 계정 권한인데, Windows 서비스 계정에는 클라이언트 토큰을 가장할 수 있는 **`SeImpersonatePrivilege`**가 기본 부여되는 경우가 많습니다. 이 권한이 `Enabled` 상태라면 **GodPotato, PrintSpoofer, SweetPotato** 같은 도구로 로컬 `NT AUTHORITY\SYSTEM` 파이프/DCOM 인증을 유도해 최고 권한 토큰을 탈취할 수 있습니다. (자격증명 피벗과의 연결은 [[윈도우 AD 침투 자격증명 피벗 권한상승 3가지 기법]] 참고)
+- **`SeImpersonatePrivilege`와 Potato 권한상승**: `xp_cmdshell`이 띄운 셸은 MSSQL 서비스 계정 권한인데, Windows 서비스 계정에는 클라이언트 토큰을 가장할 수 있는 **`SeImpersonatePrivilege`**가 기본 부여되는 경우가 많습니다. 이 권한이 `Enabled` 상태라면 **GodPotato, PrintSpoofer, SweetPotato** 같은 도구로 로컬 `NT AUTHORITY\SYSTEM` 파이프/DCOM 인증을 유도해 최고 권한 토큰을 탈취할 수 있습니다. (자격증명 피벗과의 연결은 [[윈도우 AD 침투 — 자격증명 피벗·권한상승 3가지 기법]] 참고)
 - **DC에서의 SYSTEM = 도메인 완전 장악**: 만약 대상 서버가 도메인 컨트롤러(DC) 자체라면, 로컬 `NT AUTHORITY\SYSTEM`을 획득한 순간 `NTDS.dit` 추출 및 DCSync가 모두 가능하므로 도메인 전체 장악과 동급입니다.
 
 ### 실전 명령어 흐름

@@ -87,7 +87,7 @@ TCP Repeater는 raw 소켓으로 직접 송수신하면서 **length-prefix 필�
 
 - Hera는 로컬 HTTP 상태 스냅샷을 통해 별도 프로세스인 **`hera_mcp.py`**와 통신하고, 이를 MCP(Model Context Protocol) 표준 도구로 노출합니다.
 - Claude 같은 AI 클라이언트가 현재 어떤 함수가 후킹됐는지, Trace 테이블에 어떤 평문 버퍼가 찍혔는지를 직접 조회하고 분석을 보조합니다.
-- [[취약점 진단 툴에 MCP 붙이기 Ghidra Burp jadx]]에서 다룬 **"AI가 진단 도구를 직접 부리는"** 패턴을 자체 제작 도구에 그대로 내장한 결과입니다.
+- [[취약점 진단 툴에 MCP 붙이기 — Ghidra · Burp · jadx를 Claude에 연동하기]]에서 다룬 **"AI가 진단 도구를 직접 부리는"** 패턴을 자체 제작 도구에 그대로 내장한 결과입니다.
 
 ![Hera MCP 워크스페이스 — AI 에이전트 연동 상태 화면](/도구/images/hera-mcp.png)
 

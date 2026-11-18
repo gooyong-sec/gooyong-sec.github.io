@@ -14,7 +14,7 @@ tags:
 
 [Rea](https://github.com/morluto/rea)는 npm 패키지 `rea-agents`로 배포되는 **MCP 서버 + CLI**입니다. README 기준으로 네이티브 바이너리(Ghidra/IDA/Hopper 오케스트레이션), JS/Electron 앱(실행 없이 정적 분석), .NET/Go/Rust/WASM/EVM 바이트코드, 안드로이드(JADX/apktool/adb), 게임 엔진 파일, 웹사이트/네트워크 캡처(HAR/pcap), 펌웨어, SQLite, 실행 중 프로세스 관찰까지 — **역공학 대상 거의 전부를 하나의 MCP 인터페이스로 묶겠다는 도구**입니다(TypeScript 모노레포, MIT 라이선스, Node `>=22.19` / `24.11` / `26` 요구).
 
-[[취약점 진단 툴에 MCP 붙이기 Ghidra Burp jadx]]에서 Ghidra·Burp·jadx를 각각 따로 MCP 브리지로 붙였는데, Rea는 그 역할을 한 패키지로 흡수하려는 시도처럼 보여서 직접 설치해보고 실제로 무엇이 되고 무엇이 안 되는지 검증했습니다.
+[[취약점 진단 툴에 MCP 붙이기 — Ghidra · Burp · jadx를 Claude에 연동하기]]에서 Ghidra·Burp·jadx를 각각 따로 MCP 브리지로 붙였는데, Rea는 그 역할을 한 패키지로 흡수하려는 시도처럼 보여서 직접 설치해보고 실제로 무엇이 되고 무엇이 안 되는지 검증했습니다.
 
 ```mermaid
 flowchart TD

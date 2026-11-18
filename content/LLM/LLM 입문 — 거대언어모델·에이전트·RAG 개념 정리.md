@@ -160,7 +160,7 @@ flowchart LR
 - 에이전트가 도구를 호출하려면 도구마다 `"이 함수는 이런 입력을 받고 이런 출력을 낸다"`는 정의를 모델에게 알려줘야 합니다. 도구가 늘어날수록 이 연동을 매번 커스텀으로 짜는 것은 비효율적입니다.
 - **MCP(Model Context Protocol)**는 AI 애플리케이션(**MCP 클라이언트/호스트**)과 외부 도구·데이터 소스(**MCP 서버**) 사이의 연동 방식을 표준화한 프로토콜입니다.
 - 단순 도구 호출(`tool`)뿐 아니라 참고 데이터(`resource`), 미리 정의된 프롬프트 템플릿(`prompt`)까지 노출할 수 있어 **"AI 애플리케이션 ↔ 외부 컨텍스트/기능" 연동 표준** 역할을 합니다.
-- **실전 예시**: 이 블로그 작업 환경에서도 Claude Code가 Codex CLI·Gemini CLI 연동에 MCP를 활용합니다([[Claude 작업을 Codex로 교차검증하기 — MCP로 두 AI 붙이기]], [[취약점 진단 툴에 MCP 붙이기 Ghidra Burp jadx]] 참고). Claude 입장에서 Codex나 Ghidra는 표준 규격으로 호출 가능한 도구 하나로 보입니다.
+- **실전 예시**: 이 블로그 작업 환경에서도 Claude Code가 Codex CLI·Gemini CLI 연동에 MCP를 활용합니다([[Claude 작업을 Codex로 교차검증하기 — MCP로 두 AI 붙이기]], [[취약점 진단 툴에 MCP 붙이기 — Ghidra · Burp · jadx를 Claude에 연동하기]] 참고). Claude 입장에서 Codex나 Ghidra는 표준 규격으로 호출 가능한 도구 하나로 보입니다.
 
 ### 보안 연결고리: 도구 공격 표면과 공급망 위험
 - 연결 방식이 표준화됐다는 것은 곧 **"어떤 MCP 서버를 연결했는가 = 어떤 외부 코드를 신뢰하기로 했는가"**와 같습니다.

@@ -33,9 +33,9 @@ flowchart LR
 | **2. 시큐어코딩** | 취약점이 코드·암호 설계에서 발생하는 원인과 안전한 구현법을 찾을 때 | AES, 블록 암호 모드(ECB/CBC/GCM), 입력 검증 | [[Java Properties 파일 AES 암호화 — ECB 모드의 함정]] |
 | **3. 모바일 보안** | Android/iOS 앱의 정적 리버싱부터 Frida 후킹·컴포넌트·인증 분석까지 익힐 때 | OWASP MASVS, jadx, iOS Binary, Frida, IPC, WebView, Attestation | [[모바일 모의해킹 입문 — 환경 구축과 MASVS 체크리스트]] |
 | **4. 클라우드·컨테이너 보안** | Terraform/K8s 코드 스캔부터 AWS IAM·IMDS·S3·K8s 탈출 체인을 볼 때 | IaC, IAM `PassRole`, IMDSv2, S3 BPA, K8s RBAC | [[클라우드 인프라 진단 — IaC 보안 스캐닝(Terraform·K8s manifest)]] |
-| **5. 시스템·AD·OSCP** | OSCP 시험 도구 세팅부터 Windows AD 아키텍처·자격증명 피벗·Kerberos 체인·리포팅까지 익힐 때 | OSCP, Kerberos, DACL/ACE, LSASS, 위임 남용, SysReptor | [[OSCP 사용 도구|OSCP 추천 도구]] |
+| **5. 시스템·AD·OSCP** | OSCP 시험 도구 세팅부터 Windows AD 아키텍처·자격증명 피벗·Kerberos 체인·리포팅까지 익힐 때 | OSCP, Kerberos, DACL/ACE, LSASS, 위임 남용, SysReptor | [[OSCP 추천 도구]] |
 | **6. LLM·AI 보안** | 생성형 AI·RAG·에이전트 서비스의 신규 위협과 모의해킹 기법을 다룰 때 | Prompt Injection, RAG, Excessive Agency, OWASP LLM | [[LLM 입문 — 거대언어모델·에이전트·RAG 개념 정리]] |
-| **7. 보안 도구·자동화** | Ghidra·Burp·Frida에 MCP를 붙여 분석을 자동화하고 AI 교차검증·인프라를 구축할 때 | MCP, Ghidra, Burp Suite, Frida, Rea, Hera, Quartz | [[취약점 진단 툴에 MCP 붙이기 Ghidra Burp jadx|취약점 진단 툴에 MCP 붙이기 — Ghidra · Burp · jadx를 Claude에 연동하기]] |
+| **7. 보안 도구·자동화** | Ghidra·Burp·Frida에 MCP를 붙여 분석을 자동화하고 AI 교차검증·인프라를 구축할 때 | MCP, Ghidra, Burp Suite, Frida, Rea, Hera, Quartz | [[취약점 진단 툴에 MCP 붙이기 — Ghidra · Burp · jadx를 Claude에 연동하기]] |
 
 ---
 
@@ -147,11 +147,11 @@ flowchart LR
 **💡 한 줄 비유**: 시험장에 들어가기 전 **필수 전동 공구(추천 도구)부터 손에 익히고, Windows 도메인(AD)의 정상 출입·위임 규정을 이해한 뒤, 자격증명 피벗과 Kerberos 티켓 체인으로 도메인 컨트롤러(DC)까지 장악하고 마지막에 보고서(SysReptor)로 마무리하는 과정**입니다.
 
 - **Step 1. 시험 준비 및 필수 실전 도구**
-  - [[OSCP 사용 도구|OSCP 추천 도구]]
+  - [[OSCP 추천 도구]]
 - **Step 2. AD 아키텍처 기초 및 공격 체인 (피벗·권한상승 → Kerberos 위임)**
   - [[공격 체인 이전의 AD 아키텍처 기초 — Kerberos, NTLM, DACL·ACE, GPO·SYSVOL, 도메인 트러스트]]
-  - [[윈도우 AD 침투 자격증명 피벗 권한상승 3가지 기법|윈도우 AD 침투: 자격증명 피벗·권한상승 3가지 기법]]
-  - [[AD 환경 Kerberos 체인 공격 - 위임 남용과 토큰 가장|AD 환경 Kerberos 체인 공격: 위임 남용과 토큰 가장으로 DC 장악]]
+  - [[윈도우 AD 침투 — 자격증명 피벗·권한상승 3가지 기법|윈도우 AD 침투: 자격증명 피벗·권한상승 3가지 기법]]
+  - [[AD 환경 Kerberos 체인 공격 — 위임 남용과 토큰 가장으로 DC 장악|AD 환경 Kerberos 체인 공격: 위임 남용과 토큰 가장으로 DC 장악]]
 - **Step 3. 시험 마무리 리포팅**
   - [[SysReptor로 OSCP 리포트 작성하기]]
 
@@ -179,7 +179,7 @@ flowchart LR
 **💡 한 줄 비유**: 정적 디컴파일러(Ghidra, jadx)·동적 분석기(Burp, Frida)에 **MCP를 직접 연결하고 자체 분석 워크벤치(Hera)를 만드는 것부터, AI 교차검증과 정적 보안 서비스·블로그 자동화까지 이어지는 엔지니어링 기록**입니다.
 
 - **Step 1. 보안 진단 도구 MCP 연동 및 동적 분석 워크벤치 제작**
-  - [[취약점 진단 툴에 MCP 붙이기 Ghidra Burp jadx|취약점 진단 툴에 MCP 붙이기 — Ghidra · Burp · jadx를 Claude에 연동하기]]
+  - [[취약점 진단 툴에 MCP 붙이기 — Ghidra · Burp · jadx를 Claude에 연동하기]]
   - [[Rea 써봤다 — MCP로 붙는 AI 역공학 에이전트 도구]]
   - [[Hera — Frida 기반 동적 보안 분석 워크벤치를 직접 만들다]]
 - **Step 2. AI 에이전트 교차검증 및 서비스·인프라 자동화**

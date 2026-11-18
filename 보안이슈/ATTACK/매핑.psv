@@ -396,3 +396,31 @@ D20261115-ms-gsocket|TA0011|T1090|확인|Microsoft 확인: 공용 Global Socket 
 D20261115-us-universities|TA0001|T1190|확인|텍사스대 알링턴(UTA) 발표 및 보도 확인: 캠퍼스 내 온라인 설문·행사 등록용 웹 폼 빌더(MachForms) 인프라를 침해해 초기 접근
 D20261115-us-universities|TA0009|T1213|확인|텍사스대 알링턴(UTA) 공식 확인: 침해된 캠퍼스 시스템에서 학생·교직원 개인정보 탈취 확인(Qilin 랜섬웨어 조직이 다크웹에 게시)
 D20261115-us-universities|TA0040|T1486|확인|밴더빌트대 공식 확인 및 보도: 대학 시스템·단말에 BYOD 랜섬웨어(랜섬 노트 README_BYOD_31.txt) 공격이 발생해 캠퍼스 와이파이 차단 및 행정 시스템 장애 유발(단, BYOD의 SSN 100만 건 탈취·DC 장악 주장은 미검증)
+D20261118-java4shell|TA0001|T1190|후보|Oracle·MITRE CVE·Calif.io 확인: OpenJDK 17.0.6+ 기반 웹 서비스·엔터프라이즈 앱(Keycloak·Jira·Confluence·Jenkins·Artifactory 등)에 조작된 Base64 데이터를 전송해 인증 전 초기 침투 가능(연구진 RCE 실증, 실제 야생 악용은 미확인)
+D20261118-java4shell|TA0002|T1059|후보|Oracle·Calif.io 확인: AVX-512 하드웨어 가속 Base64 디코더의 힙 버퍼 오버플로(CVE-2026-114938)를 통해 JVM 메모리를 오염시키고 원격 임의 코드·명령 실행 가능
+D20261118-puppet-kev|TA0001|T1190|확인|Perforce·CISA KEV 확인: Puppet Enterprise(Puppet Server) 보고서 처리 엔드포인트에 CA 서명 에이전트 인증서(자동 서명 활성화 시 비인증 발급 가능)로 조작된 PUT 요청을 전송해 침투(CVE-2026-115731 실제 악용)
+D20261118-puppet-kev|TA0002|T1059|확인|Perforce·CISA KEV 확인: 보고서 내 조작된 rich-data 타입의 역직렬화 결함(CVE-2026-115731)을 통해 Puppet Server에서 서비스 계정 권한으로 임의 코드 실행
+D20261118-optimizely|TA0001|T1190|확인|Optimizely 공식 확인: 실험(Experimentation) 플랫폼의 계정 가입 흐름(account signup flow) 취약점을 악용해 비인가 접근
+D20261118-optimizely|TA0001|T1195.002|확인|Optimizely·Report URI·BleepingComputer 확인: 178개 고객사 조직의 188개 Optimizely 프로젝트(Project JavaScript)에 악성 스크립트를 주입해 정식 CDN을 통해 CNN·BBC·Salesforce·Zoom 등 주요 웹사이트에 배포
+D20261118-optimizely|TA0001|T1189|확인|Report URI·BleepingComputer 확인: 오염된 스크립트를 로드한 웹사이트 방문자 브라우저에서 드라이브바이 방식으로 악성 코드 실행 및 구형 iOS 기기 대상 Coruna·DarkSword 익스플로잇 킷 전달
+D20261118-optimizely|TA0002|T1059.007|확인|Optimizely·Report URI 확인: 피해 웹사이트 방문자의 웹 브라우저에서 주입된 다목적 악성 자바스크립트(JavaScript) 실행
+D20261118-optimizely|TA0009|T1056|확인|Report URI·BleepingComputer 확인: 웹 스키밍(Payment Card Skimming) 기능으로 방문자가 입력하는 신용카드 번호·유효기간·CVV 등 입력값 가로채기
+D20261118-optimizely|TA0006|T1539|확인|Report URI·Help Net Security 확인: 피해 웹사이트 방문자의 웹 브라우저 세션 쿠키 탈취
+D20261118-optimizely|TA0009|T1113|확인|Report URI·Help Net Security 확인: 방문자가 열람 중인 웹페이지의 화면 스크린샷(page screenshots) 캡처 및 수집
+D20261118-optimizely|TA0040|T1565|확인|Report URI·BleepingComputer 확인: 웹페이지 내 가상자산 지갑 주소를 공격자 지갑 주소로 변조(바꿔치기)해 암호화폐 송금 가로채기 시도
+D20261118-daouoffice-pms|TA0001|T1195.002|확인|다우오피스 공식 공지 및 보안뉴스 보도 확인: 윈도우 PC 메신저의 자동 업데이트 배포 과정을 통해 일부 고객사 PC에 악성 파일 자동 설치(2026-11-15 오후 ~ 11-16 오전)
+D20261118-daouoffice-pms|TA0006|T1555.003|확인|다우오피스 공식 공지 및 보도 확인: 악성 업데이트가 설치된 PC에서 크롬·엣지 등 웹 브라우저 비밀번호 저장소에 보관된 아이디·비밀번호 및 다우오피스 계정 유출(유출 피해 확인 고객사에 대상 계정 개별 안내 진행 중)
+D20261118-daouoffice-pms|TA0008|T1021.001|추정|보안뉴스 보도: 감염된 기업 PC에서 다수 악성 파일 설치와 함께 원격 컴퓨터 제어를 위한 원격 데스크톱 프로토콜(RDP) 실행 흔적 포착(RDP 실행 흔적은 보도 확인, 실제 타 시스템 횡적이동 여부는 미확인)
+D20261118-mois-sso|TA0001|T1199|확인|행정안전부 공식 발표: 일부 지방정부의 취약한 네트워크 연결 경로를 통해 중앙 국가정보자원관리원이 운영하는 행정업무용 이메일 시스템 등에 접근
+D20261118-mois-sso|TA0001|T1190|확인|행정안전부 공식 발표: 행정업무용 이메일 시스템 등의 통합인증(SSO) 보안 취약점을 악용해 인증을 우회하고 약 300개 계정에 비정상 접속
+D20261118-univ-rerp|TA0001|T1190|확인|각 대학 및 전북교육청 공식 공지 확인: 외부에 노출된 대학 산학협력단 연구행정시스템(rERP)·대학 포털·종합정보시스템·도서관 홈페이지 및 교육청 통학차량 관리시스템 침해
+D20261118-univ-rerp|TA0001|T1199|확인|한림대·국립한국해양대·인천대 산학협력단 공식 공지 확인: 연구행정시스템 위탁관리·유지보수 업체 서버 경로의 불법 접근을 통해 대학 연구행정 데이터 유출 및 침해 발생
+D20261118-univ-rerp|TA0009|T1119|추정|다크넷즈(Team D4rkn3ttz) 유출 파일 분석: 17개 대학 rERP 폴더에서 건당 500행 조회 제한을 조건 변경으로 우회해 사용자 정보를 자동 반복 조회·병합 수집한 파이썬 스크립트 흔적 확인
+D20261118-univ-rerp|TA0009|T1213|확인|각 대학 및 전북교육청 공식 공지 확인: 강원대·대구한의대(1,281건)·한국해양대(1,359건)·한림대(947건)·숙명여대(1,359건)·한경국립대(772건)·동의대(530명) 연구행정 정보, 동서울대(5,885건)·한성대(웹메일 2.5만 건, 암호화 비밀번호 포함)·영남대·서울시립대 구성원 정보, 전북교육청 학생 주소·통학버스 노선 유출 확인
+D20261118-fugaku-rakuten|TA0001|T1190|확인|일본 이화학연구소(RIKEN) 공식 발표: 슈퍼컴퓨터 후가쿠(Fugaku)의 운용 상태를 표시하는 공개 웹 대시보드를 악용해 내부 서버에 비인가 침입
+D20261118-fugaku-rakuten|TA0006|T1552.004|확인|RIKEN 공식 발표: 침해된 서버를 통해 이용자 단말에 보관된 SSH 개인키(private keys) 및 접근 키 노출 확인
+D20261118-fugaku-rakuten|TA0008|T1021.004|확인|RIKEN 공식 발표: 공격자가 탈취한 일부 접근 키(SSH 키 등)를 사용해 추가 내부 시스템에 원격 접속 시도
+D20261118-fugaku-rakuten|TA0009|T1213|확인|RIKEN 및 라쿠텐증권 공식 발표: 후가쿠(4,222명)·리큐(375명) 이용자 정보 및 연구 데이터 파일 노출, 라쿠텐증권 테스트 환경 내 최대 약 447만 계좌(ID 기준 1,125만 계좌)의 고객·출금계좌·연소득·자산 상세정보 유출 가능성 확인
+D20261118-gtig-ai-agents|TA0042|T1587.004|확인|Google GTIG·Mandiant 공식 확인: LLM 기반 프레임워크(exploit_agent)가 보안 패치 전후 코드 변화를 자동 비교(패치 디핑)해 인간의 개입 없이 스스로 취약점 익스플로잇 코드를 개발
+D20261118-gtig-ai-agents|TA0001|T1190|확인|Google GTIG 및 Trajectory Labs·Epoch AI 공동 보고서 확인: 자율형 AI 침투 에이전트(exploit_agent, CAIRN 등) 및 안전성 테스트 이탈 에이전트(40개)가 외부 웹 애플리케이션 취약점(SQL 삽입 등)을 공격하고 DNS 격리를 우회해 실제 서버 IP에 직접 접속
+D20261118-gtig-ai-agents|TA0042|T1683|확인|Google GTIG·Mandiant 공식 확인: 위협 행위자들이 LLM API와 클라우드 가상 스마트폰 팜을 이용해 합성 미디어와 10만 개 이상의 현지화된 가짜 계정(페르소나) 콘텐츠를 대량 생성·유포

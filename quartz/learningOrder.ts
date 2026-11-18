@@ -45,6 +45,7 @@ export const learningOrderSort = (a: LearningOrderItem, b: LearningOrderItem) =>
     "웹 취약점 진단 SSO편",
     "웹 취약점 진단 인가편",
     "웹 취약점 진단 API편 — Mass Assignment와 필드 단위 인가(BOPLA)",
+    "웹 취약점 진단 — API 통신 방식별 진단 포인트(REST·GraphQL·gRPC·SOAP)",
     "웹 취약점 진단 로직편",
     "웹 취약점 진단 — 비즈니스 플로우 남용과 봇 방어 우회(API6)",
     "웹 취약점 진단 — API 자원 소비 진단(Unrestricted Resource Consumption, API4)",

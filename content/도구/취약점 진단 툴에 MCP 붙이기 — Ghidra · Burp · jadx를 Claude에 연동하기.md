@@ -19,13 +19,15 @@ tags:
 이 글에서는 **Ghidra · Burp Suite · jadx** 세 도구를 Claude(Desktop / Claude Code)에 MCP로 연동하는 방법을 정리합니다.
 
 ```mermaid
-flowchart LR
+flowchart TD
     subgraph Tools["① 진단 도구 내부 서버 (Localhost)"]
+        direction LR
         G["Ghidra<br/>GhidraMCPPlugin (:8080)"]
         B["Burp Suite<br/>MCP Server BApp (:9876 SSE)"]
         J["jadx-gui<br/>jadx-ai-mcp 플러그인 (:8650)"]
     end
     subgraph Bridges["② MCP 브리지 / 트랜스포트"]
+        direction LR
         GB["Python 브리지<br/>(bridge_mcp_ghidra.py)"]
         BB["SSE 직접 연결 또는<br/>Java stdio 프록시 (mcp-proxy.jar)"]
         JB["uv + Python 서버<br/>(jadx_mcp_server.py :8651)"]
@@ -33,6 +35,7 @@ flowchart LR
     subgraph Client["③ MCP 클라이언트 (AI)"]
         C["🤖 Claude Desktop / Claude Code<br/>디컴파일 · xref 추적 · 패킷 분석 · APK SAST"]
     end
+    Tools ~~~ Bridges ~~~ Client
     G <--> GB <--> C
     B <--> BB <--> C
     J <--> JB <--> C

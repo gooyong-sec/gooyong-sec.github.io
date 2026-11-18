@@ -88,7 +88,7 @@ flowchart LR
 ```mermaid
 sequenceDiagram
     autonumber
-    participant Browser as 🙋 브라우저(클라이언트)
+    participant Browser as 🙋 브라우저<br/>(클라이언트)
     participant Server as 🖥️ 웹 서버
 
     Browser->>Server: 요청(Request)<br/>GET /login HTTP/1.1<br/>Host: example.com

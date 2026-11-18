@@ -235,6 +235,17 @@ document.addEventListener("nav", async () => {
         clusterBkg: computedStyleMap["--light"],
         edgeLabelBackground: computedStyleMap["--highlight"],
       },
+      flowchart: {
+        padding: 20,
+        nodeSpacing: 40,
+        rankSpacing: 60,
+        htmlLabels: true,
+      },
+      sequence: {
+        boxMargin: 10,
+        messageMargin: 40,
+        wrap: true,
+      },
     })
 
     await mermaid.run({ nodes })

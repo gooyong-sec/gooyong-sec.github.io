@@ -25,7 +25,7 @@ sequenceDiagram
     V-->>A: 3. 공급자 서명 토큰(Integrity Token) / Attestation·Assertion 반환
     A->>S: 4. 비즈니스 요청 바디 + 서명된 증명 토큰 전달
     S->>V: 5. 공급자 서버 복호화·검증 또는 Apple 인증서 체인 확인
-    S->>S: 6. 서명 · 패키지/번들ID · 시각 · requestHash/nonce · counter · verdict 검증
+    S->>S: 6. 서명 · 패키지/번들ID · 시각<br/>requestHash/nonce · counter · verdict 검증
     S-->>A: 7. 위험 기반 정책에 따른 허용 · 제한 · 재인증 요구
     Note over A,S: ❌ 클라이언트가 보낸 isTrusted=true만 믿으면 5~6단계가 통째로 생략됨
 ```

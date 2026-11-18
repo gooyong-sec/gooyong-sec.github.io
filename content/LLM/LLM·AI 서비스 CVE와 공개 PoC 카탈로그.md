@@ -18,21 +18,22 @@ LLM 서비스는 모델뿐 아니라 LangChain 같은 프레임워크, Langflow�
 이 문서는 **2026-10-09 기준 비공개 학습용 목록**입니다. 공개 익스플로잇 코드를 복제하지 않고 공식 권고와 공개 PoC 원문만 연결합니다. 버전 정보는 배포판 백포트 때문에 달라질 수 있으므로 실제 판정은 제품 보안 권고와 설치 패키지의 변경 이력을 함께 확인해야 합니다.
 
 ```mermaid
-flowchart LR
+flowchart TD
     subgraph Surface["AI 서비스 스택 (공격 진입점)"]
+        direction LR
         UI["웹 UI · 빌더<br/>(Open WebUI · Gradio · Langflow · Flowise)"]
         FW["오케스트레이션 프레임워크<br/>(LangChain Core / Community / JS)"]
         Infra["모델 서버 · MLOps<br/>(Ollama · MLflow)"]
     end
     subgraph VulnClass["7대 주요 CVE 발생 패턴"]
-        V1["① 무인증 관리·코드 실행 API"]
-        V2["② URL 가져오기 → SSRF"]
-        V3["③ 파일·아티팩트 경로 조작 (LFI)"]
-        V4["④ Pickle·직렬화 인젝션"]
-        V5["⑤ 도구·샌드박스 호스트 탈출"]
-        V6["⑥ 악성 모델 서버 SSE 코드 인젝션"]
-        V7["⑦ CSRF · 로컬 서비스 · 업로드 경계"]
+        V1["① 무인증 관리·코드 실행 API"] ~~~ V2["② URL 가져오기 → SSRF"]
+        V2 ~~~ V3["③ 파일·아티팩트 경로 조작 (LFI)"]
+        V3 ~~~ V4["④ Pickle·직렬화 인젝션"]
+        V4 ~~~ V5["⑤ 도구·샌드박스 호스트 탈출"]
+        V5 ~~~ V6["⑥ 악성 모델 서버 SSE 코드 인젝션"]
+        V6 ~~~ V7["⑦ CSRF · 로컬 서비스 · 업로드 경계"]
     end
+    Surface ~~~ VulnClass
     Surface --> VulnClass --> Impact["🚨 호스트 RCE · 내부망/IMDS 접근 · 비밀 탈취"]
 ```
 

@@ -18,6 +18,7 @@ tags:
 ```mermaid
 flowchart LR
     subgraph Source["① 텍스트 원본 데이터 (Git 관리)"]
+        direction TB
         MD["일일/*.md · 과거3년/*.md<br/>(쉽게 말하면 / 원인 / 침투 경로 / 조치)"]
         PSV1["ATTACK/매핑.psv<br/>(사건ID|전술|기법|근거|설명)"]
         PSV2["ATTACK/_catalog.psv<br/>(ATT&CK 공식 기법 카탈로그)"]

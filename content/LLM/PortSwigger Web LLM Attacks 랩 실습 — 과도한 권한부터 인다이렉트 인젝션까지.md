@@ -17,15 +17,18 @@ tags:
 
 ```mermaid
 flowchart TD
-    subgraph Lab1["Lab 1: Excessive Agency (Apprentice)"]
+    subgraph Lab1["Lab 1: Excessive Agency<br/>(Apprentice)"]
+        direction LR
         L1_In["자연어 요청: 'delete the user carlos'"] --> L1_Tool["과도한 권한 툴: debug_sql"]
         L1_Tool --> L1_Out["🚨 승인 없이 DELETE SQL 즉시 실행"]
     end
-    subgraph Lab2["Lab 2: Vulnerabilities in LLM APIs (Practitioner)"]
+    subgraph Lab2["Lab 2: Vulnerabilities in LLM APIs<br/>(Practitioner)"]
+        direction LR
         L2_In["이메일 인자: $(rm /home/carlos/morale.txt)@..."] --> L2_Tool["정상 툴: subscribe_to_newsletter"]
         L2_Tool --> L2_Out["🚨 백엔드 셸 명령 삽입 (Blind OS Command Injection)"]
     end
-    subgraph Lab3["Lab 3: Indirect Prompt Injection (Practitioner)"]
+    subgraph Lab3["Lab 3: Indirect Prompt Injection<br/>(Practitioner)"]
+        direction LR
         L3_In["상품 리뷰에 가짜 USER RESPONSE 은닉"] --> L3_Tool["carlos가 상품 조회 시 product_info가 리뷰 로드"]
         L3_Tool --> L3_Out["🚨 carlos 세션에서 delete_account 자동 호출"]
     end

@@ -88,7 +88,7 @@ flowchart TD
 ```mermaid
 flowchart TD
     A["allowFileAccess<br/>(targetSdk 30+ 기본값: false)"] -->|"false"| B["🛡️ 일반 file:// 로딩 차단<br/>(단, android_asset / android_res는 예외)"]
-    A -->|"true로 재설정 (또는 targetSdk <= 29)"| C["allowFileAccessFromFileURLs<br/>(targetSdk 16+ 기본값: false)"]
+    A -->|"true로 재설정 (또는 targetSdk 29 이하)"| C["allowFileAccessFromFileURLs<br/>(targetSdk 16+ 기본값: false)"]
     C -->|"false"| D["🛡️ file:// 간 교차 읽기 차단"]
     C -->|"true로 재설정"| E["allowUniversalAccessFromFileURLs<br/>(targetSdk 16+ 기본값: false)"]
     E -->|"false"| F["🚨 로컬 파일 교차 읽기 → 외부 반출 이미 성립!<br/>(img src / sendBeacon 단방향 전송은 SOP 무관)"]
@@ -129,7 +129,7 @@ sequenceDiagram
     Note over W: 이 조합에서 allowFileAccess=true + allowFileAccessFromFileURLs=true 필요
     W->>FS: fetch()/XHR로 다른 file:// 경로 교차 읽기
     FS-->>W: 로컬 파일 내용 반환
-    Note over W,Att: allowUniversalAccessFromFileURLs 없이도 반출 가능 (응답을 읽지 않는 단방향 전송)
+    Note over W,Att: allowUniversalAccessFromFileURLs<br/>없이도 반출 가능 (단방향 전송)
     W->>Att: img src / sendBeacon()으로 데이터 반출
 ```
 

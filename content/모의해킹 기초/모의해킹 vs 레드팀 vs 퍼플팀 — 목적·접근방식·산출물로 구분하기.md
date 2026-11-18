@@ -18,11 +18,11 @@ tags:
 
 ```mermaid
 flowchart LR
-    subgraph Offense["공격·진단 관점 (Offensive Security)"]
+    subgraph Offense["공격·진단 관점<br/>(Offensive Security)"]
         PT["🔍 모의해킹 (Pentest)<br/>취약점 커버리지 극대화 (건강검진)"]
         RT["🔴 레드팀 (Red Team)<br/>블루팀 몰래 목표 침투 (실전 기습)"]
     end
-    subgraph Defense["방어·관제 관점 (Defensive Security)"]
+    subgraph Defense["방어·관제 관점<br/>(Defensive Security)"]
         BT["🔵 블루팀 (Blue Team)<br/>SOC 모니터링·탐지·침해사고 대응"]
     end
     RT <-->|"실전 공방 (블라인드 대결)"| BT

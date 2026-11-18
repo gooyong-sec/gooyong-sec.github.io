@@ -19,7 +19,8 @@ tags:
 ```mermaid
 flowchart TD
     Edit["✍️ 로컬 편집<br/>content/*.md · 보안이슈/*.psv, *.md"] -->|"일회성 sync.ps1 실행 (UTF-8 BOM)<br/>또는 git push"| CI["⚙️ GitHub Actions (deploy.yml)"]
-    subgraph CIPipeline["CI 단일 빌드 파이프라인 (로컬 빌드 깜빡임 원천 제거)"]
+    subgraph CIPipeline["CI 단일 빌드 파이프라인<br/>(로컬 빌드 깜빡임 원천 제거)"]
+        direction LR
         Q["① npx quartz build"] --> B["② node 보안이슈/build.mjs"]
         B --> C["③ cp 보안이슈/index.html → public/security-issues/"]
     end

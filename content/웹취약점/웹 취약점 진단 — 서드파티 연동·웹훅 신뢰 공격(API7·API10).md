@@ -21,14 +21,17 @@ tags:
 ```mermaid
 flowchart TD
     subgraph Outbound_API10["1️⃣ API10: 외부 API 호출 후 응답 소비"]
+        direction LR
         O1["우리 서버 → 외부 벤더 API 호출"] --> O2{"응답 스키마·크기·타입·타임아웃<br/>및 내부 권한 맥락 검증?"}
         O2 -->|"미검증 신뢰"| V10["🚨 API10: 후속 인젝션 / 워커 고갈 / 권한 오판"]
     end
     subgraph Inbound_Webhook["2️⃣ 웹훅 수신: 외부 서비스 → 우리 서버"]
+        direction LR
         W1["외부 벤더(PG 등)가 웹훅 전송"] --> W2{"raw body HMAC 서명 +<br/>타임스탬프 + 이벤트 ID 멱등 검증?"}
         W2 -->|"미검증·재전송 허용"| VW["🚨 웹훅 위조 / 과거 이벤트 리플레이 / 상태 역전"]
     end
     subgraph Outbound_API7["3️⃣ API7 SSRF: 사용자 지정 콜백 URL 호출"]
+        direction LR
         S1["사용자가 알림 받을 콜백 URL 등록"] --> S2{"목적지 Allowlist + 매 홉 DNS/IP<br/>사설망·IMDS 차단?"}
         S2 -->|"미검증 호출"| V7["🚨 API7 SSRF: 내부 관리망·메타데이터 탈취"]
     end

@@ -110,21 +110,21 @@ Get-NetRoute -AddressFamily IPv4 | Sort-Object DestinationPrefix
 
 ```mermaid
 flowchart TD
-    subgraph L_Mode["① Local Forwarding (-L): 내 쪽에 고정 사서함 열기"]
+    subgraph L_Mode["① Local Forwarding (-L)<br/>내 쪽에 고정 사서함 열기"]
         direction LR
-        LC["진단 장비<br/>127.0.0.1:15432 수신"] ==>|"SSH 터널"| LS["피벗 호스트 (SSH 서버)"]
+        LC["진단 장비<br/>127.0.0.1:15432 수신"] ==>|"SSH 터널"| LS["피벗 호스트<br/>(SSH 서버)"]
         LS -->|"고정 연결"| LT["내부 DB<br/>10.20.30.15:5432"]
     end
 
-    subgraph R_Mode["② Remote Forwarding (-R): 상대편(릴레이)에 고정 사서함 열기"]
+    subgraph R_Mode["② Remote Forwarding (-R)<br/>상대편(릴레이)에 고정 사서함 열기"]
         direction LR
-        RS["외부 릴레이 (SSH 서버)<br/>127.0.0.1:18080 수신"] ==>|"역방향 SSH 터널"| RC["피벗 호스트 (SSH 클라이언트)"]
+        RS["외부 릴레이 (SSH 서버)<br/>127.0.0.1:18080 수신"] ==>|"역방향 SSH 터널"| RC["피벗 호스트<br/>(SSH 클라이언트)"]
         RC -->|"고정 연결"| RT["피벗 로컬/내부 웹<br/>127.0.0.1:8080"]
     end
 
-    subgraph D_Mode["③ Dynamic Forwarding (-D): 내 쪽에 다목적 SOCKS 창구 열기"]
+    subgraph D_Mode["③ Dynamic Forwarding (-D)<br/>내 쪽에 다목적 SOCKS 창구 열기"]
         direction LR
-        DC["진단 장비<br/>127.0.0.1:1080 (SOCKS)"] ==>|"SSH 터널"| DS["피벗 호스트 (SSH 서버)"]
+        DC["진단 장비<br/>127.0.0.1:1080 (SOCKS)"] ==>|"SSH 터널"| DS["피벗 호스트<br/>(SSH 서버)"]
         DS -->|"요청마다 목적지 변경"| DT["내부 여러 서버<br/>10.20.30.x:80, 445..."]
     end
     L_Mode ~~~ R_Mode ~~~ D_Mode

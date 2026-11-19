@@ -181,8 +181,38 @@ const cssVars = [
   "--highlight",
   "--dark",
   "--darkgray",
-  "--codeFont",
+  "--bodyFont",
 ] as const
+
+// Mix two #rrggbb colors; t=0 -> a, t=1 -> b. Lets one formula derive tints for light and dark themes.
+function mix(a: string, b: string, t: number): string {
+  const p = (h: string) => [1, 3, 5].map((i) => parseInt(h.trim().slice(i, i + 2), 16))
+  const [x, y] = [p(a), p(b)]
+  return "#" + x.map((v, i) => Math.round(v + (y[i] - v) * t).toString(16).padStart(2, "0")).join("")
+}
+
+// Semantic tint by marker emoji in the label: 🚨 risk, 🛡️/✅ safe, ⚠️ caution.
+const SEMANTIC: [RegExp, string][] = [
+  [/🚨/, "#d1495b"],
+  [/🛡️|✅/, "#2a9d8f"],
+  [/⚠️/, "#e09f3e"],
+]
+
+function tintSemantic(svg: SVGElement, bg: string) {
+  const paint = (shapes: NodeListOf<SVGElement>, hue: string, fillT: number) => {
+    for (const s of shapes) {
+      s.style.setProperty("fill", mix(bg, hue, fillT), "important")
+      s.style.setProperty("stroke", mix(bg, hue, 0.75), "important")
+    }
+  }
+  for (const el of svg.querySelectorAll<SVGElement>(".node, .cluster")) {
+    const label = el.querySelector(".nodeLabel, .cluster-label, .label")?.textContent ?? ""
+    const hit = SEMANTIC.find(([re]) => re.test(label))
+    if (!hit) continue
+    const isCluster = el.classList.contains("cluster")
+    paint(el.querySelectorAll(isCluster ? ":scope > rect" : "rect, polygon, circle, path.basic"), hit[1], isCluster ? 0.06 : 0.14)
+  }
+}
 
 let mermaidImport = undefined
 document.addEventListener("nav", async () => {
@@ -220,20 +250,47 @@ document.addEventListener("nav", async () => {
     )
 
     const darkMode = document.documentElement.getAttribute("saved-theme") === "dark"
+    const c = computedStyleMap
+    const bg = c["--light"].trim()
+    const accent = c["--secondary"].trim()
+    const sage = c["--tertiary"].trim()
+    const text = c["--dark"].trim()
+    const nodeFill = mix(bg, accent, darkMode ? 0.16 : 0.07)
+    const nodeBorder = mix(bg, accent, darkMode ? 0.6 : 0.45)
     mermaid.initialize({
       startOnLoad: false,
       securityLevel: "loose",
-      theme: darkMode ? "dark" : "base",
+      theme: "base",
       themeVariables: {
-        fontFamily: computedStyleMap["--codeFont"],
-        primaryColor: computedStyleMap["--light"],
-        primaryTextColor: computedStyleMap["--darkgray"],
-        primaryBorderColor: computedStyleMap["--tertiary"],
-        lineColor: computedStyleMap["--darkgray"],
-        secondaryColor: computedStyleMap["--secondary"],
-        tertiaryColor: computedStyleMap["--tertiary"],
-        clusterBkg: computedStyleMap["--light"],
-        edgeLabelBackground: computedStyleMap["--highlight"],
+        darkMode,
+        background: bg,
+        fontFamily: `${c["--bodyFont"]}, "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif`,
+        fontSize: "15px",
+        primaryColor: nodeFill,
+        primaryTextColor: text,
+        primaryBorderColor: nodeBorder,
+        secondaryColor: mix(bg, sage, 0.12),
+        tertiaryColor: mix(bg, accent, 0.04),
+        lineColor: mix(bg, c["--darkgray"].trim(), 0.6),
+        textColor: text,
+        clusterBkg: mix(bg, sage, darkMode ? 0.1 : 0.06),
+        clusterBorder: mix(bg, sage, 0.5),
+        titleColor: mix(text, accent, 0.35),
+        edgeLabelBackground: bg,
+        nodeTextColor: text,
+        actorBkg: nodeFill,
+        actorBorder: nodeBorder,
+        actorTextColor: text,
+        actorLineColor: mix(bg, c["--darkgray"].trim(), 0.35),
+        signalColor: mix(bg, c["--darkgray"].trim(), 0.7),
+        signalTextColor: text,
+        labelBoxBkgColor: nodeFill,
+        labelBoxBorderColor: nodeBorder,
+        noteBkgColor: mix(bg, "#e09f3e", darkMode ? 0.18 : 0.12),
+        noteBorderColor: mix(bg, "#e09f3e", 0.6),
+        noteTextColor: text,
+        activationBkgColor: mix(bg, accent, 0.15),
+        activationBorderColor: nodeBorder,
       },
       flowchart: {
         padding: 20,
@@ -249,6 +306,10 @@ document.addEventListener("nav", async () => {
     })
 
     await mermaid.run({ nodes })
+    for (const node of nodes) {
+      const svg = node.querySelector("svg")
+      if (svg) tintSemantic(svg, bg)
+    }
   }
 
   await renderMermaid()

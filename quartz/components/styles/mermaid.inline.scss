@@ -129,3 +129,28 @@ pre {
     }
   }
 }
+
+// Diagram polish: rounded shapes, slightly firmer strokes, quieter subgraphs and edge labels.
+:is(code.mermaid, .mermaid-content) svg {
+  .node rect,
+  .cluster rect {
+    rx: 8px;
+    ry: 8px;
+  }
+
+  .node :is(rect, polygon, circle) {
+    stroke-width: 1.4px !important;
+  }
+
+  .cluster rect {
+    stroke-dasharray: 5 4;
+  }
+
+  .cluster-label .nodeLabel {
+    font-weight: 600;
+  }
+
+  .edgeLabel {
+    font-size: 13px;
+  }
+}

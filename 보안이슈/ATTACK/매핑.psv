@@ -454,3 +454,31 @@ D20261119-jeonju-pnu-univ|TA0009|T1213|확인|전주대학교 및 부산대학�
 D20261119-noranusan-cj-sbank|TA0001|T1190|추정|CJ대한통운 및 저축은행중앙회 공식 공지 확인: 외부에 노출된 CJ대한통운 '오네' 챗봇 서비스에 비정상 접근 및 저축은행 외부 교육 위탁사(KG에듀원) 교육관리 사이트 해킹 침투(구체적 최초 침투 취약점은 조사 중)
 D20261119-noranusan-cj-sbank|TA0009|T1119|확인|CJ대한통운 공식 공지 확인: '오네(O-NE)' 챗봇 서비스 서버 및 DB에 비정상적인 자동화 대량 접근(스크래핑)을 수행해 인수인 이름·동 단위 주소 등 자동 반복 조회
 D20261119-noranusan-cj-sbank|TA0009|T1213|확인|저축은행중앙회 공식 공지 확인: 외부 교육 위탁사(KG에듀원)가 운영하는 저축은행 직원 교육관리 사이트에서 저축은행 임직원의 소속·직위·성명 정보 유출 확인(노란우산 약 20.5만 명 유출 정황 특정 건은 기존 사건 D20261115-noranusan의 후속 보도)
+D20261120-vmware-vcenter-bonesaw|TA0001|T1190|확인|Google GTIG·Mandiant 공식 확인: 중국 연계 ARMORY CASTLE이 외부 노출 원격지원 장비(BeyondTrust Remote Support CVE-2026-102764 등) 제로데이를 악용해 초기 침투
+D20261120-vmware-vcenter-bonesaw|TA0003|T1505.003|확인|Google GTIG·Mandiant 공식 확인: 침투한 경계 리눅스 어플라이언스에 SLIMSAVAGE 및 CAGEMATCH 커스텀 웹셸을 배포해 초기 거점 유지
+D20261120-vmware-vcenter-bonesaw|TA0008|T1210|확인|Broadcom(VMSA-2026-0009) 및 Google GTIG·Mandiant 공식 확인: 사내망에서 Go 언어 전용 익스플로잇 도구 BONESAW를 이용해 내부 VMware vCenter Server의 vmdird 인증 우회 제로데이(CVE-2026-123890)를 원격 악용하고 최고관리자(administrator@vsphere.local) 권한 획득
+D20261120-vmware-vcenter-bonesaw|TA0003|T1136.002|확인|Google GTIG·Mandiant 공식 확인: BONESAW를 통해 vSphere Single Sign-On(SSO) 도메인 내에 비인가 관리자 계정을 생성해 지속성 확보
+D20261120-vmware-vcenter-bonesaw|TA0006|T1003|확인|Google GTIG·Mandiant 공식 확인: vCenter 디렉터리 서비스 데이터베이스(vmdird data.mdb) 및 가상머신 디스크에서 자격 증명 덤프·추출
+D20261120-vmware-vcenter-bonesaw|TA0006|T1552.004|확인|Google GTIG·Mandiant 공식 확인: vCenter Server에서 마스터 암호화 키 및 SAML 토큰 서명용 개인키·인증서 추출
+D20261120-vmware-vcenter-bonesaw|TA0006|T1606.002|확인|Google GTIG·Mandiant 공식 확인: SAWSNAKE 도구를 이용해 탈취한 SAML 서명 키로 SAML 인증 토큰을 오프라인 위조(Golden SAML)하여 관리자 세션 수립
+D20261120-vmware-vcenter-bonesaw|TA0005|T1070|확인|Google GTIG·Mandiant 공식 확인: 침해한 vCenter 및 어플라이언스에서 시스템 로그를 삭제·정리해 침입 흔적 은폐
+D20261120-phpaftershell|TA0001|T1190|후보|PHP Foundation·MITRE CVE·Depthfirst 확인: 인터넷에 노출된 PHP 웹 서버에서 기본 파일 세션 쓰기 중단 역직렬화(phpAfterShell, CVE-2026-126714), 직렬화기 불일치(CVE-2026-115560), 또는 PHP-FPM 미판독 본문 FastCGI 요청 밀수(CVE-2026-129289)를 통한 비인증 침투 가능(패치 공개, 야생 악용 미확인)
+D20261120-phpaftershell|TA0002|T1059|후보|PHP Foundation·MITRE CVE·Depthfirst 확인: 세션 객체 주입(가젯 체인 결합) 또는 밀수된 FastCGI 요청(SCRIPT_FILENAME·PHP_ADMIN_VALUE 조작)을 통해 PHP 작업 프로세스 권한으로 원격 임의 코드 실행 가능
+D20261120-drupal-installer|TA0001|T1190|후보|Drupal Security Team 공식 권고(SA-CORE-2026-017 / CVE-2026-132165) 확인: 특정 구성 조건에서 비인증 공격자가 /core/install.php를 악용해 이미 운영 중인 Drupal 사이트 재설치를 시도하여 사이트 장악 가능(Anthropic OSS Scanner 발굴, 개념증명 존재)
+D20261120-drupal-installer|TA0002|T1059|후보|Drupal Security Team 공식 권고(SA-CORE-2026-017) 확인: install.php 재설치 취약점 악용을 통해 웹서버에서 원격 임의 코드 실행(RCE) 가능
+D20261120-cisco-expressway|TA0001|T1190|확인|Cisco 보안 권고·MITRE CVE 및 SecurityWeek 확인: 인터넷에 노출된 Cisco Expressway 클러스터 장비의 데이터베이스 서비스 취약점(CVE-2026-76466, 정적 쿠키 및 TLS 클라이언트 인증서 미검증)을 PoC 공개 직후 실제 악용해 침투
+D20261120-cisco-expressway|TA0002|T1059|확인|Cisco 보안 권고·MITRE CVE 및 SecurityWeek 확인: 데이터베이스 서비스 RPC 명령 호출을 통해 기반 OS에서 최고관리자(root) 권한으로 원격 임의 명령 실행 및 클러스터 장악
+D20261120-sbc-tfl-jpmorgan|TA0001|T1190|추정|SBC Medical Group(미 SEC Form 8-K 공시) 및 영국 런던교통공사(TfL) 공식 발표 확인: 외부에 노출된 SBC 일본 자회사 웹사이트 DB 시스템 및 TfL 오이스터 포토카드 웹 시스템에 비인가 침투(웹 시스템 침해는 공식 확인됐으나 구체적 초기 침투 취약점은 포렌식 조사 중)
+D20261120-sbc-tfl-jpmorgan|TA0001|T1078|확인|SBC Medical Group SEC Form 8-K 공시 확인: 56개 클리닉이 사용하는 제3자 미용 시술 예약 플랫폼(Tribeau)에서 클리닉 관리자 계정에 대한 비인가 접근 발생
+D20261120-sbc-tfl-jpmorgan|TA0001|T1199|확인|SBC Medical Group SEC 공시 및 JPMorgan Chase 고객 통지 확인: 외부 예약 플랫폼(Tribeau) 및 은행 제3자 마케팅·서비스 공급업체(서드파티 벤더) 침해를 통해 고객 데이터 노출
+D20261120-sbc-tfl-jpmorgan|TA0009|T1213|확인|SBC Medical Group·TfL·JPMorgan 공식 발표 확인: SBC 일본 자회사 웹 DB(고객 162.4만 명·예약 및 문의 47.3만 건·임직원 2만 계정 및 459명 입사서류), Tribeau(1.26만 명 예약·시술내역), TfL(26.5만 명 인적사항 및 보안 질문·답변), JPMorgan 마케팅 벤더(약 1.6만 이메일 등) 데이터 유출 확인
+D20261120-postech-paichai-univ|TA0001|T1190|확인|포항공과대학교(POSTECH) 및 배재대학교 공식 공지 확인: 포항공대 연구장비지원포털(RETINA)과 IT서비스포털(HEMOS)의 보안 취약점을 악용해 관리자 권한 획득 및 무단 접근 확인(배재대도 LMS·연계 학사시스템 외부 해킹 침투가 확인됐으나 세부 초기 침투 방식은 조사 중이어서 추정)
+D20261120-postech-paichai-univ|TA0006|T1552|확인|포항공과대학교 및 배재대학교 공식 공지 확인: 포항공대 연구장비지원포털에서 대학 통합계정 ID와 암호화된 비밀번호 19,500건, 배재대 연계 학사시스템에서 사용자 ID·암호화된 비밀번호·영문 비밀번호 등 인증 자격 증명 유출 확인
+D20261120-postech-paichai-univ|TA0009|T1213|확인|포항공과대학교 및 배재대학교 공식 공지 확인: 포항공대 포털 2곳에서 총 19,978건(RETINA 19,500건·HEMOS 478건), 배재대 LMS·학사시스템에서 학번/사번·성명·이메일·생년월일·계정정보 등 개인정보 유출 확인
+D20261120-postech-paichai-univ|TA0040|T1496|확인|포항공과대학교 공식 공지 확인: 교내 연구실 GPU 서버에 불법 암호화폐 채굴 프로그램이 설치·구동된 사실 확인(이를 계기로 조사가 확대돼 포털 해킹이 드러났으며, 포털 해킹과의 동일 공격자 연쇄 여부는 추가 조사 중)
+D20261120-voithru-jamake|TA0001|T1190|추정|보이스루(자메이크) 공식 안내 및 언론 답변 확인: 2단계 인증 없이 외부 인터넷에서 접근 가능하게 노출된 관리자용 기능을 공격해 관리자 권한 탈취 및 비인가 접근(관리자 기능 외부 노출 및 공격에 의한 권한 탈취는 공식 확인됐으나 최초 탈취 수단이 웹 취약점 악용인지 여부는 미공개)
+D20261120-voithru-jamake|TA0001|T1078|확인|보이스루(자메이크) 공식 안내 및 언론 답변 확인: 탈취한 자메이크 관리자 계정 권한을 이용해 회원 정보 및 유튜브 채널 연동 정보 조회
+D20261120-voithru-jamake|TA0009|T1213|확인|보이스루(자메이크) 공식 안내 및 언론 답변 확인: 자메이크 회원 53,199개 계정의 개인정보(이름·이메일·휴대전화번호·소셜 로그인 식별자 및 일부 결제 내역) 조회·유출 확인
+D20261120-voithru-jamake|TA0006|T1528|확인|보이스루(자메이크) 공식 안내 및 언론 답변 확인: 회원 약 9,000개 계정의 유튜브 채널 연동 정보(인증키 교체 전까지 영상 업로드·수정·삭제가 가능한 채널 관리 권한 토큰/키 포함) 조회·노출 확인(실제 채널 조작 악용 정황은 현재 미확인)
+D20261120-noranusan-360k|TA0001|T1190|추정|중소기업중앙회 11/18 정밀검사 추가 공지 확인: 외부에 노출된 노란우산 홈페이지에 외부 비인가자가 비정상 접근해 개인정보·계약 조회 화면 침해(외부 비정상 접근 및 조회 화면 접근통제 강화는 공식 확인됐으나 구체적 초기 침투 취약점은 조사 중)
+D20261120-noranusan-360k|TA0009|T1213|확인|중소기업중앙회 11/18 정밀검사 추가 공지 확인: 소상공인 고객 개인정보(성명·주민번호 앞 6자리·연락처·주소), 사업장 정보(사업장명·사업자번호·개업일), 공제 납부 내역(월부금액·납부 총액·계약번호) 및 개인 이체은행·계좌번호 총 36만여 건 무단 조회·유출 공식 확인

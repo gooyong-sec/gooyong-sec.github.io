@@ -23,3 +23,7 @@ quartz-serve.log
 
 # OSCP 챌린지/시험 풀이 원문 — 머신·자격증명·플래그 포함, 절대 공개 금지 (비공개 보관)
 /oscp 보고서/
+
+# CVE 후보 대기열(매시간 로컬 수집, 커밋 대상 아님)
+CVE-PoC/queue.local.psv
+CVE-PoC/queue.log

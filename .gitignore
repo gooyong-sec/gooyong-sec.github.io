@@ -27,3 +27,5 @@ quartz-serve.log
 # CVE 후보 대기열(매시간 로컬 수집, 커밋 대상 아님)
 CVE-PoC/queue.local.psv
 CVE-PoC/queue.log
+CVE-PoC/backfill.local.psv
+CVE-PoC/.backfill-cache/

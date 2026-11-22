@@ -482,3 +482,33 @@ D20261120-voithru-jamake|TA0009|T1213|확인|보이스루(자메이크) 공식 �
 D20261120-voithru-jamake|TA0006|T1528|확인|보이스루(자메이크) 공식 안내 및 언론 답변 확인: 회원 약 9,000개 계정의 유튜브 채널 연동 정보(인증키 교체 전까지 영상 업로드·수정·삭제가 가능한 채널 관리 권한 토큰/키 포함) 조회·노출 확인(실제 채널 조작 악용 정황은 현재 미확인)
 D20261120-noranusan-360k|TA0001|T1190|추정|중소기업중앙회 11/18 정밀검사 추가 공지 확인: 외부에 노출된 노란우산 홈페이지에 외부 비인가자가 비정상 접근해 개인정보·계약 조회 화면 침해(외부 비정상 접근 및 조회 화면 접근통제 강화는 공식 확인됐으나 구체적 초기 침투 취약점은 조사 중)
 D20261120-noranusan-360k|TA0009|T1213|확인|중소기업중앙회 11/18 정밀검사 추가 공지 확인: 소상공인 고객 개인정보(성명·주민번호 앞 6자리·연락처·주소), 사업장 정보(사업장명·사업자번호·개업일), 공제 납부 내역(월부금액·납부 총액·계약번호) 및 개인 이체은행·계좌번호 총 36만여 건 무단 조회·유출 공식 확인
+D20261122-cisa-kev-sap|TA0001|T1190|확인|CISA KEV(2026-11-20 등재, 기한 11-23)·MITRE CVE·SAP Security Note 3642398 확인: 인터넷에 노출된 SAP NetWeaver Enterprise Portal(EP-BASIS/EP-RUNTIME 7.50)의 데이터 쿼리 로직에 비인증 공격자가 JNDI 환경 속성 또는 조회 URL을 주입해 실제 악용(CVE-2025-42884, VMware vCenter CVE-2026-123890·Cisco Expressway CVE-2026-76466·Apache Roller CVE-2026-129448과 동시 등재)
+D20261122-cisa-kev-sap|TA0009|T1213|확인|CISA KEV·MITRE CVE 확인: CVE-2025-42884 악용을 통해 SAP NetWeaver Enterprise Portal이 공격자가 지정한 외부 JNDI 공급자에 접속하도록 유도하여 서버 내부 정보를 노출·수집
+D20261122-cisa-kev-sap|TA0040|T1565|확인|CISA KEV·MITRE CVE 확인: CVE-2025-42884 비인증 JNDI 주입을 통해 SAP NetWeaver Enterprise Portal 서버 정보를 비인가 변조
+D20261122-monai-cairn-bell|TA0043|T1595|확인|Amazon Threat Intelligence 공식 확인: 중국 연계 위협 행위자가 구동한 오픈소스 자율형 AI 침투 에이전트(Cairn)가 동아시아 대학교 의료 영상 AI 서버(MONAI Label)의 API 엔드포인트를 스스로 스캔·매핑
+D20261122-monai-cairn-bell|TA0042|T1587.004|확인|Amazon Threat Intelligence 공식 확인: Cairn 자율형 AI 에이전트가 '셸 접근 획득'이라는 단일 목표만 부여받고 약 11분 만에 MONAI Label의 미발견 경로 조작·파일 업로드 제로데이 취약점을 스스로 발굴·무기화
+D20261122-monai-cairn-bell|TA0001|T1190|확인|Amazon Threat Intelligence·Bell Canada·유럽연합 집행위원회 공식 확인: 자율형 AI 에이전트(Cairn 등)가 대학교 MONAI Label 서버 제로데이를 악용해 침투하고, 에이전틱 공격자가 Bell Canada의 Maximo 사전 운영(테스트) 환경 및 EU 집행위 외부 접점 시스템을 침해
+D20261122-monai-cairn-bell|TA0002|T1059|확인|Amazon Threat Intelligence 공식 확인: MONAI Label 경로 조작 제로데이를 통해 의도된 저장 디렉터리 외부 시스템 경로에 파일을 기록·실행하여 표적 대학교 서버의 최고관리자(root) 권한 장악
+D20261122-monai-cairn-bell|TA0009|T1213|확인|Bell Canada 공식 확인: 침해된 Maximo 사전 운영(테스트) 환경에서 기업 고객 업무 연락처(이름·직함·이메일·전화번호·주소), 티켓 제목 및 통신 네트워크 요소 IP 주소 유출
+D20261122-ms-entra-health|TA0001|T1190|확인|Microsoft Azure Service Health 공식 보안 통지 확인: Microsoft Entra Connect Health 클라우드 API의 취약점(2026-07-23 유입, 11-19 서버 패치)을 공격자가 실제 악용해 비인가 읽기 전용 접근 수행
+D20261122-ms-entra-health|TA0007|T1087.004|확인|Microsoft 공식 보안 통지 확인: 취약한 Entra Connect Health API 응답을 통해 고객 클라우드 테넌트의 관리자 및 기술 담당자 이메일 주소 무단 조회
+D20261122-ms-entra-health|TA0007|T1526|확인|Microsoft 공식 보안 통지 확인: 고객 테넌트의 구성 메타데이터(테넌트 ID·표시 이름·초기 도메인·리전), Entra 라이선스 등급, 하이브리드 디렉터리 동기화 상태 및 마지막 동기화 시각 탐색·조회
+D20261122-ms-entra-health|TA0009|T1213|확인|Microsoft 공식 보안 통지 확인: Entra Connect Health API를 통해 다수 고객 테넌트의 모니터링 메타데이터 및 관리자 연락처 데이터 수집
+D20261122-fbi-ncic-wellington|TA0001|T1190|확인|아일랜드 정부·DPC 및 Wellington IT 공식 통지 확인: 금융 IT 공급사 Wellington IT의 온라인 뱅킹 소프트웨어 인가(authorization) 취약점을 악용해 침투(미 FBI 국가범죄정보센터 NCIC 외부 침입 건은 수사 보도로 세부 기법 미공개)
+D20261122-fbi-ncic-wellington|TA0001|T1199|확인|아일랜드 정부·DPC 및 피해 신용조합 통지 확인: 공유 코어·온라인 뱅킹 공급사(Wellington IT) 침해를 통해 아일랜드 및 북아일랜드 신용조합 40~43곳의 고객 데이터에 연쇄 접근(약 6주간 지연 통지)
+D20261122-fbi-ncic-wellington|TA0009|T1119|확인|Wellington IT 및 아일랜드 당국 확인: 공격자가 자동화 스크립트(automated script)를 이용해 10월 초 수일간 온라인 뱅킹 저장 수취인 정보를 대량 자동 추출
+D20261122-fbi-ncic-wellington|TA0009|T1213|확인|피해 신용조합 및 아일랜드 당국 확인: 조합원들이 온라인 뱅킹에 저장해 둔 송금 수취인 실명(payee names), 국제은행계좌번호(IBAN), BIC, Sort code, 계좌번호 및 송금 참조 메모 유출 확인
+D20261122-whatsapp-metamuse-signal|TA0001|T1566|확인|Meta WhatsApp 11월 보안 권고 및 MITRE CVE(CVE-2026-23871) 확인: 안드로이드용 WhatsApp에서 외부 광고 답장 URL 검증 불완전 결함(채팅창 렌더링 시 피해자 단말 IP 노출)을 특정 스팸·사기(scam) 메시지 캠페인과 결합해 실제 악용
+D20261122-whatsapp-metamuse-signal|TA0040|T1485|후보|Meta WhatsApp 보안 권고 및 MITRE CVE(CVE-2026-102769) 확인: 비공식 클라이언트가 보낸 조작된 '주문 상세' 메시지를 탭할 때 발생하는 SQL 삽입 결함으로 기기 내 로컬 WhatsApp 파일 삭제 가능(야생 악용 미확인)
+D20261122-whatsapp-metamuse-signal|TA0002|T1698|후보|NebuSec 기술 보고서 및 Meta 패치 확인: 클라우드 개인 AI 에이전트 'Meta Muse'가 악성 웹페이지를 처리할 때 간접 프롬프트 주입(Indirect Prompt Injection)을 통해 사용자 승인 프롬프트를 우회하고 에이전트 작업 환경 내 명령 실행 시연
+D20261122-whatsapp-metamuse-signal|TA0002|T1203|후보|NebuSec 기술 보고서 확인: Meta Muse 내장 브라우저 컴포넌트를 표적으로 악성 웹페이지를 통한 코드 실행 시연
+D20261122-whatsapp-metamuse-signal|TA0004|T1611|후보|NebuSec 기술 보고서 확인: 브라우저 취약점과 리눅스 커널 취약점을 연쇄 결합해 Meta Muse 에이전트의 런타임 컨테이너를 탈출(Container/VM Escape)하고 기반 클라우드 가상머신(VM) 장악 시연
+D20261122-whatsapp-metamuse-signal|TA0004|T1068|후보|NebuSec 기술 보고서 확인: 리눅스 커널 권한 상승 취약점을 악용해 Meta Muse 사용자 클라우드 가상머신의 최고관리자(root) 권한 획득 시연
+D20261122-whatsapp-metamuse-signal|TA0006|T1555|후보|NebuSec 기술 보고서 확인: 클라우드 가상머신 root 권한 획득 후 Meta Muse에 연동된 사용자 계정들의 자격 증명 저장소(credential store) 접근 시연
+D20261122-whatsapp-metamuse-signal|TA0009|T1213|후보|NebuSec 기술 보고서 확인: 승인 통제를 우회해 Meta Muse 사용자의 비공개 대화 기록과 AI에 저장된 기억(stored memories) 및 파일을 외부 서버로 추출 시연
+D20261122-kurly-curator|TA0006|T1552|추정|컬리 공식 사과문 확인: 외부 공격자가 비정상적인 방법으로 내부 인증정보를 탈취(인증정보 탈취 사실은 공식 확인됐으나 구체적 최초 탈취 경로는 조사 중)
+D20261122-kurly-curator|TA0001|T1078|확인|컬리 공식 사과문 확인: 공격자가 탈취한 내부 인증정보를 이용해 컬리 업무 시스템에 무단 접속
+D20261122-kurly-curator|TA0009|T1213|확인|컬리 공식 사과문 확인: 업무 시스템 내 문서·데이터에서 '컬리 큐레이터' 참여자 1만699명의 개인정보(성명·아이디·전화번호·이메일·SNS 채널 정보 및 일부 주민등록번호/사업자등록번호·계좌번호)와 일반 고객 2명의 회원번호 유출 확인
+D20261122-amc-blackdiamond|TA0001|T1190|추정|에이엠씨손해보험중개 및 블랙다이아몬드 코리아 공식 안내문 확인: 외부에 노출된 보험금 청구 앱('AMC air') 시스템 및 블랙다이아몬드 코리아 외주 통합 ERP 서버에 외부 비인가 침투(침해 사실은 공식 확인됐으나 구체적 초기 침투 취약점은 조사 중)
+D20261122-amc-blackdiamond|TA0001|T1199|확인|에이엠씨손해보험중개 및 블랙다이아몬드 코리아 공식 안내문 확인: 기업 단체보험 청구 수탁·중개 앱('AMC air') 및 쇼핑몰 주문·배송 외주 통합 ERP 서비스사 서버 침해를 통해 고객사 임직원 및 쇼핑몰 고객 개인정보 노출
+D20261122-amc-blackdiamond|TA0009|T1213|확인|에이엠씨손해보험중개 및 블랙다이아몬드 코리아 공식 안내문 확인: 'AMC air' 앱에서 11/5~15 사이 회원 명단 및 보험금 청구 목록 파일(성명·소속 회사·주민등록번호 전체 또는 앞자리 및 병명·치료정보·사고경위 포함)이 무단 다운로드돼 유출됐고, 블랙다이아몬드 외주 ERP 서버에서 성명·연락처·배송지·주문내역 유출 가능성 확인

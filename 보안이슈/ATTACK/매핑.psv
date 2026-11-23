@@ -512,3 +512,34 @@ D20261122-kurly-curator|TA0009|T1213|확인|컬리 공식 사과문 확인: 업�
 D20261122-amc-blackdiamond|TA0001|T1190|추정|에이엠씨손해보험중개 및 블랙다이아몬드 코리아 공식 안내문 확인: 외부에 노출된 보험금 청구 앱('AMC air') 시스템 및 블랙다이아몬드 코리아 외주 통합 ERP 서버에 외부 비인가 침투(침해 사실은 공식 확인됐으나 구체적 초기 침투 취약점은 조사 중)
 D20261122-amc-blackdiamond|TA0001|T1199|확인|에이엠씨손해보험중개 및 블랙다이아몬드 코리아 공식 안내문 확인: 기업 단체보험 청구 수탁·중개 앱('AMC air') 및 쇼핑몰 주문·배송 외주 통합 ERP 서비스사 서버 침해를 통해 고객사 임직원 및 쇼핑몰 고객 개인정보 노출
 D20261122-amc-blackdiamond|TA0009|T1213|확인|에이엠씨손해보험중개 및 블랙다이아몬드 코리아 공식 안내문 확인: 'AMC air' 앱에서 11/5~15 사이 회원 명단 및 보험금 청구 목록 파일(성명·소속 회사·주민등록번호 전체 또는 앞자리 및 병명·치료정보·사고경위 포함)이 무단 다운로드돼 유출됐고, 블랙다이아몬드 외주 ERP 서버에서 성명·연락처·배송지·주문내역 유출 가능성 확인
+D20261123-kepco-152m|TA0001|T1190|추정|한국전력공사 공식 발표 및 대국민 사과문(2026-11-22) 확인: 외부에 노출된 대국민 전기요금 플랫폼('한전ON') 및 전자조달시스템('SRM')에 외부 불법 접속·침입 발생(두 웹 시스템 침해는 공식 확인됐으나 구체적 초기 침투 취약점은 국정원·경찰 합동 조사 중)
+D20261123-kepco-152m|TA0009|T1213|확인|한국전력공사 공식 발표 확인: '한전ON'에서 전기 사용 고객 65만487명의 개인·금융정보(고객번호·성명·주민번호·연락처·주소·은행명·계좌번호·예금주·카드사·카드번호·카드명의자·요금청구정보 등 12개 항목)와 전자조달시스템('SRM')에서 기업 대표자 42만6,827명(주민번호 포함) 및 한전·기업 직원 44만2,934명 등 합산 152만248명분 개인정보 유출 확인
+D20261123-postech-45k-univs|TA0001|T1190|확인|포항공과대학교 2차 공지 및 한성대·동의대·영남대 공식 공지 확인: 포항공대 포털 보안 취약점 악용 관리자 권한 획득 및 대학통합포털('Podium') 추가 침해 확인, 한성대 종합정보시스템·동의대 산학협력단 연구비관리시스템·영남대 도서관 및 취업 홈페이지 외부 해킹 침투 확인(한성대·동의대·영남대의 세부 초기 취약점은 조사 중)
+D20261123-postech-45k-univs|TA0006|T1552|확인|포항공과대학교 및 한성대학교 공식 공지 확인: 포항공대 연구장비지원포털 통합계정 ID·암호화된 비밀번호 19,500건에 더해 한성대 종합정보시스템에서 학교 웹메일 계정 정보 및 암호화된 비밀번호 약 25,000건 유출 확인
+D20261123-postech-45k-univs|TA0009|T1213|확인|각 대학 공식 공지 확인: 포항공대 대학통합포털('Podium')에서 성명·이메일·부서·직위·사무실 내선번호 25,551건이 추가 확인돼 총 45,529건으로 확대됐고, 한성대 종합정보시스템 약 25,000건·동의대 산학협력단 연구비관리시스템 530명·영남대 도서관 및 취업 홈페이지 이용자 다수의 개인정보 유출 확인
+D20261123-ghostscript-upload2shell|TA0001|T1190|후보|MITRE CVE(CVE-2026-125396, 11/22 갱신)·Openwall oss-security·pwn.ai 확인: 이미지(.jpg/.png)나 PDF 파일 업로드를 받아 백엔드(ImageMagick 등)에서 Ghostscript(10.08.0 미만)로 처리하는 웹 애플리케이션에 조작된 파일을 업로드해 침투 가능('Upload2Shell', 패치 및 개념증명 공개)
+D20261123-ghostscript-upload2shell|TA0002|T1203|후보|MITRE CVE(CVE-2026-125396) 확인: Ghostscript의 Type 1 폰트 로더(gs_fonts.ps 내 .putgstringcopy)가 피연산자 타입 검증 없이 특권 연산자(.forceput)를 호출하는 결함과 save/restore 간 Use-After-Free를 이용해 문서 렌더링 시 코드 실행 가능
+D20261123-ghostscript-upload2shell|TA0002|T1059|후보|MITRE CVE(CVE-2026-125396) 및 pwn.ai 확인: 커스텀 에러 핸들러로 .forceput 특권 연산자를 복구해 Ghostscript의 -dSAFER 보안 샌드박스를 우회하고 시스템 명령(RCE) 실행 가능
+D20261123-glinet-goodcloud-kvm|TA0001|T1190|확인|GL.iNet 공식 보안 권고(2026-11-20~22) 및 BleepingComputer 확인: GL.iNet의 클라우드 기반 원격 장비 관리 서비스('GoodCloud') 취약점을 공격자가 실제 악용해 침투
+D20261123-glinet-goodcloud-kvm|TA0001|T1199|확인|GL.iNet 공식 보안 권고 확인: 클라우드 원격 관리 플랫폼('GoodCloud')과 신뢰 연결된 고객들의 GL.iNet 라우터 및 원격 컴퓨터 제어용 KVM 장비에 무단 접근
+D20261123-glinet-goodcloud-kvm|TA0002|T1072|확인|GL.iNet 공식 보안 권고 확인: 클라우드 원격 관리 채널을 악용해 연결된 고객 라우터와 KVM 하드웨어에 커스텀 악성코드와 백도어를 원격 푸시·배포
+D20261123-glinet-goodcloud-kvm|TA0002|T1059.004|확인|GL.iNet 보안 권고 및 포렌식 분석 확인: 감염된 라우터·KVM 장비에서 최고관리자(root) 권한으로 악성 셸 스크립트(ni.sh 등) 및 리버스 셸 실행
+D20261123-glinet-goodcloud-kvm|TA0003|T1554|확인|포렌식 분석 및 BleepingComputer 보도 확인: 장비 내부의 시스템 유틸리티(netstat 등)를 변조·교체하고 백그라운드 악성 스크립트를 심어 재부팅·점검 시에도 지속성 유지
+D20261123-glinet-goodcloud-kvm|TA0005|T1036|확인|포렌식 분석 및 BleepingComputer 보도 확인: 정상 시스템 명령어(netstat)로 위장·대체한 바이너리를 통해 공격자의 활성 네트워크 연결을 숨김
+D20261123-glinet-goodcloud-kvm|TA0005|T1564|확인|포렌식 분석 확인: 변조된 netstat으로 활성 리버스 셸 연결과 악성 백그라운드 활동을 관리자의 화면에서 은폐
+D20261123-glinet-goodcloud-kvm|TA0011|T1071|확인|GL.iNet 보안 권고 및 포렌식 분석 확인: 감염된 라우터·KVM 장비에서 외부 공격자 C2 서버로 루트 리버스 셸 연결 유지
+D20261123-rackspace-spot-k8s|TA0001|T1078.004|확인|Rackspace 공식 보안 통지 및 BleepingComputer 확인: 공격자가 유출된 플랫폼 자격 증명(leaked platform credentials)을 이용해 11/17 약 22시간 동안 Rackspace Spot 클라우드 환경에 정상 사용자로 위장 접근
+D20261123-rackspace-spot-k8s|TA0007|T1613|확인|Rackspace 공식 보안 통지 확인: 침해된 고객 클라우드스페이스 내부의 쿠버네티스 노드(nodes)와 스토리지 볼륨(volumes)을 탐색·열거
+D20261123-rackspace-spot-k8s|TA0002|T1610|확인|Rackspace 공식 보안 통지 확인: 피해 고객 쿠버네티스 클러스터 내부에 특정 접두사(i1, glm-, probe)를 가진 비인가 컨테이너 파드(pods/workloads)를 직접 배포·실행
+D20261123-rackspace-spot-k8s|TA0006|T1552|확인|Rackspace 공식 보안 통지 확인: 고객 쿠버네티스 클러스터의 Kubernetes Secrets(DB 비밀번호, 외부 API 키, 인증 토큰, 암호화 인증서 등 보관) 열람 권한을 획득해 비밀값 노출
+D20261123-rackspace-spot-k8s|TA0006|T1528|확인|Rackspace 공식 보안 통지 확인: 영향받은 사용자의 Rackspace Spot API 토큰 및 리프레시 토큰 노출로 전면 재발급 조치
+D20261123-cleverbridge-infoblox|TA0001|T1190|추정|Cleverbridge 공식 피해 통지서 및 BleepingComputer 확인: 11/4 Cleverbridge 이커머스·구독 결제 플랫폼에 외부 비인가 침입 발생(침해 및 시스템 일시 중단은 공식 확인됐으나 구체적 초기 침투 경로는 미공개)
+D20261123-cleverbridge-infoblox|TA0001|T1199|확인|Infoblox 공식 성명 및 TechCrunch·SecurityWeek 확인: Microsoft SharePoint 데이터 마이그레이션을 담당하던 제3자 외주 벤더가 침해당해 해당 벤더의 신뢰 연결을 통해 Infoblox SharePoint 환경에 비인가 접근 발생
+D20261123-cleverbridge-infoblox|TA0001|T1078|확인|Infoblox 공식 성명 확인: 침해당한 마이그레이션 외주 벤더가 보유하고 있던 유효 자격 증명을 악용해 Infoblox 내부 SharePoint 문서함에 접근
+D20261123-cleverbridge-infoblox|TA0009|T1530|확인|Infoblox 공식 성명 확인: 광범위한 읽기 권한을 가진 외주 벤더 계정을 통해 Infoblox의 Microsoft SharePoint 클라우드 저장소에서 내부 파일 추출
+D20261123-cleverbridge-infoblox|TA0009|T1602|확인|Infoblox 공식 성명 및 보도 확인: 탈취된 SharePoint 파일에 일부 고객사의 NIOS(Network Identity Operating System) 배포 설정 스냅샷(저장된 DNS·DHCP 설정, Grid 데이터베이스, 리포팅 로그 파일) 포함 확인
+D20261123-cleverbridge-infoblox|TA0009|T1213|확인|Cleverbridge 피해 통지서 및 Infoblox CEO 사내 공지 확인: Cleverbridge 플랫폼에서 소프트웨어 구매 고객들의 결제 카드 번호·만료일·CVV/CVC 보안코드가 복사·유출됐고, Infoblox에서 임직원 및 부양가족의 이름·생년월일·급여 계좌·사회보장번호(SSN) 노출 확인
+D20261123-jp-gss-8digits-amplifon|TA0001|T1190|추정|일본 디지털청 공식 발표 및 Amplifon Americas 미 주 법무장관 공시 확인: 일본 정부 공통 시스템('GSS')의 파일 공유 서비스(7/30~11/12) 및 Amplifon Americas 시스템(1/18~2/8)에 외부 비인가 불법 접속·침입 발생(침해 사실은 공식 확인됐으나 구체적 초기 침투 기법은 조사 중)
+D20261123-jp-gss-8digits-amplifon|TA0009|T1213|확인|일본 디지털청·미 법무부(DOJ)·Amplifon 공시 확인: 일본 디지털청 GSS 파일 공유 서비스 업로드 파일 유출 가능성 확인, 8-Digits Team(INC·Lynx 랜섬웨어)의 미국 병원·학교 환자 의료기록 7,000만 건(50TB+) 탈취 기소, Amplifon Americas 환자·고객 133만2,826명의 의료·건강보험·신분증·SSN 정보 유출 확인
+D20261123-jp-gss-8digits-amplifon|TA0040|T1486|확인|미 법무부(DOJ)·FBI 공식 성명 확인: 8-Digits Team 핵심 조직원(Roman Khlynovskiy) 등이 INC 및 Lynx 랜섬웨어를 이용해 미국 전역의 병원·의료기관·학교 시스템을 암호화
+D20261123-jp-gss-8digits-amplifon|TA0040|T1657|확인|미 법무부(DOJ)·FBI 공식 성명 확인: 8-Digits Team이 탈취한 7,000만 건 이상의 의료 기록과 시스템 암호화를 빌미로 피해 병원·학교들에 총 5억 달러 이상의 몸값을 요구·갈취

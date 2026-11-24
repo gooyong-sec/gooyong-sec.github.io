@@ -543,3 +543,29 @@ D20261123-jp-gss-8digits-amplifon|TA0001|T1190|추정|일본 디지털청 공식
 D20261123-jp-gss-8digits-amplifon|TA0009|T1213|확인|일본 디지털청·미 법무부(DOJ)·Amplifon 공시 확인: 일본 디지털청 GSS 파일 공유 서비스 업로드 파일 유출 가능성 확인, 8-Digits Team(INC·Lynx 랜섬웨어)의 미국 병원·학교 환자 의료기록 7,000만 건(50TB+) 탈취 기소, Amplifon Americas 환자·고객 133만2,826명의 의료·건강보험·신분증·SSN 정보 유출 확인
 D20261123-jp-gss-8digits-amplifon|TA0040|T1486|확인|미 법무부(DOJ)·FBI 공식 성명 확인: 8-Digits Team 핵심 조직원(Roman Khlynovskiy) 등이 INC 및 Lynx 랜섬웨어를 이용해 미국 전역의 병원·의료기관·학교 시스템을 암호화
 D20261123-jp-gss-8digits-amplifon|TA0040|T1657|확인|미 법무부(DOJ)·FBI 공식 성명 확인: 8-Digits Team이 탈취한 7,000만 건 이상의 의료 기록과 시스템 암호화를 빌미로 피해 병원·학교들에 총 5억 달러 이상의 몸값을 요구·갈취
+D20261124-samsungsec-voc-lk|TA0001|T1190|확인|삼성증권 및 예별손해보험 공식 공지 확인: 예별손해보험 수탁업체(엘케이보험중개)의 단체보험 보험금 청구 서비스 시스템 보안 취약점을 악용해 침투 확인 및 삼성증권 홈페이지 내 '고객의 소리(VOC)' 접수 서비스에 외부 비인가자가 비정상적인 방법으로 접근(삼성증권 VOC의 세부 초기 취약점은 조사 중)
+D20261124-samsungsec-voc-lk|TA0001|T1199|확인|예별손해보험 공식 공지 확인: 보험계약을 중개·관리하는 수탁업체(엘케이보험중개)의 전산시스템 침해를 통해 예별손해보험의 과거 단체상해보험 피보험자 정보 유출
+D20261124-samsungsec-voc-lk|TA0009|T1213|확인|삼성증권 및 예별손해보험 공식 공지 확인: 삼성증권 VOC 시스템에서 민원 접수 고객 8,241명이 업로드한 첨부파일(이름·계좌번호·주소·연락처·운전면허번호 등 최대 13개 항목)이 유출됐고, 엘케이보험중개 시스템에서 2022년 종료된 단체상해보험 피보험자 66명의 성명·주민등록번호·연락처·소속 회사명·ID 등 유출 확인
+D20261124-hd-hyundai-robotics|TA0001|T1190|추정|HD현대로보틱스 공식 통지문 및 데일리시큐 확인: 외부에 노출된 HD현대로보틱스 공식 홈페이지에 외부 불법 접근(해킹)이 발생해 서버 격리 및 공격 IP 차단(외부 불법 침입은 공식 확인됐으나 구체적 초기 침투 취약점은 미공개)
+D20261124-hd-hyundai-robotics|TA0006|T1552|확인|HD현대로보틱스 공식 통지문 확인: 홈페이지 가입자의 아이디(ID)와 암호화된 비밀번호 등 인증 자격 증명 유출 확인
+D20261124-hd-hyundai-robotics|TA0009|T1213|확인|HD현대로보틱스 공식 통지문 확인: 홈페이지 가입자들의 회원구분·이름·회사명·회사 유선전화번호·부서명·직책·휴대전화번호·이메일 등 총 10개 항목의 개인 및 기업 소속 정보 유출 확인
+D20261124-seoulcourt-ai-redact-lib|TA0001|T1190|확인|서울시교육청 정독도서관 공식 문자 공지 및 보안뉴스 확인: 서울시교육청 통합도서관 홈페이지의 화면 코드를 임의로 조작하는 비정상적 방법으로 접근 통제를 우회해 설문 참여자 정보 열람(서울중앙지법 판결문 10건 비식별 가림 복원 노출 건은 해킹 침입이 아닌 게시 문서의 비식별 처리 결함)
+D20261124-seoulcourt-ai-redact-lib|TA0009|T1213|확인|서울시교육청 정독도서관 공식 문자 공지 확인: 정독도서관 홈페이지 이용자 만족도 설문조사(기프티콘 수령용)에 참여한 636명(중복 포함 936명)의 이름과 휴대전화번호 무단 열람·유출 확인
+D20261124-cisa-kev-nable-monai|TA0001|T1190|확인|CISA KEV(2026-11-23 등재, 기한 11-26)·MITRE CVE 확인: N-able MailAssure / SpamExperts의 릴레이 LDAP 동기화 연결 검사 SSRF 취약점(CVE-2026-134624) 및 Project MONAI 'MONAI Label'의 PUT /datastore/image 경로 조작 취약점(CVE-2026-133968)을 실제 악용해 침투
+D20261124-cisa-kev-nable-monai|TA0001|T1078|확인|CISA KEV 및 MITRE CVE(CVE-2026-134624) 확인: 인증된 API 사용자 권한(Valid Accounts)을 이용해 N-able MailAssure의 LDAP 동기화 연결 검사 기능을 악용
+D20261124-cisa-kev-nable-monai|TA0007|T1046|확인|CISA KEV 및 MITRE CVE(CVE-2026-134624) 확인: N-able MailAssure 서버로 하여금 임의의 내부 호스트와 포트에 연결하도록 강제(SSRF)하여 내부 네트워크에서 어떤 호스트·포트가 열려 있는지 탐색(Network Service Discovery)
+D20261124-cisa-kev-nable-monai|TA0011|T1090.001|확인|CISA KEV 및 MITRE CVE(CVE-2026-134624) 확인: N-able MailAssure 서버를 내부 프록시(SSRF 중계점)로 악용해 외부에서 직접 접근할 수 없는 내부 네트워크 서비스에 조작된 데이터(crafted data)를 전송
+D20261124-cisa-kev-nable-monai|TA0002|T1059|확인|CISA KEV 및 MITRE CVE(CVE-2026-133968) 확인: MONAI Label(0.8.6 미만)의 PUT /datastore/image 경로 조작을 통해 의도된 데이터스토어 외부 시스템 경로에 임의 파일을 기록하여 원격 코드 실행(RCE) 달성
+D20261124-azure-apim-classic-norway|TA0001|T1190|확인|노르웨이 국가안보청(NSM)·Equinor 및 Microsoft 공식 확인: 노르웨이 국영 에너지 기업(Equinor, Skagerak Energi) 등을 표적으로 Microsoft Azure API Management(APIM) Classic 계층의 관리 평면 취약점을 실제 악용해 비인가 접근
+D20261124-azure-apim-classic-norway|TA0006|T1552|확인|노르웨이 국가안보청(NSM) 및 Microsoft 보안 권고 확인: 침해된 Azure APIM Classic 인스턴스 내부에 직접 저장돼 있던 Named Values(백엔드 설정 변수 및 비밀값), IdP/OpenID Connect 클라이언트 시크릿, API 구독 키(Subscription keys) 탈취·노출
+D20261124-azure-apim-classic-norway|TA0006|T1528|확인|노르웨이 국가안보청(NSM) 및 Microsoft 보안 권고 확인: Azure APIM Classic의 직접 관리 API(Direct management API) 액세스 토큰 및 OIDC 토큰 시크릿 노출
+D20261124-aspnet-idunno-anticsrf|TA0001|T1190|확인|Mandiant 공식 공시(MNDT-2026-0048) 및 MITRE CVE(CVE-2026-131914, CVSS v4.0 exploitMaturity: ATTACKED) 확인: 인터넷에 노출된 ASP.NET WebForms(.aspx) 웹 서버에서 구형 서드파티 모듈 Idunno.AntiCsrf(0.9.1 Beta 이하)의 서명 미검증 ObjectStateFormatter 역직렬화 결함을 악용해 비인증 침투
+D20261124-aspnet-idunno-anticsrf|TA0002|T1059|확인|Mandiant(MNDT-2026-0048) 및 MITRE CVE(CVE-2026-131914) 확인: 조작된 __CSRFTOKEN 폼 필드 객체 주입(역직렬화 가젯 체인)을 통해 IIS 파이프라인 PreRequestHandlerExecute 단계에서 워커 프로세스(w3wp.exe) 권한으로 원격 임의 코드 실행
+D20261124-webworm-softether-austria|TA0042|T1587.001|확인|Rapid7·ESET 위협 인텔리전스 보고서 확인: 중국 연계 APT 'Webworm'이 오픈소스 SoftEther VPN Bridge(v4.44 build 9807) 소스코드를 수정·재컴파일하여 보안 도구의 정적 탐지 시그니처를 제거한 커스텀 실행 파일(netcapa.exe) 개발
+D20261124-webworm-softether-austria|TA0005|T1036.005|확인|Rapid7 위협 분석 확인: 변조한 SoftEther VPN Bridge 바이너리(netcapa.exe)를 가공의 기업('Network Systems Solutions Inc.')이 만든 정상 네트워크 감시 소프트웨어('NtMonitor VPN')로 리브랜딩·위장
+D20261124-webworm-softether-austria|TA0011|T1219|확인|Rapid7·ESET 위협 분석 확인: 침해한 정부·기반시설 윈도우 환경에 변조된 SoftEther VPN Bridge를 설치·구동해 원격 접근 유지
+D20261124-webworm-softether-austria|TA0011|T1572|확인|Rapid7·ESET 위협 분석 확인: SoftEther VPN Bridge를 이용해 피해 조직 내부망과 외부 공격자 인프라 사이에 암호화된 VPN 브리지 터널 수립
+D20261124-webworm-softether-austria|TA0011|T1102|확인|ESET 위협 분석 확인: Webworm이 Discord 및 Microsoft Graph API 등 정상 클라우드 웹 서비스를 명령·제어(C2) 통신 채널로 악용
+D20261124-webworm-softether-austria|TA0001|T1190|추정|오스트리아 외무부 공식 발표 및 The Record 확인: 외부 제3자 공급업체가 관리하는 오스트리아 외무부 웹사이트에 11/12~13 외부 해커가 비인가 침투(웹사이트 침해는 공식 확인됐으나 구체적 초기 침투 취약점은 미공개)
+D20261124-webworm-softether-austria|TA0001|T1199|확인|오스트리아 외무부 공식 발표 확인: 외부 제3자 서비스 공급업체(위탁 관리사)가 운영하는 외무부 웹사이트 침해를 통해 외무부 내부 인사 데이터에 접근
+D20261124-webworm-softether-austria|TA0009|T1213|확인|오스트리아 외무부 공식 발표 확인: 비엔나 외무부 본부 및 해외 주재 오스트리아 외교공관 직원의 실명과 공식 업무 연락처 레코드가 열람·노출됨을 확인

@@ -1,6 +1,7 @@
 .DS_Store
 .gitignore
 node_modules
+__pycache__/
 public
 prof
 tsconfig.tsbuildinfo
@@ -29,3 +30,4 @@ CVE-PoC/queue.local.psv
 CVE-PoC/queue.log
 CVE-PoC/backfill.local.psv
 CVE-PoC/.backfill-cache/
+CVE-PoC/.editor-cve-cache/

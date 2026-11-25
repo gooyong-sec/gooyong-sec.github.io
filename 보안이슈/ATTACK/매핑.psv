@@ -569,3 +569,43 @@ D20261124-webworm-softether-austria|TA0011|T1102|확인|ESET 위협 분석 확�
 D20261124-webworm-softether-austria|TA0001|T1190|추정|오스트리아 외무부 공식 발표 및 The Record 확인: 외부 제3자 공급업체가 관리하는 오스트리아 외무부 웹사이트에 11/12~13 외부 해커가 비인가 침투(웹사이트 침해는 공식 확인됐으나 구체적 초기 침투 취약점은 미공개)
 D20261124-webworm-softether-austria|TA0001|T1199|확인|오스트리아 외무부 공식 발표 확인: 외부 제3자 서비스 공급업체(위탁 관리사)가 운영하는 외무부 웹사이트 침해를 통해 외무부 내부 인사 데이터에 접근
 D20261124-webworm-softether-austria|TA0009|T1213|확인|오스트리아 외무부 공식 발표 확인: 비엔나 외무부 본부 및 해외 주재 오스트리아 외교공관 직원의 실명과 공식 업무 연락처 레코드가 열람·노출됨을 확인
+D20261125-pg-van-welcome-kis-kcp|TA0001|T1190|추정|웰컴페이먼츠·KIS정보통신·NHN KCP 공식 공지 확인: 외부에 노출된 웰컴페이먼츠 가맹점 관리자 페이지(11/4~6), KIS정보통신 VAN 업무지원 웹서비스(UBMS, 11/18), NHN KCP 고객용 조회 페이지(11/17)에 외부 비정상·우회 접근 발생(외부 침입 및 우회 접근 경로 차단은 공식 확인됐으나 세부 초기 침투 취약점은 조사 중)
+D20261125-pg-van-welcome-kis-kcp|TA0001|T1078|추정|웰컴페이먼츠 공식 공지 확인: 가맹점 관리자 페이지 비정상 접근 인지 후 접근 경로 차단과 함께 계정 및 권한 회수 조치를 시행(가맹점 관리자 계정·권한 악용 정황이나 최초 탈취 경위는 조사 중)
+D20261125-pg-van-welcome-kis-kcp|TA0009|T1213|확인|웰컴페이먼츠·KIS정보통신·NHN KCP 공식 공지 확인: 웰컴페이먼츠에서 결제 이용자 1,326명의 성명·연락처·이메일·결제내역(가맹점명·상품명·결제금액·취소사유 등) 및 정기결제용 빌링키(Billing Key)가 유출됐고, KIS정보통신 UBMS에서 CMS 고객 208건·임직원 654건 등 최대 862명 정보 유출, NHN KCP에서 마스킹된 매출전표 160건 노출 확인
+D20261125-hanasavings-sunchon-univ|TA0001|T1190|확인|국립순천대학교 및 하나저축은행 공식 사과문 확인: 국립순천대 구 '향림통시스템'의 보안 취약점 악용 외부 접근 확인(취약점 긴급 보완 완료) 및 하나저축은행 모바일 웹 '고객확인 재이행' 시스템에 외부 불법 침입 발생(하나저축은행의 세부 초기 취약점은 조사 중)
+D20261125-hanasavings-sunchon-univ|TA0009|T1213|확인|하나저축은행 및 국립순천대학교 공식 사과문 확인: 하나저축은행 모바일 웹 '고객확인 재이행' 시스템에서 고객 552명의 이름·주민등록번호·생년월일·전화번호·국적·자택 및 직장 주소·직장명·이메일 등 최대 19개 항목 유출 확인 및 국립순천대 구 향림통시스템에서 이용자 개인정보 유출 정황 확인
+D20261125-pipc-phishing-fortinet-ai|TA0001|T1566.001|확인|개인정보보호위원회 공식 긴급 경보(2026-11-24) 및 포티넷 위협 인텔리전스 확인: 개인정보위 '조사조정국 조사3과' 직원을 사칭해 '개인정보 유출 의심정보 확인 안내.pdf' 위장 악성 첨부파일이 담긴 피싱 이메일을 유포하고, 북한 안다리엘(Onyx Sleet)이 국내 위장 회사 명의로 맞춤형 PDF 미끼 100종을 스피어피싱으로 유포
+D20261125-pipc-phishing-fortinet-ai|TA0001|T1566.002|확인|개인정보보호위원회 공식 긴급 경보 확인: 개인정보 유출 사실 통지 및 확인을 명목으로 이메일 본문 내 악성 URL 링크 클릭을 유도해 가짜 로그인 페이지 접속 및 악성코드 감염 유도
+D20261125-pipc-phishing-fortinet-ai|TA0002|T1204|확인|개인정보보호위원회 공식 긴급 경보 및 포티넷 발표 확인: 수신자가 유출 확인 안내 위장 첨부파일·링크를 열거나 개발자가 유사 도메인의 가짜 코딩 AI 설치 스크립트를 실행하도록 유도
+D20261125-pipc-phishing-fortinet-ai|TA0005|T1036|확인|포티넷 위협 인텔리전스 발표 확인: 유사 도메인(타이포스쿼팅)과 파일리스 스크립트를 이용해 정품 OpenAI Codex 및 Anthropic Claude Code 명령줄 도구(CLI)로 위장·재구성하고 27개 AI 브랜드를 사칭한 186개 가짜 도메인 운영
+D20261125-pipc-phishing-fortinet-ai|TA0002|T1059|확인|포티넷 위협 인텔리전스 발표 확인: 파일리스 스크립트를 실행해 정품 Codex 및 Claude Code 명령줄 도구(CLI) 구성을 변조
+D20261125-pipc-phishing-fortinet-ai|TA0112|T1685|확인|포티넷 위협 인텔리전스 발표 확인: 변조된 Codex·Claude Code CLI에서 실행 샌드박스(sandbox)와 보안 텔레메트리(telemetry) 기능을 비활성화해 방어 및 감시를 무력화
+D20261125-pipc-phishing-fortinet-ai|TA0006|T1528|확인|포티넷 위협 인텔리전스 발표 확인: 코딩 AI 에이전트에 설정된 정상 API 키를 탈취하고 공격자의 외부 중계(Relay) 토큰으로 바꿔치기
+D20261125-pipc-phishing-fortinet-ai|TA0006|T1539|확인|포티넷 위협 인텔리전스 발표 확인: 한국 조직을 겨냥한 인포스틸러 악성코드가 개발자·사용자 단말에서 활성 클로드(Claude) 웹 세션 쿠키와 자격 증명을 직접 표적 탈취
+D20261125-pipc-phishing-fortinet-ai|TA0009|T1213|확인|포티넷 위협 인텔리전스 발표 확인: 변조된 코딩 AI CLI의 외부 중계 토큰을 통해 개발자가 입력하는 조직 내부 프롬프트와 소스코드 맥락을 공격자 외부 서버로 몰래 수집·유출
+D20261125-cisa-kev-drupal-idunno-optimizely|TA0001|T1190|확인|CISA KEV(2026-11-24 등재, 기한 11-27, forensicTriage: Yes)·MITRE CVE 확인: Drupal Core의 /core/install.php 재설치 취약점(CVE-2026-132165), ASP.NET WebForms Idunno.AntiCsrf 역직렬화 취약점(CVE-2026-131914), Optimizely Web Experimentation 계정 가입 흐름 취약점(CVE-2026-132224)의 야생 실제 악용 확인
+D20261125-cisa-kev-drupal-idunno-optimizely|TA0002|T1059|확인|CISA KEV(2026-11-24 등재) 확인: CVE-2026-132165(Drupal install.php 재설치) 및 CVE-2026-131914(Idunno.AntiCsrf __CSRFTOKEN 역직렬화) 실제 악용을 통한 웹서버 원격 임의 코드 실행(RCE) 확인
+D20261125-cisa-kev-drupal-idunno-optimizely|TA0001|T1195.002|확인|CISA KEV(2026-11-24 등재) 및 MITRE CVE(CVE-2026-132224) 확인: Optimizely Web Experimentation의 계정 가입 흐름 상태 데이터 제어 결함을 악용해 기존 고객 사용자를 사칭하고 cdn.optimizely.com을 통해 고객사 웹사이트로 배포되는 Project JavaScript(projectJS) 자산을 변조
+D20261125-cisa-kev-drupal-idunno-optimizely|TA0040|T1565.001|확인|CISA KEV 및 MITRE CVE(CVE-2026-132224) 확인: Optimizely 호스팅 CDN 자산 내 projectJS 필드에 공격자가 제어하는 자바스크립트 코드를 주입·변조
+D20261125-cisa-kev-drupal-idunno-optimizely|TA0001|T1189|확인|CISA KEV 및 MITRE CVE(CVE-2026-132224) 확인: 오염된 Optimizely 호스팅 스크립트 자산을 로드하는 피해 고객사 웹사이트를 방문한 일반 사용자의 웹 브라우저에서 공격자 스크립트가 자동 전달·실행됨(Drive-by Compromise)
+D20261125-cisa-kev-drupal-idunno-optimizely|TA0002|T1059.007|확인|CISA KEV 및 MITRE CVE(CVE-2026-132224) 확인: 피해 고객사 웹사이트 방문자의 브라우저 컨텍스트에서 공격자가 삽입한 악성 JavaScript 실행
+D20261125-vmware-vcenter2-whmcs-sqli|TA0001|T1190|후보|Broadcom(VMSA-2026-0011·VMSA-2026-0010) 및 WebPros WHMCS·MITRE CVE 확인: 인터넷이나 네트워크에 노출된 VMware vCenter Server의 두 번째 vmdir 인증 우회(CVE-2026-123903, CVSS 9.8), Aria/VCF Operations mod_http2 RCE(CVE-2026-119618), 그리고 WHMCS 쇼핑카트 비인증 SQL 삽입(CVE-2026-82981) 및 이메일 캠페인 결함(CVE-2026-93700)을 통한 침투 가능(패치 공개)
+D20261125-vmware-vcenter2-whmcs-sqli|TA0008|T1210|후보|Broadcom(VMSA-2026-0011) 확인: 사내 네트워크에서 vCenter Server의 vmdir 인증 우회(CVE-2026-123903) 또는 ESXi 호스트 IOFilterVP 서비스(포트 9080, CVE-2026-123910·CVE-2026-123911, CVSS 9.8)를 원격 공격해 가상화 인프라 횡적 장악 가능
+D20261125-vmware-vcenter2-whmcs-sqli|TA0006|T1552|후보|MITRE CVE(CVE-2026-82981·CVE-2026-93700) 및 WHMCS 보안 권고 확인: WHMCS 쇼핑카트 비인증 SQL 삽입으로 최고관리자 계정 레코드와 비밀번호 해시를 추출하고, 이메일 캠페인 결함으로 호스트 서버의 민감 설정 파일(configuration.php 내 DB 자격 증명 등) 열람 가능
+D20261125-vmware-vcenter2-whmcs-sqli|TA0009|T1213|후보|MITRE CVE(CVE-2026-82981·CVE-2026-82979) 확인: WHMCS 데이터베이스에 대한 SQL 삽입을 통해 호스팅 고객들의 개인정보, 결제(billing) 정보 및 기술지원(support) 티켓 데이터 조회·추출 가능
+D20261125-vmware-vcenter2-whmcs-sqli|TA0002|T1059|후보|Broadcom(VMSA-2026-0011·0010) 및 MITRE CVE(CVE-2026-93700) 확인: ESXi IOFilterVP 서비스(CVE-2026-123910·123911), Aria Operations(CVE-2026-119618), 그리고 WHMCS 이메일 캠페인 취약점(CVE-2026-93700) 악용을 통한 서버 원격 임의 코드 실행(RCE) 가능
+D20261125-okta-inception-volant-kuboshell|TA0042|T1583.001|확인|Okta Threat Intelligence 및 ReversingLabs 공식 보고서 확인: O-UNC-053 클러스터가 표적 기업의 SSO(Okta, NetIQ 등) 로그인 포털을 모방한 맞춤형 피싱 도메인을 지속 등록·구축
+D20261125-okta-inception-volant-kuboshell|TA0001|T1566.004|확인|Okta Threat Intelligence 및 ReversingLabs 확인: O-UNC-053 조직원이 사내 IT 지원팀·헬프데스크를 사칭해 직원에게 전화를 걸어(Vishing) 가짜 SSO 로그인 페이지 접속을 유도
+D20261125-okta-inception-volant-kuboshell|TA0006|T1111|확인|Okta Threat Intelligence 확인: 실시간 피싱 키트를 이용해 피해자가 전화 통화 중 입력하는 일회용 인증코드(OTP)나 MFA 푸시 승인을 가로채 인증 흐름을 하이재킹(단, 패스키·Okta FastPass 등 피싱 저항 MFA는 우회 불가 확인)
+D20261125-okta-inception-volant-kuboshell|TA0001|T1078|확인|Okta Threat Intelligence 확인: 가로챈 SSO 자격 증명과 MFA 세션으로 피해 기업 클라우드·업무 환경에 정상 사용자로 로그인
+D20261125-okta-inception-volant-kuboshell|TA0040|T1657|확인|Okta Threat Intelligence 및 ReversingLabs 확인: 기존 ShinyHunters 사이트 폐쇄 후 2026-11-16 신규 다크웹 데이터 유출 사이트 'INCEPTION'을 개설해 탈취 데이터를 게시하며 피해 조직 갈취
+D20261125-okta-inception-volant-kuboshell|TA0042|T1683|확인|Check Point Research 공식 보고서 확인: 이란 MOIS 연계 'Volant Manticore'가 표적 공격을 위해 AI로 생성한 가짜 인물 프로필(페르소나)과 이력서(CV)·세미나 미끼 콘텐츠 제작
+D20261125-okta-inception-volant-kuboshell|TA0042|T1587.001|확인|Check Point Research 확인: Volant Manticore가 분산형 파일 시스템(IPFS) 기반의 신종 윈도우 백도어 'KuboShell'과 MuddyC2Go를 재구현한 사후 침투 툴킷 'Homa Framework'를 자체 개발
+D20261125-okta-inception-volant-kuboshell|TA0001|T1566.001|확인|Check Point Research 확인: 채용(가짜 이력서) 및 보건 세미나 주제로 위장한 악성 ZIP 압축파일을 스피어피싱으로 전달해 키프로스 통신·항공사 및 사우디아라비아 의료기관 공격
+D20261125-okta-inception-volant-kuboshell|TA0002|T1204.002|확인|Check Point Research 확인: 표적 사용자가 스피어피싱 ZIP 아카이브 내의 악성 파일 및 설치 패키지를 열람·실행
+D20261125-okta-inception-volant-kuboshell|TA0011|T1219|확인|Check Point Research 확인: 백도어와 함께 합법적인 원격 모니터링·관리(RMM) 도구(MeshCentral 등)를 피해 시스템에 배포해 원격 제어 유지
+D20261125-okta-inception-volant-kuboshell|TA0011|T1102|확인|Check Point Research 확인: KuboShell 백도어가 일반 IP C2 서버 대신 분산형 P2P 파일 시스템인 IPFS(특히 Pinata 파일 공유 웹 서비스)를 명령·제어(C2) 통신 인프라로 악용해 네트워크 탐지 회피
+D20261125-okta-inception-volant-kuboshell|TA0011|T1071|확인|Check Point Research 확인: IPFS 게이트웨이 웹 프로토콜을 통해 명령을 수신하고 Homa Framework 페이로드를 전개
+D20261125-mycolorado-carnegie-laliga|TA0001|T1190|추정|콜로라도 주정부 정보기술국(OIT)·카네기 국제평화재단·스페인 LaLiga 공식 발표 확인: 콜로라도주 디지털 신분증 앱('myColorado') 플랫폼, 카네기 재단의 모금 소프트웨어 벤더('Soapbox Engage'), 스페인 프로축구 LaLiga 디지털 팬 플랫폼에 외부 사이버 공격 침입 발생(침해 사실은 모두 공식 확인됐으나 구체적 초기 침투 취약점은 비공개)
+D20261125-mycolorado-carnegie-laliga|TA0001|T1199|확인|카네기 국제평화재단 공식 성명 및 The Record 확인: 서드파티 온라인 모금 플랫폼('Soapbox Engage') 침해 및 카네기 재단 내부 데이터베이스와의 연동(integration) 통로를 통해 재단 후원자 연락처 데이터에 비인가 접근
+D20261125-mycolorado-carnegie-laliga|TA0009|T1213|확인|콜로라도 OIT·카네기 재단·LaLiga 공식 발표 확인: myColorado 앱(가입자 210만 명 중 약 5만~15만 명 데이터 탈취 추정 및 앱 전면 중단), 카네기 재단(후원자 이름·이메일·전화번호·기부 내역 유출), 스페인 LaLiga 및 소속 구단(팬 식별 정보·연락처 유출) 확인

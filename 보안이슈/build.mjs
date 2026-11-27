@@ -1,7 +1,8 @@
 // 사용법: node build.mjs
 // 원본: 일일/*.md, 과거3년/*.md (사건 본문), ATTACK/매핑.psv (사건-기법 매핑), ATTACK/_catalog.psv (공식 기법 목록),
 //       ATTACK/기법해설.psv·전술해설.psv·용어집.psv (쉬운 해설), 국내뉴스.psv (국내 뉴스 브리핑), 분류.psv
-// 생성: ATTACK/NN-*.md (전술별), ATTACK/README.md, 과거3년/00-타임라인.md, 용어집.md, 국내뉴스.md, index.html (서버 없이 열리는 UI)
+// 생성: ATTACK/NN-*.md (전술별), ATTACK/README.md, 과거3년/00-타임라인.md, 용어집.md, 국내뉴스.md, index.html (서버 없이 열리는 UI 틀) + data-core.js·data-doc-*.js (UI 데이터 조각)
+import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -184,12 +185,31 @@ for (const i of incidents) {
 }
 const incUi = incidents.map(({ md, ...r }) => r);
 
-// ── index.html ───────────────────────────────────────────
+// ── 데이터 조각 + index.html ─────────────────────────────
+// 첫 화면에 필요한 데이터는 data-core.js 하나로, 문서 본문은 문서마다 data-doc-<경로 해시>.js로 나눠
+// 사건·문서·검색 화면을 열 때만 불러온다. <script src> 방식이라 file:// 더블클릭에서도 동작한다.
+// ?v=내용 해시: 배포 캐시 때문에 틀과 조각 버전이 엇갈리지 않게 한다
+const hash = (s, n = 10) => crypto.createHash('sha1').update(s).digest('hex').slice(0, n);
+const dataFiles = new Set();
+const writeData = (name, js) => { write(name, js); dataFiles.add(name); return `${name}?v=${hash(js)}`; };
+const docsMeta = docsUi.map((d) => ({
+  path: d.path, title: d.title,
+  src: writeData(`data-doc-${hash(d.path, 8)}.js`, `(window.SEC_DOCS=window.SEC_DOCS||{})[${JSON.stringify(d.path)}]=${JSON.stringify(d.md)};\n`),
+}));
 const data = {
   built: new Date().toLocaleDateString('sv-SE'),
-  tactics: TACTICS, catalog, incidents: incUi, mappings, docs: docsUi, classes: CLASSES, glossary, techNotes, tacDesc, news,
+  tactics: TACTICS, catalog, incidents: incUi, mappings, docs: docsMeta, classes: CLASSES, glossary, techNotes, tacDesc, news,
 };
-const json = JSON.stringify(data).replace(/</g, '\\u003c');
-write('index.html', read('template.html').replace('/*__DATA__*/', `const DATA = ${json};`));
+const coreSrc = writeData('data-core.js', `window.SEC_DATA=${JSON.stringify(data)};\n`);
+for (const f of fs.readdirSync(ROOT)) if (/^data-(core|doc-[0-9a-f]+)\.js$/.test(f) && !dataFiles.has(f)) fs.unlinkSync(path.join(ROOT, f));
+const escHtml = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const noscript = [
+  `<h1>보안 이슈 · MITRE ATT&amp;CK</h1><p>이 화면은 JavaScript로 그립니다. JavaScript가 꺼져 있어 최근 사건 10건만 요약해 보여 줍니다(전체 ${incidents.length}건).</p><ul>`,
+  ...[...incidents].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 10).map((i) => `<li><strong>${escHtml(i.date)} ${escHtml(i.title)}</strong><br>${escHtml(i.easy)}</li>`),
+  '</ul>',
+].join('\n');
+const template = read('template.html');
+for (const k of ['/*__CORE_SRC__*/', '/*__NOSCRIPT__*/']) if (!template.includes(k)) warn(`template.html에 ${k} 자리표시자 없음`);
+write('index.html', template.replace('/*__CORE_SRC__*/', coreSrc).replace('/*__NOSCRIPT__*/', noscript));
 
-console.log(`사건 ${incidents.length}건 · 매핑 ${mappings.length}행 · 문서 ${docs.length}개 · 상위 기법 ${distinct.size}/${distinctAll.size} → index.html`);
+console.log(`사건 ${incidents.length}건 · 매핑 ${mappings.length}행 · 문서 ${docs.length}개 · 상위 기법 ${distinct.size}/${distinctAll.size} → index.html + data-*.js ${dataFiles.size}개`);

@@ -35,13 +35,13 @@ jobs:
       - name: Copy security-issues static page
         run: |
           mkdir -p public/security-issues
-          cp "보안이슈/index.html" public/security-issues/index.html
+          cp "보안이슈/index.html" "보안이슈"/data-*.js public/security-issues/
       - name: Build CVE-PoC page from source
         run: node "CVE-PoC/build.mjs"
       - name: Copy CVE-PoC static page
         run: |
           mkdir -p public/CVE-PoC
-          cp "CVE-PoC/index.html" public/CVE-PoC/index.html
+          cp "CVE-PoC/index.html" CVE-PoC/data-*.js public/CVE-PoC/
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

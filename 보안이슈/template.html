@@ -127,11 +127,42 @@ abbr.g:hover::after,abbr.g:focus::after{content:attr(data-tip);position:absolute
   </div>
 </div>
 <aside class="drawer" id="drawer" hidden></aside>
+<noscript><div style="max-width:760px;margin:24px auto;padding:0 16px">/*__NOSCRIPT__*/</div></noscript>
+<script src="/*__CORE_SRC__*/"></script>
 <script>
-/*__DATA__*/
 (function(){
+const DATA = window.SEC_DATA;
+if (!DATA) { document.getElementById('view').innerHTML = '<p>데이터 파일(data-core.js)을 불러오지 못했습니다. index.html과 같은 폴더에 data-*.js가 있는지 확인하세요.</p>'; return; }
 const {tactics, catalog, incidents, mappings, docs, classes, glossary, techNotes, tacDesc, news} = DATA;
 const $ = (s, el=document) => el.querySelector(s);
+
+// ── 문서 본문 지연 로드: 문서마다 data-doc-N.js 조각을 script 태그로 불러온다(file://에서도 동작) ──
+const DOC_MD = window.SEC_DOCS = window.SEC_DOCS || {};
+const docLoading = {};
+function loadDoc(p){
+  const d = docs.find(x => x.path === p);
+  if (!d || DOC_MD[p] != null) return Promise.resolve();
+  return docLoading[p] || (docLoading[p] = new Promise((resolve, reject) => {
+    const s = document.createElement('script');
+    const fail = () => { delete docLoading[p]; s.remove(); reject(new Error('문서 데이터를 불러오지 못했습니다: ' + p)); };
+    s.src = d.src;
+    s.onload = () => (DOC_MD[p] != null ? resolve() : fail());
+    s.onerror = fail;
+    document.head.appendChild(s);
+  }));
+}
+const allDocsLoaded = () => docs.every(d => DOC_MD[d.path] != null);
+// 본문이 필요한 화면은 먼저 불러온 뒤 같은 화면이 아직 열려 있으면 다시 그린다
+function needDocs(paths, rerender){
+  if (paths.every(p => DOC_MD[p] != null)) return false;
+  const at = location.hash;
+  view.innerHTML = '<p class="sub">불러오는 중…</p>';
+  Promise.all(paths.map(loadDoc)).then(() => { if (location.hash === at) rerender(); },
+    e => { if (location.hash === at) view.innerHTML = `<p>${esc(e.message)}</p>`; });
+  return true;
+}
+const PAGE = 30; // 목록을 처음에 그리는 개수, '더 보기'마다 이만큼 더
+const moreBtn = (left, key) => left > 0 ? `<p style="text-align:center"><button class="btn" data-more="${key}">더 보기 (${left}건 남음)</button></p>` : '';
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const enc = encodeURIComponent;
 
@@ -141,20 +172,24 @@ const catName = {}; const techTactics = {};
 catalog.forEach(c => { catName[c.id] = catName[c.id] || c.name; (techTactics[c.id] = techTactics[c.id] || []).push(c.ta); });
 const incById = Object.fromEntries(incidents.map(i => [i.id, i]));
 const docByPath = Object.fromEntries(docs.map(d => [d.path, d]));
-const incMd = i => (docByPath[i.file] ? docByPath[i.file].md.slice(i.s, i.e) : '');
+const incMd = i => (DOC_MD[i.file] || '').slice(i.s, i.e);
 const mapsByInc = {}, byTech = {};
 mappings.forEach(m => { (mapsByInc[m.id] = mapsByInc[m.id] || []).push(m); (byTech[m.parent] = byTech[m.parent] || []).push(m); });
+// 검색 색인은 본문이 필요해서, 처음 검색할 때 모든 문서를 불러온 뒤 만든다
 const searchText = {};
-incidents.forEach(i => {
-  const ts = (mapsByInc[i.id] || []).map(m => m.tech + ' ' + (catName[m.parent] || '')).join(' ');
-  searchText[i.id] = [i.id, i.title, i.type, i.actor, i.region, i.date, i.evidence, incMd(i), ts, (i.cls || []).map(c => classes[c]).join(' ')].join(' ').toLowerCase();
-});
+let searchReady = false;
+function buildSearch(){
+  incidents.forEach(i => {
+    const ts = (mapsByInc[i.id] || []).map(m => m.tech + ' ' + (catName[m.parent] || '')).join(' ');
+    searchText[i.id] = [i.id, i.title, i.type, i.actor, i.region, i.date, i.evidence, incMd(i), ts, (i.cls || []).map(c => classes[c]).join(' ')].join(' ').toLowerCase();
+  });
+}
 const evCls = e => ({'확인':'ok','보도':'info','추정':'warn','후보':'mute','주장':'bad'}[e] || 'mute');
 const tag = (t, cls) => `<span class="tag ${cls || evCls(t)}">${esc(t)}</span>`;
 const techChip = id => `<a class="chip" href="#/matrix/${id}" title="${esc(catName[id] || '')}">${id}</a>`;
 const isDaily = i => i.file.startsWith('일일/');
 const actorKey = a => (a.split('(')[0].trim()) || '미귀속';
-const state = { year: '', type: '', cls: '', ev: '', q: '', onlyHit: true, ncat: '', gq: '' };
+const state = { year: '', type: '', cls: '', ev: '', q: '', onlyHit: true, ncat: '', gq: '', tlN: PAGE, krN: PAGE, nwN: PAGE };
 const clsTags = i => (i.cls || []).map((c, n) => tag(`${c} ${classes[c]}`, n ? 'mute' : 'warn')).join(' ');
 const CLS_EASY = {
   A: '인터넷에 열린 장비·서비스의 결함을 공격해 들어옴', B: '비밀번호·2단계 인증이 약하거나 없어서 로그인으로 들어옴',
@@ -315,6 +350,7 @@ function vTimeline(){
   const years = [...new Set(incidents.map(i => yearOf(i.date)))].sort().reverse();
   const types = [...new Set(incidents.map(i => i.type))].sort();
   const q = state.q.trim().toLowerCase();
+  if (q && !searchReady) { if (needDocs(docs.map(d => d.path), vTimeline)) return; buildSearch(); searchReady = true; }
   const rows = incidents.filter(i => (!state.year || yearOf(i.date) === state.year) && (!state.type || i.type === state.type) &&
     (!state.cls || (i.cls || []).includes(state.cls)) &&
     (!state.ev || i.evidence === state.ev) && (!q || searchText[i.id].includes(q))).sort((a, b) => b.date.localeCompare(a.date));
@@ -325,14 +361,18 @@ function vTimeline(){
       <select id="fc" aria-label="원인 유형"><option value="">원인 유형 전체</option>${Object.entries(classes).map(([k, v]) => `<option value="${k}" ${state.cls === k ? 'selected' : ''}>${k} ${esc(v)}</option>`).join('')}</select>
       <select id="fe" aria-label="근거"><option value="">근거 전체</option>${['확인', '보도', '추정', '주장'].map(t => `<option ${state.ev === t ? 'selected' : ''}>${t}</option>`).join('')}</select>
     </div>
-    <div class="list">${rows.map(incCard).join('') || '<p class="sub">조건에 맞는 사건이 없습니다.</p>'}</div>`;
-  view.querySelectorAll('[data-y]').forEach(b => b.onclick = () => { state.year = b.dataset.y; vTimeline(); });
-  $('#ft').onchange = e => { state.type = e.target.value; vTimeline(); };
-  $('#fc').onchange = e => { state.cls = e.target.value; vTimeline(); };
-  $('#fe').onchange = e => { state.ev = e.target.value; vTimeline(); };
+    <div class="list">${rows.slice(0, state.tlN).map(incCard).join('') || '<p class="sub">조건에 맞는 사건이 없습니다.</p>'}</div>
+    ${moreBtn(rows.length - state.tlN, 'tl')}`;
+  const refilter = () => { state.tlN = PAGE; vTimeline(); };
+  view.querySelectorAll('[data-y]').forEach(b => b.onclick = () => { state.year = b.dataset.y; refilter(); });
+  $('#ft').onchange = e => { state.type = e.target.value; refilter(); };
+  $('#fc').onchange = e => { state.cls = e.target.value; refilter(); };
+  $('#fe').onchange = e => { state.ev = e.target.value; refilter(); };
+  const mb = view.querySelector('[data-more="tl"]'); if (mb) mb.onclick = () => { state.tlN += PAGE; vTimeline(); };
 }
 function vInc(id){
   const i = incById[id]; if (!i) { view.innerHTML = '<p>사건을 찾을 수 없습니다.</p>'; return; }
+  if (needDocs([i.file], () => vInc(id))) return;
   seenTerms = new Set();
   const ms = mapsByInc[id] || [];
   view.innerHTML = `<a class="back" href="#/timeline">← 타임라인</a><h1>${esc(i.title)}</h1>
@@ -407,11 +447,12 @@ function vDocs(){
 }
 function vDoc(p){
   const d = docs.find(x => x.path === p); if (!d) { view.innerHTML = '<p>문서를 찾을 수 없습니다.</p>'; return; }
+  if (needDocs([p], () => vDoc(p))) return;
   seenTerms = new Set();
   const inc = incidents.filter(i => i.file === p);
   view.innerHTML = `<a class="back" href="javascript:history.back()">← 뒤로</a>
     ${inc.length > 1 ? `<div class="card" style="margin-bottom:12px"><strong>이 문서의 사건</strong><br>${inc.map(i => `<a href="#/inc/${i.id}">${esc(i.title)}</a>`).join(' · ')}</div>` : ''}
-    <div class="doc">${gl(md(d.md))}</div>`;
+    <div class="doc">${gl(md(DOC_MD[p]))}</div>`;
   view.querySelectorAll('a[data-rel]').forEach(a => a.onclick = e => {
     e.preventDefault(); const t = resolveDoc(d.path, a.dataset.rel);
     location.hash = t ? '#/doc/' + enc(t) : '#/matrix';
@@ -459,13 +500,16 @@ function vKorea(){
   view.innerHTML = `<h1>국내 소식</h1>
     <p class="sub">한국에서 일어난 사건과 국내 뉴스를 따로 모았습니다. 뉴스는 기사를 옮긴 것이 아니라 요약한 것이니, 자세한 내용은 출처 링크에서 확인하세요.</p>
     <h2 style="margin-top:8px">국내 주요 사건 (${kr.length}건)</h2>
-    <div class="list">${kr.map(incCard).join('') || '<p class="sub">아직 없습니다.</p>'}</div>
+    <div class="list">${kr.slice(0, state.krN).map(incCard).join('') || '<p class="sub">아직 없습니다.</p>'}</div>
+    ${moreBtn(kr.length - state.krN, 'kr')}
     <h2>뉴스 브리핑 (${list.length}건)</h2>
     <div class="filters">${cats.map(c => `<button class="pill ${c === cur ? 'on' : ''}" data-nc="${esc(c)}">${esc(c)}</button>`).join('')}</div>
-    <div class="news">${list.map(n => `<div class="item"><div class="sub" style="margin:0">${esc(n.date)} · ${tag(n.cat, 'mute')} · ${esc(n.src)}</div>
+    <div class="news">${list.slice(0, state.nwN).map(n => `<div class="item"><div class="sub" style="margin:0">${esc(n.date)} · ${tag(n.cat, 'mute')} · ${esc(n.src)}</div>
       <div>${esc(n.sum)}</div>
-      <div style="font-size:13px"><a href="${esc(n.url)}" target="_blank" rel="noopener">원문 보기 ↗</a>${n.rel && incById[n.rel] ? ` · 관련 사건: <a href="#/inc/${n.rel}">${esc(incById[n.rel].title)}</a>` : ''}</div></div>`).join('') || '<p class="sub">없습니다.</p>'}</div>`;
-  view.querySelectorAll('[data-nc]').forEach(b => b.onclick = () => { state.ncat = b.dataset.nc; vKorea(); });
+      <div style="font-size:13px"><a href="${esc(n.url)}" target="_blank" rel="noopener">원문 보기 ↗</a>${n.rel && incById[n.rel] ? ` · 관련 사건: <a href="#/inc/${n.rel}">${esc(incById[n.rel].title)}</a>` : ''}</div></div>`).join('') || '<p class="sub">없습니다.</p>'}</div>
+    ${moreBtn(list.length - state.nwN, 'nw')}`;
+  view.querySelectorAll('[data-nc]').forEach(b => b.onclick = () => { state.ncat = b.dataset.nc; state.nwN = PAGE; vKorea(); });
+  view.querySelectorAll('[data-more]').forEach(b => b.onclick = () => { state[b.dataset.more + 'N'] += PAGE; vKorea(); });
 }
 function vGlossary(){
   const q = (state.gq || '').toLowerCase();
@@ -489,7 +533,7 @@ function route(hash){
 view.addEventListener('click', e => { const c = e.target.closest('[data-inc]'); if (c && !e.target.closest('a')) location.hash = '#/inc/' + c.dataset.inc; });
 addEventListener('hashchange', () => route());
 window.go = route; // 콘솔에서 go('#/matrix/T1190') 처럼 직접 이동 가능
-$('#q').addEventListener('input', e => { state.q = e.target.value; if (!/^#\/timeline/.test(location.hash)) location.hash = '#/timeline'; else vTimeline(); });
+$('#q').addEventListener('input', e => { state.q = e.target.value; state.tlN = PAGE; if (!/^#\/timeline/.test(location.hash)) location.hash = '#/timeline'; else vTimeline(); });
 const root = document.documentElement;
 try { const t = localStorage.getItem('theme'); if (t) root.dataset.theme = t; } catch (e) {}
 $('#theme').onclick = () => {

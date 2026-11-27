@@ -1,5 +1,6 @@
 ---
 title: "Rea 써봤다 — MCP로 붙는 AI 역공학 에이전트 도구"
+description: "npm 패키지 rea-agents로 배포되는 AI 역공학 MCP 서버 Rea를 직접 실행해 JS 정적 분석 결과와 권한 관련 주의사항을 확인한 사용기입니다."
 tags:
   - 도구
   - MCP

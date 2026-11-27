@@ -1,5 +1,6 @@
 ---
 title: 웹 취약점 진단 설정편 — CORS·SOP부터 후속 공격까지
+description: "CORS, postMessage, CSP, 쿠키 속성, 프레임 헤더 설정 오류를 실제 후속 공격 성립 여부까지 함께 확인하는 진단 방법을 정리했습니다."
 tags:
   - 웹보안
   - 취약점진단

@@ -1,5 +1,6 @@
 ---
 title: Java 웹 기초 4 — Filter·Session과 인증·인가
+description: "Servlet Filter, Cookie와 Session의 동작과 인증·인가 경계를 설명하고, 세션 고정 방지와 쿠키 속성, 객체 단위 인가를 다룹니다."
 tags:
   - Java
   - ServletFilter

@@ -1,5 +1,6 @@
 ---
 title: 모의해킹 방법론 총정리 — PTES 7단계와 OWASP WSTG로 보는 진단 전체 지도
+description: "PTES 7단계와 OWASP WSTG의 관계를 정리해 모의해킹 전체 과정과 개별 진단 글이 어디에 위치하는지 보여주는 방법론 지도입니다."
 tags:
   - 모의해킹
   - PTES

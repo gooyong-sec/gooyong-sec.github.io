@@ -1,5 +1,6 @@
 ---
 title: SysReptor로 OSCP 리포트 작성하기
+description: "오픈소스 리포팅 플랫폼 SysReptor에 OffSec 공식 템플릿을 넣어 마크다운으로 OSCP 리포트를 작성하는 방법과 셀프 호스팅 설치를 다룹니다."
 tags:
   - OSCP
   - 침투테스트

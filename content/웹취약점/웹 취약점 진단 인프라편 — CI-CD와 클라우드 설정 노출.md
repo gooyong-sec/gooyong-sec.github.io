@@ -1,5 +1,6 @@
 ---
 title: 웹 취약점 진단 인프라편 — CI/CD와 클라우드 설정 노출
+description: ".git·소스맵 노출, CI 시크릿과 GitHub Actions 설정, IMDS, 공개 버킷, Lambda 권한 등 CI/CD와 클라우드 설정 노출을 진단합니다."
 tags:
   - 웹보안
   - 취약점진단

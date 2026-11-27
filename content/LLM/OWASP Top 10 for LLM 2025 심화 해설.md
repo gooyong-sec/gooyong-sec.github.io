@@ -1,5 +1,6 @@
 ---
 title: OWASP Top 10 for LLM 2025 심화 해설
+description: "OWASP Top 10 for LLM 2025 개정판의 각 항목을 RAG·에이전트·시스템 프롬프트 유출 등 실서비스 관점에서 해설합니다."
 tags:
   - LLM
   - AI보안

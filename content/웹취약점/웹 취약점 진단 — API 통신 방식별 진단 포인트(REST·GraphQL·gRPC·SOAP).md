@@ -1,5 +1,6 @@
 ---
 title: 웹 취약점 진단 — API 통신 방식별 진단 포인트(REST·GraphQL·gRPC·SOAP)
+description: "REST, GraphQL, gRPC, SOAP 등 API 통신 방식별로 엔드포인트 정찰, 파라미터 변조, 파서 동작이 어떻게 달라지는지 정리했습니다."
 tags:
   - 웹보안
   - 취약점진단

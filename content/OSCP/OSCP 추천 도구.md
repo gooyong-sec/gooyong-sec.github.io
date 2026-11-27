@@ -1,5 +1,6 @@
 ---
 title: OSCP 추천 도구
+description: "OSCP 시험 시간을 줄여주는 Penelope, Name-That-Hash, Feroxbuster, Remmina 네 가지 도구의 용도와 사용법을 소개합니다."
 tags:
   - OSCP
   - 침투테스트

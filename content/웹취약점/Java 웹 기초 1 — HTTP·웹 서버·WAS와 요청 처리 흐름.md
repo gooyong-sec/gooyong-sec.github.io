@@ -1,5 +1,6 @@
 ---
 title: Java 웹 기초 1 — HTTP·웹 서버·WAS와 요청 처리 흐름
+description: "브라우저 요청이 DNS·TLS, 프록시, WAS, Servlet, Controller, DB를 거쳐 처리되는 흐름과 계층 간 파싱 불일치 위험을 설명합니다."
 tags:
   - Java
   - HTTP

@@ -1,5 +1,6 @@
 ---
 title: "Claude 작업을 Codex로 교차검증하기 — MCP로 두 AI 붙이기"
+description: "codex mcp-server로 Claude에 Codex CLI를 MCP 도구로 연결해 작업 결과를 교차검증하는 방법과 민감정보 전달 시 주의점을 정리했습니다."
 tags:
   - MCP
   - Codex

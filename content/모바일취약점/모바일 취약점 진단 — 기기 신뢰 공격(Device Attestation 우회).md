@@ -1,5 +1,6 @@
 ---
 title: 모바일 취약점 진단 — 기기 신뢰 공격(Device Attestation 우회)
+description: "로컬 루팅 탐지의 한계와 Play Integrity·App Attest 기반 기기 증명을 서버가 제대로 검증하는지 리플레이·폴백 정책까지 점검하는 방법입니다."
 tags:
   - 모바일보안
   - 취약점진단

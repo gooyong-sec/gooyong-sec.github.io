@@ -1,5 +1,6 @@
 ---
 title: 모바일 취약점 진단 — iOS 정적분석
+description: "IPA 압축 해제부터 Info.plist ATS 설정, Entitlements, Mach-O 심볼·보호기법까지 앱을 실행하지 않고 iOS 앱을 정적으로 분석하는 절차입니다."
 tags:
   - 모바일보안
   - 취약점진단

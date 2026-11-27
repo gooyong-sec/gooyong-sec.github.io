@@ -1,5 +1,6 @@
 ---
 title: 모바일 취약점 진단 — OAuth·PKCE 네이티브 플로우 공격
+description: "모바일 네이티브 앱의 OAuth 플로우에서 PKCE 생략·다운그레이드, redirect URI 검증, state 누락, 인앱 WebView 로그인을 점검하는 방법입니다."
 tags:
   - 모바일보안
   - 취약점진단

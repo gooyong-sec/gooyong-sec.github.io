@@ -1,5 +1,6 @@
 ---
 title: "공격 체인 이전의 AD 아키텍처 기초 — Kerberos, NTLM, DACL·ACE, GPO·SYSVOL, 도메인 트러스트"
+description: "AD 공격을 이해하기 위해 Forest·Domain 구조, Kerberos·NTLM 인증, DACL·ACE, GPO·SYSVOL, 도메인 트러스트를 정리한 기초 글입니다."
 tags:
   - ActiveDirectory
   - Kerberos

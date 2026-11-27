@@ -1,5 +1,6 @@
 ---
 title: "보안이슈 트래커 빌드 후기 — psv와 build.mjs로 서버 없는 정적 도구 만들기"
+description: "PSV 데이터와 Node.js 내장 모듈만 쓰는 build.mjs로 서버 없이 동작하는 단일 HTML 보안이슈 트래커를 만든 과정과 설계 판단을 정리했습니다."
 tags:
   - 바이브코딩
   - MITRE-ATTACK

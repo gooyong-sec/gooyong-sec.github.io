@@ -1,5 +1,6 @@
 ---
 title: 취약점 진단 툴에 MCP 붙이기 — Ghidra · Burp · jadx를 Claude에 연동하기
+description: "Ghidra, Burp Suite, jadx를 MCP로 Claude에 연결하는 구조와 설정 방법, 인가된 대상에만 쓰기 위한 승인 설정을 정리했습니다."
 tags:
   - MCP
   - 리버싱

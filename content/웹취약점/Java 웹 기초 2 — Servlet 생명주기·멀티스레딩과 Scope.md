@@ -1,5 +1,6 @@
 ---
 title: Java 웹 기초 2 — Servlet 생명주기·멀티스레딩과 Scope
+description: "Servlet 생명주기와 멀티스레드 동작, Scope를 설명하고 인스턴스·static 필드에 사용자 데이터를 두면 생기는 정보 노출 문제를 다룹니다."
 tags:
   - Java
   - Servlet

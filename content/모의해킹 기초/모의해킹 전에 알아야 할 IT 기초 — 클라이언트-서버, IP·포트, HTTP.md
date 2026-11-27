@@ -1,5 +1,6 @@
 ---
 title: 모의해킹 전에 알아야 할 IT 기초 — 클라이언트-서버, IP·포트, HTTP
+description: "클라이언트-서버 구조, IP 주소와 포트, HTTP 요청·응답 등 웹 공격을 이해하는 데 필요한 인터넷 동작 원리를 비유로 설명합니다."
 draft: false
 tags:
   - IT기초

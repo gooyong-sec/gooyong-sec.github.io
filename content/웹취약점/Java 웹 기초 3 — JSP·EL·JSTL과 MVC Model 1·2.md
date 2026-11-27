@@ -1,5 +1,6 @@
 ---
 title: Java 웹 기초 3 — JSP·EL·JSTL과 MVC Model 1·2
+description: "JSP가 Servlet으로 변환되는 원리, EL·JSTL, MVC Model 1·2 구조와 함께 EL 출력 XSS, forward와 redirect의 보안 경계를 정리했습니다."
 tags:
   - Java
   - JSP

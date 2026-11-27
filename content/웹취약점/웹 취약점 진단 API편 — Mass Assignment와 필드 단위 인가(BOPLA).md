@@ -1,5 +1,6 @@
 ---
 title: 웹 취약점 진단 API편 — Mass Assignment와 필드 단위 인가(BOPLA)
+description: "객체 접근 이후 필드 단위 인가 실패인 BOPLA(OWASP API3)를 Mass Assignment와 과도한 데이터 노출 관점에서 진단하는 방법입니다."
 tags:
   - 웹보안
   - 취약점진단

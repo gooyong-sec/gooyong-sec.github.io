@@ -1,5 +1,6 @@
 ---
 title: Windows 권한상승을 위한 OS 내부구조 — Access Token, UAC, 서비스 제어 관리자(SCM)
+description: "Access Token, UAC, 무결성 수준, 서비스 제어 관리자(SCM) 등 Windows 로컬 권한상승을 판단하는 데 필요한 OS 내부 구조를 설명합니다."
 tags:
   - Windows보안
   - 권한상승

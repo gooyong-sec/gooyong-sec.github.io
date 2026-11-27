@@ -1,5 +1,6 @@
 ---
 title: 모바일 취약점 진단 — 안드로이드 IPC 공격면
+description: "안드로이드 exported 컴포넌트와 Intent·ContentProvider 입력 검증 누락이 실제 취약점으로 이어지는 조건과 방어 방법을 정리했습니다."
 tags:
   - 모바일보안
   - 취약점진단

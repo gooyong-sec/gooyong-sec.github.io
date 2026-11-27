@@ -1,5 +1,6 @@
 ---
 title: 모바일 취약점 진단 — WebView와 파일 접근 취약점
+description: "안드로이드·iOS WebView의 JavascriptInterface 브리지 노출, file:// 접근 설정, SSL 오류 무시 등 위험 설정을 진단하고 막는 방법을 다룹니다."
 tags:
   - 모바일보안
   - 취약점진단

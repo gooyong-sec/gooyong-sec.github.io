@@ -1,5 +1,6 @@
 ---
 title: "윈도우 AD 침투: 자격증명 피벗·권한상승 3가지 기법"
+description: "AD 침투에서 LSASS 덤프, 개발용 DB 평문 자격증명, SeImpersonatePrivilege 토큰 가장으로 피벗과 권한상승을 이어가는 세 가지 기법을 다룹니다."
 tags:
   - OSCP
   - ActiveDirectory

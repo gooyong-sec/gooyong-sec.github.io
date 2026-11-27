@@ -1,5 +1,6 @@
 ---
 title: Java Properties 파일 AES 암호화 — ECB 모드의 함정
+description: "Java 설정 파일 암호화에서 흔한 AES/ECB와 하드코딩 키의 문제를 설명하고, AES-GCM과 랜덤 IV, 외부 키 관리로 고치는 방법을 다룹니다."
 draft: true
 tags:
   - AES

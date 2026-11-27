@@ -1,5 +1,6 @@
 ---
 title: "AD 환경 Kerberos 체인 공격: 위임 남용과 토큰 가장으로 DC 장악"
+description: "초기 도메인 계정에서 Kerberoasting, 제약 위임 남용, SeImpersonate 토큰 가장으로 SYSTEM까지 이어지는 AD 공격 체인과 방어를 정리했습니다."
 tags:
   - OSCP
   - ActiveDirectory

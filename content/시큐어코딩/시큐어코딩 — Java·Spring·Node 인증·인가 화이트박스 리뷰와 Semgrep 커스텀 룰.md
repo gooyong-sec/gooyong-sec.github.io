@@ -1,5 +1,6 @@
 ---
 title: 시큐어코딩 — Java·Spring·Node 인증·인가 화이트박스 리뷰와 Semgrep 커스텀 룰
+description: "Java·Spring·Node 코드에서 인증·인가 결함을 찾는 화이트박스 리뷰 패턴과, 반복되는 안티패턴을 Semgrep 커스텀 룰로 만드는 방법입니다."
 tags:
   - 시큐어코딩
   - 화이트박스진단

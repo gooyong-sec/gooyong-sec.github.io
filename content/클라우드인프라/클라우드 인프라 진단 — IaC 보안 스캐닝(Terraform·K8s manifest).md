@@ -1,5 +1,6 @@
 ---
 title: 클라우드 인프라 진단 — IaC 보안 스캐닝(Terraform·K8s manifest)
+description: "Checkov·Trivy·KICS로 Terraform과 Kubernetes manifest의 위험 설정을 배포 전에 탐지하고 CI에서 차단하는 IaC 보안 스캐닝 방법입니다."
 tags:
   - 클라우드보안
   - 취약점진단

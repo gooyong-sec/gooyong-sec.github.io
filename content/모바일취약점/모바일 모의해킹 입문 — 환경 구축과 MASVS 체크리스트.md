@@ -1,5 +1,6 @@
 ---
 title: 모바일 모의해킹 입문 — 환경 구축과 MASVS 체크리스트
+description: "모바일 모의해킹 시리즈의 첫 글로, 분석 대상 APK·IPA 확보, jadx·apktool·Frida 환경 구축, OWASP MASVS 기준을 정리합니다."
 tags:
   - 모바일보안
   - 취약점진단

@@ -1,5 +1,6 @@
 ---
 title: 모바일 취약점 진단 — 앱 바이너리에서 API 계약 추출하기
+description: "앱 바이너리의 직렬화 모델에서 숨은 필드와 엔드포인트를 뽑아 API 가설표를 만들고 Mass Assignment·BOPLA를 검증하는 방법을 다룹니다."
 tags:
   - 모바일보안
   - 취약점진단

@@ -1,5 +1,6 @@
 ---
 title: "블로그 인프라 자동화 — Quartz · GitHub Actions · 로컬 빌드 깜빡임 없애기"
+description: "Quartz 블로그의 로컬 빌드 누락, SPA 라우터 문제, CDN 캐시 착시, 죽은 동기화 스크립트를 GitHub Actions 등으로 해결한 기록입니다."
 tags:
   - Quartz
   - GitHubActions

@@ -1,5 +1,6 @@
 ---
 title: 웹 취약점 진단 — API 자원 소비 진단(Unrestricted Resource Consumption, API4)
+description: "페이지 크기, 파일 후처리, GraphQL 증폭, 유료 외부 API 과금 등 요청 한 번의 자원 비용에 상한이 없는 API4 취약점을 진단하는 방법입니다."
 tags:
   - 웹보안
   - 취약점진단

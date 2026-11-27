@@ -1,5 +1,6 @@
 ---
 title: 클라우드 인프라 진단 — EKS RBAC·Secret·NetworkPolicy 오구성과 MSA 서비스 간 인증(JWT·mTLS)
+description: "EKS의 RBAC·IRSA 권한, Secret 저장과 주입, NetworkPolicy 격리, MSA 내부 JWT·mTLS 인증과 인가 오구성을 진단하는 방법입니다."
 tags:
   - 클라우드보안
   - 취약점진단

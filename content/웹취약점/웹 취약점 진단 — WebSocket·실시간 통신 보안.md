@@ -1,5 +1,6 @@
 ---
 title: 웹 취약점 진단 — WebSocket·실시간 통신 보안
+description: "WebSocket의 CSWSH, 연결 후 세션 유지, 메시지 단위 인가 누락, 프레임 인젝션 등 실시간 통신 보안 진단 포인트를 다룹니다."
 tags:
   - 웹보안
   - 취약점진단

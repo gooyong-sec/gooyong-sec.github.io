@@ -1,5 +1,6 @@
 ---
 title: LLM 입문 — 거대언어모델·에이전트·RAG 개념 정리
+description: "LLM, RAG, 에이전트, MCP의 기본 개념과 프롬프트 인젝션이 구조적으로 생기는 이유를 보안 관점에서 정리한 입문 글입니다."
 tags:
   - LLM
   - AI보안

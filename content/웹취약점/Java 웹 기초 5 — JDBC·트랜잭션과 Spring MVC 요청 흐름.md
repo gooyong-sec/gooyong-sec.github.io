@@ -1,5 +1,6 @@
 ---
 title: Java 웹 기초 5 — JDBC·트랜잭션과 Spring MVC 요청 흐름
+description: "JDBC 커넥션 풀, PreparedStatement, 트랜잭션, Spring MVC DispatcherServlet 흐름과 각 계층의 보안 책임을 정리했습니다."
 tags:
   - Java
   - JDBC

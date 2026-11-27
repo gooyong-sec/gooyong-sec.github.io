@@ -1,5 +1,6 @@
 ---
 title: 웹 취약점 진단 기법 입문 — XXE, SSRF부터 SQLi, XSS까지
+description: "SQLi, XSS, XXE, SSRF, 명령어 삽입 등 대표 웹 취약점 12가지의 원인과 확인 방법, 방어 원칙을 입문자용으로 정리했습니다."
 tags:
   - 웹보안
   - 취약점진단

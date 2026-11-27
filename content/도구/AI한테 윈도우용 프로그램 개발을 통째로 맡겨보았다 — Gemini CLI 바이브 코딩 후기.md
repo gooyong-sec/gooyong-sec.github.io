@@ -1,5 +1,6 @@
 ---
 title: AI한테 윈도우용 프로그램 개발을 통째로 맡겨보았다 — Gemini CLI 바이브 코딩 후기
+description: "Gemini CLI와 bkit으로 코드를 직접 쓰지 않고 윈도우용 캡처·편집 프로그램을 완성하기까지 겪은 과정과 AI 자체 평가의 한계를 정리한 후기입니다."
 tags:
   - 바이브코딩
   - Gemini CLI

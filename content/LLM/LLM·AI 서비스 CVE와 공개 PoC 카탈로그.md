@@ -1,5 +1,6 @@
 ---
 title: LLM·AI 서비스 CVE와 공개 PoC 카탈로그
+description: "Langflow·LangChain·Open WebUI·Gradio·MLflow·Ollama 등 AI 서비스 구성요소의 CVE와 공개 PoC를 정리하고 안전한 검증 원칙을 다룹니다."
 tags:
   - LLM
   - AI보안

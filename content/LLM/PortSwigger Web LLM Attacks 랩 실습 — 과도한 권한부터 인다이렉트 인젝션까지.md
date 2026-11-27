@@ -1,5 +1,6 @@
 ---
 title: "PortSwigger Web LLM Attacks 랩 실습 — 과도한 권한부터 인다이렉트 인젝션까지"
+description: "PortSwigger Web LLM Attacks 랩 3개를 풀며 과도한 툴 권한, 백엔드 파라미터 검증 누락, 인다이렉트 프롬프트 인젝션을 실습한 기록입니다."
 tags:
   - LLM
   - AI보안

@@ -1,5 +1,6 @@
 ---
 title: 클라우드 인프라 진단 — 컨테이너·Kubernetes 탈출
+description: "docker.sock·hostPath 마운트, privileged, 위험한 RBAC, Kubelet API 노출 등 컨테이너에서 노드·클러스터로 탈출하는 조건과 방어를 다룹니다."
 tags:
   - 클라우드보안
   - 취약점진단

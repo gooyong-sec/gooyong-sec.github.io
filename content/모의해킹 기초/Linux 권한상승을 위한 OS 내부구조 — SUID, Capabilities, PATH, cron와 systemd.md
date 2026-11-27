@@ -1,5 +1,6 @@
 ---
 title: Linux 권한상승을 위한 OS 내부구조 — SUID, Capabilities, PATH, cron와 systemd
+description: "SUID, Capabilities, PATH, cron, systemd 등 Linux 로컬 권한상승이 성립하는 OS 내부 구조와 오탐을 걸러내는 보호 조건을 정리했습니다."
 tags:
   - 리눅스보안
   - 권한상승

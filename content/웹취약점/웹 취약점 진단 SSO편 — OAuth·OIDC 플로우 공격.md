@@ -1,5 +1,6 @@
 ---
 title: 웹 취약점 진단 SSO편 — OAuth·OIDC 플로우 공격
+description: "OAuth·OIDC 로그인에서 redirect_uri 매칭, state·PKCE 누락, 토큰 혼동, 미인증 이메일 계정 연결 등 7가지 공격 지점을 정리했습니다."
 tags:
   - 웹보안
   - 취약점진단

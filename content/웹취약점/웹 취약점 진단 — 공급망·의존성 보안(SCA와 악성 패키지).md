@@ -1,5 +1,6 @@
 ---
 title: 웹 취약점 진단 — 공급망·의존성 보안(SCA와 악성 패키지)
+description: "Dependency Confusion, 타이포스쿼팅, 설치 스크립트, 전이 의존성 CVE 등 공급망 공격 경로와 SCA·Lockfile 기반 방어를 정리했습니다."
 tags:
   - 웹보안
   - 취약점진단

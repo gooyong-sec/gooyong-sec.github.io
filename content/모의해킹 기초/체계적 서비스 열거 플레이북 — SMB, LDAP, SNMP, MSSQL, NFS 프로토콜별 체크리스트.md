@@ -1,5 +1,6 @@
 ---
 title: 체계적 서비스 열거 플레이북 — SMB, LDAP, SNMP, MSSQL, NFS 프로토콜별 체크리스트
+description: "SMB, LDAP, SNMP, MSSQL, NFS의 익명 접근, 노출 정보, 권한, 전송 보호를 프로토콜별로 확인하는 서비스 열거 체크리스트입니다."
 tags:
   - 모의해킹
   - 서비스열거

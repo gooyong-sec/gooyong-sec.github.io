@@ -1,5 +1,6 @@
 ---
 title: "Hera — Frida 기반 동적 보안 분석 워크벤치를 직접 만들다"
+description: "raw TCP와 자체 암호화를 쓰는 앱을 진단하려고 Frida로 암호화 직전 평문을 변조하는 PySide6 기반 동적 분석 도구 Hera를 만든 과정입니다."
 tags:
   - Frida
   - 동적분석

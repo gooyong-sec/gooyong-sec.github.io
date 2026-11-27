@@ -1,5 +1,6 @@
 ---
 title: 펜테스터를 위한 네트워크 피벗팅과 터널링 — SSH, Chisel, Ligolo-ng, Proxychains
+description: "SSH 포트 포워딩, SOCKS와 Proxychains, Chisel, Ligolo-ng TUN 라우팅으로 내부망에 접근하는 피벗팅과 터널링 방법을 상황별로 정리했습니다."
 tags:
   - 모의해킹
   - 네트워크피벗팅

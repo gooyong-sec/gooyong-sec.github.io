@@ -177,7 +177,14 @@ flowchart LR
   - [[공격 체인 이전의 AD 아키텍처 기초 — Kerberos, NTLM, DACL·ACE, GPO·SYSVOL, 도메인 트러스트]]
   - [[윈도우 AD 침투 — 자격증명 피벗·권한상승 3가지 기법|윈도우 AD 침투: 자격증명 피벗·권한상승 3가지 기법]]
   - [[AD 환경 Kerberos 체인 공격 — 위임 남용과 토큰 가장으로 DC 장악|AD 환경 Kerberos 체인 공격: 위임 남용과 토큰 가장으로 DC 장악]]
-- **Step 3. 시험 마무리 리포팅**
+- **Step 3. AD 심화 공격 체인 및 방어**
+  - [[AD 심화 — 강제 인증과 릴레이의 이해와 방어]]
+  - [[AD 심화 — AD CS 인증서 공격 전수 정리]]
+  - [[AD 심화 — Kerberos 티켓 위조와 위임 공격 완성]]
+  - [[AD 심화 — ACL 권한 체인과 DCSync 완성]]
+  - [[AD 심화 — 내부 서버 공격(SCCM·MSSQL·WSUS·Exchange)]]
+  - [[AD 심화 — 하이브리드와 트러스트(Entra ID·포레스트·Linux 통합)]]
+- **Step 4. 시험 마무리 리포팅**
   - [[SysReptor로 OSCP 리포트 작성하기]]
 
 ---

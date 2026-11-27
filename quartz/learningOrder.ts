@@ -87,11 +87,17 @@ export const learningOrderSort = (a: LearningOrderItem, b: LearningOrderItem) =>
     "클라우드 인프라 진단 — S3·스토리지 오남용과 데이터 유출 체인",
     "클라우드 인프라 진단 — 컨테이너·Kubernetes 탈출",
     "클라우드 인프라 진단 — EKS RBAC",
-    // 5. OSCP (시험 전 추천 도구 준비 → AD 아키텍처 기초 → AD 자격증명 피벗·권한상승 → Kerberos 위임 체인 → SysReptor 리포트 작성)
+    // 5. OSCP (시험 전 추천 도구 준비 → AD 아키텍처·공격 체인 → AD 심화 → SysReptor 리포트 작성)
     "OSCP 추천 도구",
     "공격 체인 이전의 AD 아키텍처 기초",
     "윈도우 AD 침투",
     "AD 환경 Kerberos 체인 공격",
+    "AD 심화 — 강제 인증과 릴레이의 이해와 방어",
+    "AD 심화 — AD CS 인증서 공격 전수 정리",
+    "AD 심화 — Kerberos 티켓 위조와 위임 공격 완성",
+    "AD 심화 — ACL 권한 체인과 DCSync 완성",
+    "AD 심화 — 내부 서버 공격(SCCM·MSSQL·WSUS·Exchange)",
+    "AD 심화 — 하이브리드와 트러스트(Entra ID·포레스트·Linux 통합)",
     "SysReptor로 OSCP 리포트 작성하기",
     // 6. LLM (개념 입문 → OWASP Top 10 → 14개 취약점 진단 → PortSwigger 랩 실습 → 클라우드 공격 경로 → CVE·PoC 카탈로그 → 학습 자료실)
     "LLM 입문",
